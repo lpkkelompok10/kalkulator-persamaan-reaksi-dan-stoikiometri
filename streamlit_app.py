@@ -432,20 +432,64 @@ h1, h2, h3, h4, h5, h6, p, label {
 
 st.markdown(page_bg, unsafe_allow_html=True)
 # ==========================================
-# TENTANG KAMI
+# MENU SIDEBAR
 # ==========================================
 
-st.divider()
+menu = st.sidebar.selectbox(
 
-st.subheader("👨‍🔬 Tentang Kami")
+    "Pilih Fitur",
 
-st.markdown("""
-### Kelompok 10
+    [
+        "Persamaan Reaksi",
+        "Stoikiometri",
+        "Hitung Mr",
+        "Konversi Gram ↔ Mol",
+        "Daftar Massa Atom",
+        "Tentang Kami"
+    ]
+)
 
-1. Sarah Nur Ichsani (2560774)  
-2. Reva Aulia (2560749)  
-3. Faturrahman Chandika (2560630)  
-4. Nassya Alifha Rasyikha (2560710)  
-5. Naisyla Nazwa S. (2560705)
+# ==========================================
+# FITUR TENTANG KAMI
+# ==========================================
 
-""")
+elif menu == "Tentang Kami":
+
+    st.header("👨‍🔬 Tentang Kami")
+
+    st.markdown("""
+    <div style="
+        background-color: rgba(15,23,42,0.85);
+        padding: 25px;
+        border-radius: 20px;
+        color: white;
+    ">
+    <h2 style='text-align:center;'>Kelompok 10</h2>
+
+    <hr>
+
+    <h4>👩 Sarah Nur Ichsani</h4>
+    <p>NIM: 2560774</p>
+
+    <h4>👩 Reva Aulia</h4>
+    <p>NIM: 2560749</p>
+
+    <h4>👨 Faturrahman Chandika</h4>
+    <p>NIM: 2560630</p>
+
+    <h4>👩 Nassya Alifha Rasyikha</h4>
+    <p>NIM: 2560710</p>
+
+    <h4>👩 Naisyla Nazwa S.</h4>
+    <p>NIM: 2560705</p>
+
+    <hr>
+
+    <p style='text-align:center;'>
+    🧪 Aplikasi ini dibuat untuk tugas
+    Logika Pemrograman Komputer menggunakan
+    Python dan Streamlit.
+    </p>
+
+    </div>
+    """, unsafe_allow_html=True)

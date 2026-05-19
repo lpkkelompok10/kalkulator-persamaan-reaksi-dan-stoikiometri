@@ -7,74 +7,19 @@ import re
 
 st.set_page_config(
     page_title="Kalkulator Kimia",
-    page_icon="🧪",
-    layout="centered"
+    page_icon="🧪"
 )
 
 # ==========================================
 # JUDUL
 # ==========================================
 
-st.title("🧪 Kalkulator Kimia Lengkap")
+st.title("🧪 Kalkulator Stoikiometri")
 
 st.write(
-    "Aplikasi sederhana untuk menghitung "
-    "stoikiometri, massa molar, mol, "
-    "dan menampilkan reaksi kimia"
+    "Masukkan persamaan reaksi kimia "
+    "yang sudah setara"
 )
-
-# ==========================================
-# DATA REAKSI
-# ==========================================
-
-reaksi_data = {
-
-    "H2 + O2 -> H2O": {
-        "setara": "2H2 + O2 -> 2H2O",
-        "koef": {
-            "H2": 2,
-            "O2": 1,
-            "H2O": 2
-        }
-    },
-
-    "N2 + H2 -> NH3": {
-        "setara": "N2 + 3H2 -> 2NH3",
-        "koef": {
-            "N2": 1,
-            "H2": 3,
-            "NH3": 2
-        }
-    },
-
-    "Fe + O2 -> Fe2O3": {
-        "setara": "4Fe + 3O2 -> 2Fe2O3",
-        "koef": {
-            "Fe": 4,
-            "O2": 3,
-            "Fe2O3": 2
-        }
-    },
-
-    "Na + Cl2 -> NaCl": {
-        "setara": "2Na + Cl2 -> 2NaCl",
-        "koef": {
-            "Na": 2,
-            "Cl2": 1,
-            "NaCl": 2
-        }
-    },
-
-    "CH4 + O2 -> CO2 + H2O": {
-        "setara": "CH4 + 2O2 -> CO2 + 2H2O",
-        "koef": {
-            "CH4": 1,
-            "O2": 2,
-            "CO2": 1,
-            "H2O": 2
-        }
-    }
-}
 
 # ==========================================
 # MASSA ATOM
@@ -118,226 +63,168 @@ def hitung_mr(rumus):
     return mr
 
 # ==========================================
-# MENU
+# FUNGSI AMBIL KOEFISIEN
 # ==========================================
 
-menu = st.sidebar.selectbox(
+def ambil_koef(zat):
 
-    "Pilih Fitur",
+    cocok = re.match(r'(\d*)([A-Za-z0-9]+)', zat)
 
-    [
-        "Persamaan Reaksi",
-        "Stoikiometri",
-        "Hitung Mr",
-        "Konversi Gram ↔ Mol",
-        "Daftar Massa Atom"
-    ]
+    if cocok:
+
+        angka = cocok.group(1)
+        rumus = cocok.group(2)
+
+        koef = int(angka) if angka else 1
+
+        return koef, rumus
+
+    return 1, zat
+
+# ==========================================
+# INPUT REAKSI
+# ==========================================
+
+reaksi = st.text_input(
+
+    "Masukkan reaksi setara",
+
+    placeholder="Contoh: 2H2 + O2 -> 2H2O"
 )
 
 # ==========================================
-# FITUR REAKSI
+# PROSES REAKSI
 # ==========================================
 
-if menu == "Persamaan Reaksi":
+if reaksi:
 
-    st.header("⚖ Persamaan Reaksi Kimia")
+    try:
 
-    pilihan = st.selectbox(
+        kiri, kanan = reaksi.split("->")
 
-        "Pilih reaksi",
-
-        list(reaksi_data.keys())
-    )
-
-    hasil = reaksi_data[pilihan]["setara"]
-
-    st.success("✅ Persamaan reaksi setara")
-
-    st.code(hasil)
-
-# ==========================================
-# FITUR STOIKIOMETRI
-# ==========================================
-
-elif menu == "Stoikiometri":
-
-    st.header("🧪 Perhitungan Stoikiometri")
-
-    pilihan = st.selectbox(
-
-        "Pilih reaksi",
-
-        list(reaksi_data.keys())
-    )
-
-    data = reaksi_data[pilihan]
-
-    st.code(data["setara"])
-
-    koef = data["koef"]
-
-    semua_zat = list(koef.keys())
-
-    zat_diketahui = st.selectbox(
-
-        "Zat diketahui",
-
-        semua_zat
-    )
-
-    zat_ditanya = st.selectbox(
-
-        "Zat ditanya",
-
-        semua_zat
-    )
-
-    massa = st.number_input(
-
-        f"Massa {zat_diketahui} (gram)",
-
-        min_value=0.0
-    )
-
-    if st.button("Hitung Stoikiometri"):
-
-        mr1 = hitung_mr(zat_diketahui)
-
-        mr2 = hitung_mr(zat_ditanya)
-
-        mol = massa / mr1
-
-        mol_hasil = (
-
-            mol *
-
-            koef[zat_ditanya] /
-
-            koef[zat_diketahui]
-        )
-
-        massa_hasil = mol_hasil * mr2
-
-        st.success(
-
-            f"✅ Massa {zat_ditanya} = "
-            f"{massa_hasil:.2f} gram"
-        )
-
-        st.subheader("Langkah Perhitungan")
-
-        st.write(f"Mr {zat_diketahui} = {mr1}")
-
-        st.write(
-            f"Mol {zat_diketahui} = "
-            f"{massa} / {mr1}"
-        )
-
-        st.write(
-            f"Mol {zat_diketahui} = "
-            f"{mol:.2f} mol"
-        )
-
-        st.write(
-            f"Mol {zat_ditanya} = "
-            f"{mol_hasil:.2f} mol"
-        )
-
-        st.write(
-            f"Massa {zat_ditanya} = "
-            f"{massa_hasil:.2f} gram"
-        )
-
-# ==========================================
-# FITUR Mr
-# ==========================================
-
-elif menu == "Hitung Mr":
-
-    st.header("⚛ Hitung Massa Molar")
-
-    rumus = st.text_input(
-
-        "Masukkan rumus kimia",
-
-        placeholder="Contoh: H2SO4"
-    )
-
-    if st.button("Hitung Mr"):
-
-        mr = hitung_mr(rumus)
-
-        st.success(f"✅ Mr {rumus} = {mr}")
-
-# ==========================================
-# FITUR KONVERSI
-# ==========================================
-
-elif menu == "Konversi Gram ↔ Mol":
-
-    st.header("🔄 Konversi Gram dan Mol")
-
-    rumus = st.text_input(
-
-        "Masukkan rumus",
-
-        placeholder="Contoh: NaCl"
-    )
-
-    pilihan = st.radio(
-
-        "Pilih konversi",
-
-        [
-            "Gram ke Mol",
-            "Mol ke Gram"
+        kiri_list = [
+            i.strip()
+            for i in kiri.split("+")
         ]
-    )
 
-    nilai = st.number_input(
+        kanan_list = [
+            i.strip()
+            for i in kanan.split("+")
+        ]
 
-        "Masukkan nilai",
+        semua = kiri_list + kanan_list
 
-        min_value=0.0
-    )
+        koef_data = {}
 
-    if st.button("Konversi"):
+        nama_zat = []
 
-        mr = hitung_mr(rumus)
+        for zat in semua:
 
-        if pilihan == "Gram ke Mol":
+            koef, rumus = ambil_koef(zat)
 
-            hasil = nilai / mr
+            koef_data[rumus] = koef
+
+            nama_zat.append(rumus)
+
+        st.success("✅ Reaksi berhasil dibaca")
+
+        st.code(reaksi)
+
+        # ==========================================
+        # STOIKIOMETRI
+        # ==========================================
+
+        st.divider()
+
+        st.header("🧪 Perhitungan Stoikiometri")
+
+        zat_diketahui = st.selectbox(
+
+            "Zat diketahui",
+
+            nama_zat
+        )
+
+        zat_ditanya = st.selectbox(
+
+            "Zat ditanya",
+
+            nama_zat
+        )
+
+        massa = st.number_input(
+
+            f"Massa {zat_diketahui} (gram)",
+
+            min_value=0.0
+        )
+
+        if st.button("Hitung"):
+
+            mr1 = hitung_mr(zat_diketahui)
+
+            mr2 = hitung_mr(zat_ditanya)
+
+            mol = massa / mr1
+
+            mol_hasil = (
+
+                mol *
+
+                koef_data[zat_ditanya] /
+
+                koef_data[zat_diketahui]
+            )
+
+            massa_hasil = mol_hasil * mr2
 
             st.success(
 
-                f"✅ {nilai} gram "
-                f"{rumus} = "
-                f"{hasil:.2f} mol"
+                f"✅ Massa {zat_ditanya} = "
+                f"{massa_hasil:.2f} gram"
             )
 
-        else:
+            # ==========================================
+            # LANGKAH
+            # ==========================================
 
-            hasil = nilai * mr
+            st.subheader("Langkah Perhitungan")
 
-            st.success(
+            st.write(f"Mr {zat_diketahui} = {mr1}")
 
-                f"✅ {nilai} mol "
-                f"{rumus} = "
-                f"{hasil:.2f} gram"
+            st.write(
+                f"Mol {zat_diketahui} = "
+                f"{massa} / {mr1}"
             )
 
-# ==========================================
-# FITUR MASSA ATOM
-# ==========================================
+            st.write(
+                f"Mol {zat_diketahui} = "
+                f"{mol:.2f} mol"
+            )
 
-elif menu == "Daftar Massa Atom":
+            st.write(
+                f"Perbandingan koefisien = "
+                f"{koef_data[zat_diketahui]} : "
+                f"{koef_data[zat_ditanya]}"
+            )
 
-    st.header("📚 Daftar Massa Atom")
+            st.write(
+                f"Mol {zat_ditanya} = "
+                f"{mol_hasil:.2f} mol"
+            )
 
-    for unsur, massa in massa_atom.items():
+            st.write(
+                f"Massa {zat_ditanya} = "
+                f"{massa_hasil:.2f} gram"
+            )
 
-        st.write(f"• {unsur} = {massa}")
+    except:
+
+        st.error(
+            "❌ Format salah\n\n"
+            "Contoh benar:\n"
+            "2H2 + O2 -> 2H2O"
+        )
 
 # ==========================================
 # FOOTER

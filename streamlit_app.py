@@ -18,8 +18,9 @@ st.set_page_config(
 st.title("🧪 Kalkulator Kimia Lengkap")
 
 st.write(
-    "Aplikasi untuk menyetarakan reaksi sederhana, "
-    "menghitung stoikiometri, Mr, dan konversi mol"
+    "Aplikasi untuk menyetarakan reaksi kimia, "
+    "menghitung stoikiometri, Mr, "
+    "dan konversi gram ↔ mol"
 )
 
 # ==========================================
@@ -124,7 +125,7 @@ def hitung_mr(rumus):
 
 def ambil_koef(zat):
 
-    cocok = re.match(r'(\d*)([A-Za-z0-9]+)', zat)
+    cocok = re.match(r'(\d*)([A-Za-z0-9()]+)', zat)
 
     if cocok:
 
@@ -374,25 +375,31 @@ elif menu == "Konversi Gram ↔ Mol":
 
         mr = hitung_mr(rumus)
 
-        if pilihan == "Gram ke Mol":
+        if mr == 0:
 
-            hasil = nilai / mr
-
-            st.success(
-                f"✅ {nilai} gram "
-                f"{rumus} = "
-                f"{hasil:.2f} mol"
-            )
+            st.error("❌ Rumus tidak dikenali")
 
         else:
 
-            hasil = nilai * mr
+            if pilihan == "Gram ke Mol":
 
-            st.success(
-                f"✅ {nilai} mol "
-                f"{rumus} = "
-                f"{hasil:.2f} gram"
-            )
+                hasil = nilai / mr
+
+                st.success(
+                    f"✅ {nilai} gram "
+                    f"{rumus} = "
+                    f"{hasil:.2f} mol"
+                )
+
+            else:
+
+                hasil = nilai * mr
+
+                st.success(
+                    f"✅ {nilai} mol "
+                    f"{rumus} = "
+                    f"{hasil:.2f} gram"
+                )
 
 # ==========================================
 # FITUR MASSA ATOM

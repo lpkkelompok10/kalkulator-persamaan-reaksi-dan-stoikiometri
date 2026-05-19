@@ -6,7 +6,7 @@ import re
 # ==========================================
 
 st.set_page_config(
-    page_title="Kalkulator Kimia",
+    page_title="Kalkulator Kimia Lengkap",
     page_icon="🧪",
     layout="centered"
 )
@@ -18,10 +18,61 @@ st.set_page_config(
 st.title("🧪 Kalkulator Kimia Lengkap")
 
 st.write(
-    "Aplikasi sederhana untuk menghitung "
-    "stoikiometri, massa molar, mol, "
-    "dan menampilkan reaksi kimia"
+    "Aplikasi untuk menyetarakan reaksi sederhana, "
+    "menghitung stoikiometri, Mr, dan konversi mol"
 )
+
+# ==========================================
+# DATABASE REAKSI
+# ==========================================
+
+reaksi_database = {
+
+    "H2 + O2 -> H2O":
+    "2H2 + O2 -> 2H2O",
+
+    "N2 + H2 -> NH3":
+    "N2 + 3H2 -> 2NH3",
+
+    "Fe + O2 -> Fe2O3":
+    "4Fe + 3O2 -> 2Fe2O3",
+
+    "Na + Cl2 -> NaCl":
+    "2Na + Cl2 -> 2NaCl",
+
+    "CH4 + O2 -> CO2 + H2O":
+    "CH4 + 2O2 -> CO2 + 2H2O",
+
+    "C2H6 + O2 -> CO2 + H2O":
+    "2C2H6 + 7O2 -> 4CO2 + 6H2O",
+
+    "Mg + O2 -> MgO":
+    "2Mg + O2 -> 2MgO",
+
+    "CaCO3 -> CaO + CO2":
+    "CaCO3 -> CaO + CO2",
+
+    "Zn + HCl -> ZnCl2 + H2":
+    "Zn + 2HCl -> ZnCl2 + H2",
+
+    "Al + O2 -> Al2O3":
+    "4Al + 3O2 -> 2Al2O3",
+
+    "KClO3 -> KCl + O2":
+    "2KClO3 -> 2KCl + 3O2",
+
+    "C3H8 + O2 -> CO2 + H2O":
+    "C3H8 + 5O2 -> 3CO2 + 4H2O",
+
+    "SO2 + O2 -> SO3":
+    "2SO2 + O2 -> 2SO3",
+
+    "P + O2 -> P2O5":
+    "4P + 5O2 -> 2P2O5",
+
+    "NH3 + O2 -> NO + H2O":
+    "4NH3 + 5O2 -> 4NO + 6H2O"
+}
 
 # ==========================================
 # MASSA ATOM
@@ -36,10 +87,13 @@ massa_atom = {
     "Na": 23,
     "Cl": 35.5,
     "Fe": 56,
-    "S": 32,
-    "K": 39,
     "Mg": 24,
-    "Ca": 40
+    "Ca": 40,
+    "Zn": 65,
+    "Al": 27,
+    "K": 39,
+    "S": 32,
+    "P": 31
 }
 
 # ==========================================
@@ -65,7 +119,7 @@ def hitung_mr(rumus):
     return mr
 
 # ==========================================
-# FUNGSI AMBIL KOEFISIEN
+# AMBIL KOEFISIEN
 # ==========================================
 
 def ambil_koef(zat):
@@ -106,20 +160,30 @@ menu = st.sidebar.selectbox(
 
 if menu == "Persamaan Reaksi":
 
-    st.header("⚖ Persamaan Reaksi Kimia")
+    st.header("⚖ Penyetaraan Reaksi")
 
-    reaksi = st.text_input(
+    reaksi_input = st.text_input(
 
-        "Masukkan reaksi setara",
+        "Masukkan reaksi belum setara",
 
-        placeholder="Contoh: 2H2 + O2 -> 2H2O"
+        placeholder="Contoh: H2 + O2 -> H2O"
     )
 
-    if reaksi:
+    if st.button("Setarakan"):
 
-        st.success("✅ Reaksi berhasil dibaca")
+        if reaksi_input in reaksi_database:
 
-        st.code(reaksi)
+            hasil = reaksi_database[reaksi_input]
+
+            st.success("✅ Reaksi berhasil disetarakan")
+
+            st.code(hasil)
+
+        else:
+
+            st.error(
+                "❌ Reaksi belum tersedia di database"
+            )
 
 # ==========================================
 # FITUR STOIKIOMETRI
@@ -127,132 +191,131 @@ if menu == "Persamaan Reaksi":
 
 elif menu == "Stoikiometri":
 
-    st.header("🧪 Perhitungan Stoikiometri")
+    st.header("🧪 Kalkulator Stoikiometri")
 
-    reaksi = st.text_input(
+    reaksi_input = st.text_input(
 
-        "Masukkan reaksi setara",
+        "Masukkan reaksi belum setara",
 
-        placeholder="Contoh: 2H2 + O2 -> 2H2O"
+        placeholder="Contoh: H2 + O2 -> H2O"
     )
 
-    if reaksi:
+    if reaksi_input in reaksi_database:
 
-        try:
+        reaksi = reaksi_database[reaksi_input]
 
-            kiri, kanan = reaksi.split("->")
+        st.success("✅ Persamaan reaksi setara")
 
-            kiri_list = [
-                i.strip()
-                for i in kiri.split("+")
-            ]
+        st.code(reaksi)
 
-            kanan_list = [
-                i.strip()
-                for i in kanan.split("+")
-            ]
+        kiri, kanan = reaksi.split("->")
 
-            semua = kiri_list + kanan_list
+        kiri_list = [
+            i.strip()
+            for i in kiri.split("+")
+        ]
 
-            koef_data = {}
+        kanan_list = [
+            i.strip()
+            for i in kanan.split("+")
+        ]
 
-            nama_zat = []
+        semua = kiri_list + kanan_list
 
-            for zat in semua:
+        koef_data = {}
 
-                koef, rumus = ambil_koef(zat)
+        nama_zat = []
 
-                koef_data[rumus] = koef
+        for zat in semua:
 
-                nama_zat.append(rumus)
+            koef, rumus = ambil_koef(zat)
 
-            st.success("✅ Reaksi berhasil dibaca")
+            koef_data[rumus] = koef
 
-            st.code(reaksi)
+            nama_zat.append(rumus)
 
-            zat_diketahui = st.selectbox(
+        zat_diketahui = st.selectbox(
 
-                "Zat diketahui",
+            "Zat diketahui",
 
-                nama_zat
+            nama_zat
+        )
+
+        zat_ditanya = st.selectbox(
+
+            "Zat ditanya",
+
+            nama_zat
+        )
+
+        massa = st.number_input(
+
+            f"Massa {zat_diketahui} (gram)",
+
+            min_value=0.0
+        )
+
+        if st.button("Hitung Stoikiometri"):
+
+            mr1 = hitung_mr(zat_diketahui)
+
+            mr2 = hitung_mr(zat_ditanya)
+
+            mol = massa / mr1
+
+            mol_hasil = (
+
+                mol *
+
+                koef_data[zat_ditanya] /
+
+                koef_data[zat_diketahui]
             )
 
-            zat_ditanya = st.selectbox(
+            massa_hasil = mol_hasil * mr2
 
-                "Zat ditanya",
+            st.success(
 
-                nama_zat
+                f"✅ Massa {zat_ditanya} = "
+                f"{massa_hasil:.2f} gram"
             )
 
-            massa = st.number_input(
+            st.subheader("Langkah Perhitungan")
 
-                f"Massa {zat_diketahui} (gram)",
+            st.write(f"Mr {zat_diketahui} = {mr1}")
 
-                min_value=0.0
+            st.write(
+                f"Mol {zat_diketahui} = "
+                f"{massa} / {mr1}"
             )
 
-            if st.button("Hitung Stoikiometri"):
-
-                mr1 = hitung_mr(zat_diketahui)
-
-                mr2 = hitung_mr(zat_ditanya)
-
-                mol = massa / mr1
-
-                mol_hasil = (
-
-                    mol *
-
-                    koef_data[zat_ditanya] /
-
-                    koef_data[zat_diketahui]
-                )
-
-                massa_hasil = mol_hasil * mr2
-
-                st.success(
-
-                    f"✅ Massa {zat_ditanya} = "
-                    f"{massa_hasil:.2f} gram"
-                )
-
-                st.subheader("Langkah Perhitungan")
-
-                st.write(f"Mr {zat_diketahui} = {mr1}")
-
-                st.write(
-                    f"Mol {zat_diketahui} = "
-                    f"{massa} / {mr1}"
-                )
-
-                st.write(
-                    f"Mol {zat_diketahui} = "
-                    f"{mol:.2f} mol"
-                )
-
-                st.write(
-                    f"Perbandingan koefisien = "
-                    f"{koef_data[zat_diketahui]} : "
-                    f"{koef_data[zat_ditanya]}"
-                )
-
-                st.write(
-                    f"Mol {zat_ditanya} = "
-                    f"{mol_hasil:.2f} mol"
-                )
-
-                st.write(
-                    f"Massa {zat_ditanya} = "
-                    f"{massa_hasil:.2f} gram"
-                )
-
-        except:
-
-            st.error(
-                "❌ Format salah\n\n"
-                "Contoh benar:\n"
-                "2H2 + O2 -> 2H2O"
+            st.write(
+                f"Mol {zat_diketahui} = "
+                f"{mol:.2f} mol"
             )
+
+            st.write(
+                f"Perbandingan koefisien = "
+                f"{koef_data[zat_diketahui]} : "
+                f"{koef_data[zat_ditanya]}"
+            )
+
+            st.write(
+                f"Mol {zat_ditanya} = "
+                f"{mol_hasil:.2f} mol"
+            )
+
+            st.write(
+                f"Massa {zat_ditanya} = "
+                f"{massa_hasil:.2f} gram"
+            )
+
+    else:
+
+        st.info(
+            "Masukkan reaksi yang tersedia "
+            "di database"
+        )
 
 # ==========================================
 # FITUR Mr
@@ -316,7 +379,6 @@ elif menu == "Konversi Gram ↔ Mol":
             hasil = nilai / mr
 
             st.success(
-
                 f"✅ {nilai} gram "
                 f"{rumus} = "
                 f"{hasil:.2f} mol"
@@ -327,7 +389,6 @@ elif menu == "Konversi Gram ↔ Mol":
             hasil = nilai * mr
 
             st.success(
-
                 f"✅ {nilai} mol "
                 f"{rumus} = "
                 f"{hasil:.2f} gram"

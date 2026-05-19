@@ -369,15 +369,6 @@ elif menu == "Daftar Massa Atom":
         st.write(f"• {unsur} = {massa}")
 
 # ==========================================
-# FOOTER
-# ==========================================
-
-st.divider()
-
-st.caption(
-    "Dibuat dengan Python dan Streamlit"
-)
-# ==========================================
 # BACKGROUND GAMBAR
 # ==========================================
 

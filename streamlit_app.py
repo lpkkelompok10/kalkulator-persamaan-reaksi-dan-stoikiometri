@@ -1,9 +1,8 @@
 import streamlit as st
-from chempy import balance_stoichiometry
 import re
 
 # ==========================================
-# JUDUL
+# KONFIGURASI
 # ==========================================
 
 st.set_page_config(
@@ -12,34 +11,88 @@ st.set_page_config(
     layout="centered"
 )
 
+# ==========================================
+# JUDUL
+# ==========================================
+
 st.title("🧪 Kalkulator Kimia Lengkap")
 
 st.write(
-    "Aplikasi untuk menyetarakan reaksi, "
-    "menghitung stoikiometri, mol, massa, "
-    "dan massa molar (Mr)"
+    "Aplikasi sederhana untuk menghitung "
+    "stoikiometri, massa molar, mol, "
+    "dan menampilkan reaksi kimia"
 )
 
 # ==========================================
-# DATA MASSA ATOM
+# DATA REAKSI
+# ==========================================
+
+reaksi_data = {
+
+    "H2 + O2 -> H2O": {
+        "setara": "2H2 + O2 -> 2H2O",
+        "koef": {
+            "H2": 2,
+            "O2": 1,
+            "H2O": 2
+        }
+    },
+
+    "N2 + H2 -> NH3": {
+        "setara": "N2 + 3H2 -> 2NH3",
+        "koef": {
+            "N2": 1,
+            "H2": 3,
+            "NH3": 2
+        }
+    },
+
+    "Fe + O2 -> Fe2O3": {
+        "setara": "4Fe + 3O2 -> 2Fe2O3",
+        "koef": {
+            "Fe": 4,
+            "O2": 3,
+            "Fe2O3": 2
+        }
+    },
+
+    "Na + Cl2 -> NaCl": {
+        "setara": "2Na + Cl2 -> 2NaCl",
+        "koef": {
+            "Na": 2,
+            "Cl2": 1,
+            "NaCl": 2
+        }
+    },
+
+    "CH4 + O2 -> CO2 + H2O": {
+        "setara": "CH4 + 2O2 -> CO2 + 2H2O",
+        "koef": {
+            "CH4": 1,
+            "O2": 2,
+            "CO2": 1,
+            "H2O": 2
+        }
+    }
+}
+
+# ==========================================
+# MASSA ATOM
 # ==========================================
 
 massa_atom = {
+
     "H": 1,
     "O": 16,
     "C": 12,
     "N": 14,
     "Na": 23,
     "Cl": 35.5,
-    "K": 39,
-    "Ca": 40,
-    "Mg": 24,
     "Fe": 56,
     "S": 32,
-    "P": 31,
-    "Al": 27,
-    "Cu": 63.5,
-    "Zn": 65
+    "K": 39,
+    "Mg": 24,
+    "Ca": 40
 }
 
 # ==========================================
@@ -59,12 +112,13 @@ def hitung_mr(rumus):
         jumlah = int(jumlah) if jumlah else 1
 
         if unsur in massa_atom:
+
             mr += massa_atom[unsur] * jumlah
 
     return mr
 
 # ==========================================
-# MENU FITUR
+# MENU
 # ==========================================
 
 menu = st.sidebar.selectbox(
@@ -72,7 +126,7 @@ menu = st.sidebar.selectbox(
     "Pilih Fitur",
 
     [
-        "Penyetaraan Reaksi",
+        "Persamaan Reaksi",
         "Stoikiometri",
         "Hitung Mr",
         "Konversi Gram ↔ Mol",
@@ -81,199 +135,131 @@ menu = st.sidebar.selectbox(
 )
 
 # ==========================================
-# FITUR 1
-# PENYETARAAN REAKSI
+# FITUR REAKSI
 # ==========================================
 
-if menu == "Penyetaraan Reaksi":
+if menu == "Persamaan Reaksi":
 
-    st.header("⚖ Penyetaraan Persamaan Reaksi")
+    st.header("⚖ Persamaan Reaksi Kimia")
 
-    reaksi = st.text_input(
-        "Masukkan reaksi",
-        placeholder="Contoh: H2 + O2 -> H2O"
+    pilihan = st.selectbox(
+
+        "Pilih reaksi",
+
+        list(reaksi_data.keys())
     )
 
-    if st.button("Setarakan"):
+    hasil = reaksi_data[pilihan]["setara"]
 
-        try:
+    st.success("✅ Persamaan reaksi setara")
 
-            kiri, kanan = reaksi.split("->")
-
-            reaktan = set(
-                i.strip() for i in kiri.split("+")
-            )
-
-            produk = set(
-                i.strip() for i in kanan.split("+")
-            )
-
-            reac, prod = balance_stoichiometry(
-                reaktan,
-                produk
-            )
-
-            hasil_kiri = " + ".join(
-                [
-                    f"{v if v != 1 else ''}{k}"
-                    for k, v in reac.items()
-                ]
-            )
-
-            hasil_kanan = " + ".join(
-                [
-                    f"{v if v != 1 else ''}{k}"
-                    for k, v in prod.items()
-                ]
-            )
-
-            hasil = hasil_kiri + " -> " + hasil_kanan
-
-            st.success("✅ Reaksi berhasil disetarakan")
-
-            st.code(hasil)
-
-        except:
-
-            st.error("❌ Format salah")
+    st.code(hasil)
 
 # ==========================================
-# FITUR 2
-# STOIKIOMETRI
+# FITUR STOIKIOMETRI
 # ==========================================
 
 elif menu == "Stoikiometri":
 
-    st.header("🧪 Kalkulator Stoikiometri")
+    st.header("🧪 Perhitungan Stoikiometri")
 
-    reaksi = st.text_input(
-        "Masukkan persamaan reaksi",
-        placeholder="Contoh: H2 + O2 -> H2O"
+    pilihan = st.selectbox(
+
+        "Pilih reaksi",
+
+        list(reaksi_data.keys())
     )
 
-    if reaksi:
+    data = reaksi_data[pilihan]
 
-        try:
+    st.code(data["setara"])
 
-            kiri, kanan = reaksi.split("->")
+    koef = data["koef"]
 
-            reaktan = set(
-                i.strip() for i in kiri.split("+")
-            )
+    semua_zat = list(koef.keys())
 
-            produk = set(
-                i.strip() for i in kanan.split("+")
-            )
+    zat_diketahui = st.selectbox(
 
-            reac, prod = balance_stoichiometry(
-                reaktan,
-                produk
-            )
+        "Zat diketahui",
 
-            hasil_kiri = " + ".join(
-                [
-                    f"{v if v != 1 else ''}{k}"
-                    for k, v in reac.items()
-                ]
-            )
+        semua_zat
+    )
 
-            hasil_kanan = " + ".join(
-                [
-                    f"{v if v != 1 else ''}{k}"
-                    for k, v in prod.items()
-                ]
-            )
+    zat_ditanya = st.selectbox(
 
-            hasil = hasil_kiri + " -> " + hasil_kanan
+        "Zat ditanya",
 
-            st.success("✅ Persamaan setara")
+        semua_zat
+    )
 
-            st.code(hasil)
+    massa = st.number_input(
 
-            semua_zat = (
-                list(reac.keys()) +
-                list(prod.keys())
-            )
+        f"Massa {zat_diketahui} (gram)",
 
-            semua_koef = {}
+        min_value=0.0
+    )
 
-            semua_koef.update(reac)
-            semua_koef.update(prod)
+    if st.button("Hitung Stoikiometri"):
 
-            zat_diketahui = st.selectbox(
-                "Zat diketahui",
-                semua_zat
-            )
+        mr1 = hitung_mr(zat_diketahui)
 
-            zat_ditanya = st.selectbox(
-                "Zat ditanya",
-                semua_zat
-            )
+        mr2 = hitung_mr(zat_ditanya)
 
-            massa = st.number_input(
-                f"Massa {zat_diketahui} (gram)",
-                min_value=0.0
-            )
+        mol = massa / mr1
 
-            if st.button("Hitung Stoikiometri"):
+        mol_hasil = (
 
-                mr1 = hitung_mr(zat_diketahui)
-                mr2 = hitung_mr(zat_ditanya)
+            mol *
 
-                mol = massa / mr1
+            koef[zat_ditanya] /
 
-                mol_hasil = (
-                    mol *
-                    semua_koef[zat_ditanya] /
-                    semua_koef[zat_diketahui]
-                )
+            koef[zat_diketahui]
+        )
 
-                massa_hasil = mol_hasil * mr2
+        massa_hasil = mol_hasil * mr2
 
-                st.success(
-                    f"✅ Massa {zat_ditanya} = "
-                    f"{massa_hasil:.2f} gram"
-                )
+        st.success(
 
-                st.subheader("Langkah Perhitungan")
+            f"✅ Massa {zat_ditanya} = "
+            f"{massa_hasil:.2f} gram"
+        )
 
-                st.write(f"Mr {zat_diketahui} = {mr1}")
+        st.subheader("Langkah Perhitungan")
 
-                st.write(
-                    f"Mol {zat_diketahui} = "
-                    f"{massa} / {mr1}"
-                )
+        st.write(f"Mr {zat_diketahui} = {mr1}")
 
-                st.write(
-                    f"Mol {zat_diketahui} = "
-                    f"{mol:.2f} mol"
-                )
+        st.write(
+            f"Mol {zat_diketahui} = "
+            f"{massa} / {mr1}"
+        )
 
-                st.write(
-                    f"Mol {zat_ditanya} = "
-                    f"{mol_hasil:.2f} mol"
-                )
+        st.write(
+            f"Mol {zat_diketahui} = "
+            f"{mol:.2f} mol"
+        )
 
-                st.write(
-                    f"Massa {zat_ditanya} = "
-                    f"{massa_hasil:.2f} gram"
-                )
+        st.write(
+            f"Mol {zat_ditanya} = "
+            f"{mol_hasil:.2f} mol"
+        )
 
-        except:
-
-            st.error("❌ Reaksi salah")
+        st.write(
+            f"Massa {zat_ditanya} = "
+            f"{massa_hasil:.2f} gram"
+        )
 
 # ==========================================
-# FITUR 3
-# HITUNG Mr
+# FITUR Mr
 # ==========================================
 
 elif menu == "Hitung Mr":
 
-    st.header("⚛ Hitung Massa Molar (Mr)")
+    st.header("⚛ Hitung Massa Molar")
 
     rumus = st.text_input(
+
         "Masukkan rumus kimia",
+
         placeholder="Contoh: H2SO4"
     )
 
@@ -284,8 +270,7 @@ elif menu == "Hitung Mr":
         st.success(f"✅ Mr {rumus} = {mr}")
 
 # ==========================================
-# FITUR 4
-# KONVERSI GRAM MOL
+# FITUR KONVERSI
 # ==========================================
 
 elif menu == "Konversi Gram ↔ Mol":
@@ -293,7 +278,9 @@ elif menu == "Konversi Gram ↔ Mol":
     st.header("🔄 Konversi Gram dan Mol")
 
     rumus = st.text_input(
+
         "Masukkan rumus",
+
         placeholder="Contoh: NaCl"
     )
 
@@ -308,7 +295,9 @@ elif menu == "Konversi Gram ↔ Mol":
     )
 
     nilai = st.number_input(
+
         "Masukkan nilai",
+
         min_value=0.0
     )
 
@@ -321,7 +310,9 @@ elif menu == "Konversi Gram ↔ Mol":
             hasil = nilai / mr
 
             st.success(
-                f"✅ {nilai} gram {rumus} = "
+
+                f"✅ {nilai} gram "
+                f"{rumus} = "
                 f"{hasil:.2f} mol"
             )
 
@@ -330,18 +321,19 @@ elif menu == "Konversi Gram ↔ Mol":
             hasil = nilai * mr
 
             st.success(
-                f"✅ {nilai} mol {rumus} = "
+
+                f"✅ {nilai} mol "
+                f"{rumus} = "
                 f"{hasil:.2f} gram"
             )
 
 # ==========================================
-# FITUR 5
-# DAFTAR MASSA ATOM
+# FITUR MASSA ATOM
 # ==========================================
 
 elif menu == "Daftar Massa Atom":
 
-    st.header("📚 Daftar Massa Atom Relatif")
+    st.header("📚 Daftar Massa Atom")
 
     for unsur, massa in massa_atom.items():
 
@@ -354,5 +346,5 @@ elif menu == "Daftar Massa Atom":
 st.divider()
 
 st.caption(
-    "Dibuat dengan Python, Streamlit, dan Chempy"
+    "Dibuat dengan Python dan Streamlit"
 )

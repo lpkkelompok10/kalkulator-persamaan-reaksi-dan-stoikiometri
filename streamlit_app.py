@@ -1,123 +1,193 @@
 import streamlit as st
 from chempy import balance_stoichiometry
 
-# =====================================
+# =========================
 # JUDUL
-# =====================================
+# =========================
 
 st.title("🧪 Kalkulator Stoikiometri")
-
 st.write(
-    "Aplikasi sederhana untuk menyetarakan persamaan reaksi "
-    "dan menghitung stoikiometri"
+    "Aplikasi untuk menyetarakan persamaan reaksi "
+    "dan menghitung stoikiometri sederhana"
 )
 
-# =====================================
-# PERSAMAAN REAKSI
-# =====================================
-
-st.header("Persamaan Reaksi Kimia")
+# =========================
+# INPUT REAKSI
+# =========================
 
 reaksi = st.text_input(
     "Masukkan persamaan reaksi",
     placeholder="Contoh: H2 + O2 -> H2O"
 )
 
-# Variabel hasil setara
-hasil = ""
+# =========================
+# PROSES SETARAKAN
+# =========================
 
-# Tombol setarakan
 if st.button("Setarakan Reaksi"):
 
-    try:
-        # Pisahkan reaktan dan produk
-        kiri, kanan = reaksi.split("->")
+    # Cek input kosong
+    if reaksi.strip() == "":
+        st.warning("⚠ Masukkan persamaan reaksi terlebih dahulu")
 
-        reaktan = set(i.strip() for i in kiri.split("+"))
-        produk = set(i.strip() for i in kanan.split("+"))
+    else:
+        try:
 
-        # Setarakan otomatis
-        reac, prod = balance_stoichiometry(reaktan, produk)
+            # Pisahkan kiri dan kanan
+            kiri, kanan = reaksi.split("->")
 
-        # Format kiri
-        hasil_kiri = " + ".join(
-            [f"{v if v != 1 else ''}{k}" for k, v in reac.items()]
-        )
+            # Ambil reaktan dan produk
+            reaktan = set(
+                i.strip() for i in kiri.split("+")
+            )
 
-        # Format kanan
-        hasil_kanan = " + ".join(
-            [f"{v if v != 1 else ''}{k}" for k, v in prod.items()]
-        )
+            produk = set(
+                i.strip() for i in kanan.split("+")
+            )
 
-        # Hasil akhir
-        hasil = hasil_kiri + " -> " + hasil_kanan
+            # Setarakan reaksi
+            reac, prod = balance_stoichiometry(
+                reaktan,
+                produk
+            )
 
-        # Output
-        st.success("✅ Persamaan reaksi berhasil disetarakan!")
-        st.code(hasil)
+            # Format hasil kiri
+            hasil_kiri = " + ".join(
+                [
+                    f"{v if v != 1 else ''}{k}"
+                    for k, v in reac.items()
+                ]
+            )
 
-        st.info("✔ Persamaan reaksi sudah setara")
+            # Format hasil kanan
+            hasil_kanan = " + ".join(
+                [
+                    f"{v if v != 1 else ''}{k}"
+                    for k, v in prod.items()
+                ]
+            )
 
-    except:
-        st.error("❌ Format reaksi salah")
+            # Hasil akhir
+            hasil_reaksi = (
+                hasil_kiri + " -> " + hasil_kanan
+            )
 
-# =====================================
-# STOIKIOMETRI
-# =====================================
+            # Tampilkan hasil
+            st.success(
+                "✅ Persamaan reaksi berhasil disetarakan!"
+            )
 
-st.divider()
+            st.code(hasil_reaksi)
 
-st.header("Perhitungan Stoikiometri")
+            # =========================
+            # STOIKIOMETRI
+            # =========================
 
-st.write("Contoh perhitungan menggunakan reaksi:")
-st.code("2H2 + O2 -> 2H2O")
+            st.subheader("Perhitungan Stoikiometri")
 
-# Input massa
-massa_H2 = st.number_input(
-    "Masukkan massa H2 (gram)",
-    min_value=0.0
-)
+            # Semua zat
+            semua_zat = (
+                list(reac.keys()) +
+                list(prod.keys())
+            )
 
-# Data Mr
-Mr_H2 = 2
-Mr_O2 = 32
+            # Pilih zat diketahui
+            zat_diketahui = st.selectbox(
+                "Pilih zat diketahui",
+                semua_zat
+            )
 
-# Koefisien reaksi
-koef_H2 = 2
-koef_O2 = 1
+            # Pilih zat ditanya
+            zat_ditanya = st.selectbox(
+                "Pilih zat yang ditanya",
+                semua_zat
+            )
 
-# Tombol hitung
-if st.button("Hitung Stoikiometri"):
+            # Input massa
+            massa = st.number_input(
+                f"Masukkan massa {zat_diketahui} (gram)",
+                min_value=0.0,
+                step=1.0
+            )
 
-    # Gram → mol
-    mol_H2 = massa_H2 / Mr_H2
+            # Data Mr sederhana
+            Mr = {
+                "H2": 2,
+                "O2": 32,
+                "H2O": 18,
+                "Fe": 56,
+                "Fe2O3": 160,
+                "N2": 28,
+                "NH3": 17,
+                "CO2": 44,
+                "CH4": 16
+            }
 
-    # Perbandingan koefisien
-    mol_O2 = mol_H2 * (koef_O2 / koef_H2)
+            # Tombol hitung
+            if st.button("Hitung Stoikiometri"):
 
-    # Mol → gram
-    massa_O2 = mol_O2 * Mr_O2
+                # Cek Mr tersedia
+                if (
+                    zat_diketahui not in Mr or
+                    zat_ditanya not in Mr
+                ):
 
-    # Output hasil
-    st.success(f"✅ Butuh O2 sebanyak {massa_O2} gram")
+                    st.warning(
+                        "⚠ Mr zat belum tersedia "
+                        "di dalam program"
+                    )
 
-    # Langkah perhitungan
-    st.subheader("Langkah Perhitungan")
+                else:
 
-    st.write(f"1. Mol H2 = {massa_H2} / {Mr_H2}")
-    st.write(f"2. Mol H2 = {mol_H2} mol")
+                    # Gram → mol
+                    mol_diketahui = (
+                        massa / Mr[zat_diketahui]
+                    )
 
-    st.write("3. Perbandingan koefisien H2 : O2 = 2 : 1")
+                    # Ambil koefisien
+                    if zat_diketahui in reac:
+                        koef_diketahui = (
+                            reac[zat_diketahui]
+                        )
+                    else:
+                        koef_diketahui = (
+                            prod[zat_diketahui]
+                        )
 
-    st.write(f"4. Mol O2 = {mol_O2} mol")
+                    if zat_ditanya in reac:
+                        koef_ditanya = (
+                            reac[zat_ditanya]
+                        )
+                    else:
+                        koef_ditanya = (
+                            prod[zat_ditanya]
+                        )
 
-    st.write(f"5. Massa O2 = {mol_O2} × {Mr_O2}")
+                    # Perbandingan mol
+                    mol_ditanya = (
+                        mol_diketahui *
+                        koef_ditanya /
+                        koef_diketahui
+                    )
 
-    st.write(f"6. Massa O2 = {massa_O2} gram")
+                    # Mol → gram
+                    massa_ditanya = (
+                        mol_ditanya *
+                        Mr[zat_ditanya]
+                    )
 
-# =====================================
-# FOOTER
-# =====================================
+                    # Output
+                    st.success(
+                        f"✅ Massa {zat_ditanya} = "
+                        f"{massa_ditanya:.2f} gram"
+                    )
 
-st.divider()
-st.caption("Dibuat dengan Python, Streamlit, dan Chempy")
+        except Exception as e:
+
+            st.error(
+                "❌ Format reaksi salah\n\n"
+                "Gunakan format seperti:\n"
+                "H2 + O2 -> H2O"
+            )
+
+            st.text(f"Detail error: {e}")

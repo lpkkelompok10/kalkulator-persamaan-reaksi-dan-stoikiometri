@@ -377,3 +377,75 @@ st.divider()
 st.caption(
     "Dibuat dengan Python dan Streamlit"
 )
+# ==========================================
+# BACKGROUND GAMBAR
+# ==========================================
+
+page_bg = """
+<style>
+
+[data-testid="stAppViewContainer"] {
+    background-image: url("https://images.unsplash.com/photo-1532187863486-abf9dbad1b69");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+[data-testid="stHeader"] {
+    background: rgba(0,0,0,0);
+}
+
+[data-testid="stSidebar"] {
+    background: rgba(15,23,42,0.95);
+}
+
+.main {
+    background: rgba(0,0,0,0);
+}
+
+.block-container {
+    background: rgba(15,23,42,0.82);
+    padding: 2rem;
+    border-radius: 20px;
+}
+
+h1, h2, h3, h4, h5, h6, p, label {
+    color: white !important;
+}
+
+.stButton>button {
+    background: linear-gradient(90deg, #2563eb, #7c3aed);
+    color: white;
+    border-radius: 12px;
+    border: none;
+    padding: 10px 20px;
+    font-weight: bold;
+}
+
+.stButton>button:hover {
+    background: linear-gradient(90deg, #1d4ed8, #6d28d9);
+    color: white;
+}
+
+</style>
+"""
+
+st.markdown(page_bg, unsafe_allow_html=True)
+# ==========================================
+# TENTANG KAMI
+# ==========================================
+
+st.divider()
+
+st.subheader("👨‍🔬 Tentang Kami")
+
+st.markdown("""
+### Kelompok 10
+
+1. Sarah Nur Ichsani (2560774)  
+2. Reva Aulia (2560749)  
+3. Faturrahman Chandika (2560630)  
+4. Nassya Alifha Rasyikha (2560710)  
+5. Naisyla Nazwa S. (2560705)
+
+""")

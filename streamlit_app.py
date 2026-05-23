@@ -4,13 +4,20 @@ import requests
 from streamlit_lottie import st_lottie
 
 # =========================
-# CONFIG (JUDUL TIDAK DIUBAH)
+# CONFIG (JUDUL FIX)
 # =========================
 st.set_page_config(
     page_title="Kalkulator Persamaan Reaksi dan Stoikiometri",
     page_icon="⚗️",
     layout="wide"
 )
+
+# =========================
+# FORCE TRANSITION STATE (INI KUNCI)
+# =========================
+if "loaded" not in st.session_state:
+    st.session_state.loaded = True
+    st.rerun()
 
 # =========================
 # LOTTIE
@@ -27,7 +34,7 @@ atom = load_lottie("https://assets9.lottiefiles.com/packages/lf20_yd8qxj.json")
 lab = load_lottie("https://assets2.lottiefiles.com/packages/lf20_w51pcehl.json")
 
 # =========================
-# CSS (ZOOM + FLOAT + FADE)
+# GLOBAL CSS (INI YANG BIKIN SEMUA TRANSISI)
 # =========================
 st.markdown("""
 <style>
@@ -37,20 +44,38 @@ st.markdown("""
     background: radial-gradient(circle at top, #eaf3ff, #ffffff);
 }
 
-/* 🔥 PAGE TRANSITION ZOOM EFFECT */
+/* 🔥 GLOBAL PAGE ZOOM SETIAP RERUN */
 .block-container {
-    animation: zoomIn 0.5s ease;
+    animation: pageIn 0.45s ease;
 }
 
-@keyframes zoomIn {
+@keyframes pageIn {
     0% {
-        transform: scale(0.96);
+        transform: scale(0.97);
         opacity: 0;
     }
     100% {
         transform: scale(1);
         opacity: 1;
     }
+}
+
+/* 💥 BUTTON BOUNCE (SEMUA BUTTON) */
+.stButton>button {
+    background-color: #4da3ff;
+    color: white;
+    border-radius: 12px;
+    box-shadow: 0 6px 0 #2b78d4;
+    transition: all 0.15s ease;
+}
+
+.stButton>button:hover {
+    transform: scale(1.05);
+}
+
+.stButton>button:active {
+    transform: scale(0.92);
+    box-shadow: 0 2px 0 #2b78d4;
 }
 
 /* FLOAT ANIMATION */
@@ -62,24 +87,6 @@ st.markdown("""
     0% { transform: translateY(0px); }
     50% { transform: translateY(-12px); }
     100% { transform: translateY(0px); }
-}
-
-/* BUTTON BOUNCE */
-.stButton>button {
-    background-color: #4da3ff;
-    color: white;
-    border-radius: 12px;
-    box-shadow: 0 6px 0 #2b78d4;
-    transition: 0.2s ease;
-}
-
-.stButton>button:hover {
-    transform: translateY(-2px) scale(1.05);
-}
-
-.stButton>button:active {
-    transform: translateY(3px);
-    box-shadow: 0 2px 0 #2b78d4;
 }
 
 /* CARD */
@@ -119,14 +126,14 @@ if menu == "🏠 Home":
             st.markdown('</div>', unsafe_allow_html=True)
 
     with col2:
-        st.markdown("### 🧑‍🔬 Laboratorium")
+        st.markdown("### 🧑‍🔬 Lab")
         if lab:
             st.markdown('<div class="float">', unsafe_allow_html=True)
             st_lottie(lab, height=280)
             st.markdown('</div>', unsafe_allow_html=True)
 
 # =========================
-# REAKSI KIMIA
+# REAKSI
 # =========================
 elif menu == "⚗️ Reaksi Kimia":
 
@@ -144,14 +151,15 @@ elif menu == "⚗️ Reaksi Kimia":
             "Mg + O2 -> MgO",
             "Al + O2 -> Al2O3",
             "N2 + H2 -> NH3",
-            "S + O2 -> SO2"
+            "S + O2 -> SO2",
+            "H2 + Cl2 -> HCl"
         ]
     )
 
     if st.button("Jalankan Reaksi"):
 
-        with st.spinner("Memproses reaksi..."):
-            time.sleep(0.8)
+        with st.spinner("Memproses..."):
+            time.sleep(0.6)
 
         left, right = reaction.split("->")
 
@@ -165,7 +173,7 @@ elif menu == "⚗️ Reaksi Kimia":
             st.markdown("<div class='card'><h3>🟢 Produk</h3></div>", unsafe_allow_html=True)
             st.write(right.strip())
 
-        st.success("Reaksi selesai!")
+        st.success("Selesai!")
 
 # =========================
 # STOIKIOMETRI
@@ -208,7 +216,7 @@ elif menu == "📘 Materi":
     st.markdown("""
     <div class='card'>
     <h3>🧪 Stoikiometri</h3>
-    Hubungan kuantitatif dalam reaksi kimia
+    Hubungan kuantitatif reaksi kimia
     </div>
     """, unsafe_allow_html=True)
 

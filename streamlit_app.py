@@ -1,17 +1,33 @@
 import streamlit as st
 import time
+import requests
+from streamlit_lottie import st_lottie
 
 # =========================
 # CONFIG
 # =========================
 st.set_page_config(
-    page_title="Kalkulator Persamaan Reaksi & Stoikiometri",
+    page_title="Kalkulator Kimia & Stoikiometri",
     page_icon="⚗️",
     layout="wide"
 )
 
 # =========================
-# STYLE
+# LOTTIE LOAD
+# =========================
+def load_lottie(url):
+    try:
+        r = requests.get(url)
+        if r.status_code == 200:
+            return r.json()
+    except:
+        return None
+
+atom = load_lottie("https://assets9.lottiefiles.com/packages/lf20_yd8qxj.json")
+lab = load_lottie("https://assets2.lottiefiles.com/packages/lf20_w51pcehl.json")
+
+# =========================
+# STYLE CLEAN
 # =========================
 st.markdown("""
 <style>
@@ -22,7 +38,7 @@ st.markdown("""
 
 .card {
     background: white;
-    padding: 20px;
+    padding: 18px;
     border-radius: 16px;
     box-shadow: 0px 6px 18px rgba(0,0,0,0.08);
     margin-bottom: 12px;
@@ -36,7 +52,6 @@ h1, h2, h3 {
     background-color: #4da3ff;
     color: white;
     border-radius: 10px;
-    padding: 8px 16px;
 }
 
 .stButton>button:hover {
@@ -59,7 +74,21 @@ menu = st.sidebar.radio(
 # =========================
 if menu == "🏠 Home":
 
-    st.title("⚗️ Kalkulator Persamaan Reaksi Kimia & Stoikiometri")
+    st.title("⚗️ Kalkulator Persamaan Reaksi & Stoikiometri")
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.markdown("### ⚛️ Animasi Atom")
+        if atom:
+            st_lottie(atom, height=300)
+
+    with col2:
+        st.markdown("### 🧑‍🔬 Laboratorium Kimia")
+        if lab:
+            st_lottie(lab, height=300)
+
+    st.markdown("---")
 
     st.image(
         "https://upload.wikimedia.org/wikipedia/commons/9/98/Periodic_table_large.png",
@@ -69,13 +98,13 @@ if menu == "🏠 Home":
     col1, col2, col3 = st.columns(3)
 
     with col1:
-        st.markdown("<div class='card'><h3>🔬 Reaksi Kimia</h3><p>Analisis reaksi</p></div>", unsafe_allow_html=True)
+        st.markdown("<div class='card'><h3>🔬 Reaksi</h3></div>", unsafe_allow_html=True)
 
     with col2:
-        st.markdown("<div class='card'><h3>🧪 Stoikiometri</h3><p>Hitung mol</p></div>", unsafe_allow_html=True)
+        st.markdown("<div class='card'><h3>🧪 Stoikiometri</h3></div>", unsafe_allow_html=True)
 
     with col3:
-        st.markdown("<div class='card'><h3>📘 Materi</h3><p>Belajar dasar kimia</p></div>", unsafe_allow_html=True)
+        st.markdown("<div class='card'><h3>📘 Materi</h3></div>", unsafe_allow_html=True)
 
     st.markdown("---")
 
@@ -84,20 +113,20 @@ if menu == "🏠 Home":
         <div class="card">
         <h2>📘 Tentang Aplikasi</h2>
 
-        Aplikasi ini dibuat untuk membantu pembelajaran:
+        Aplikasi ini membantu belajar:
         - Persamaan reaksi kimia  
         - Stoikiometri  
 
         <h3>💡 Manfaat</h3>
+        - Visual lebih menarik  
         - Mudah digunakan  
-        - Membantu belajar lebih cepat  
-        - Tampilan sederhana dan jelas  
+        - Cocok untuk belajar  
 
         </div>
         """, unsafe_allow_html=True)
 
 # =========================
-# REAKSI KIMIA
+# REAKSI
 # =========================
 elif menu == "⚗️ Reaksi Kimia":
 
@@ -121,13 +150,10 @@ elif menu == "⚗️ Reaksi Kimia":
                     st.markdown("<div class='card'><h3>🟢 Produk</h3></div>", unsafe_allow_html=True)
                     st.write(right.strip())
 
-                st.success("Berhasil diproses!")
+                st.success("Berhasil!")
 
             except:
-                st.error("Format harus pakai ->")
-
-        else:
-            st.warning("Isi reaksi dulu!")
+                st.error("Format salah!")
 
 # =========================
 # STOIKIOMETRI
@@ -148,8 +174,10 @@ elif menu == "🧪 Stoikiometri":
 
         if Mr > 0:
             mol = massa / Mr
+
             st.markdown("<div class='card'><h3>📊 Hasil</h3></div>", unsafe_allow_html=True)
             st.success(f"{mol:.4f} mol")
+
         else:
             st.warning("Mr tidak boleh 0")
 
@@ -160,19 +188,9 @@ elif menu == "📘 Materi":
 
     st.title("📘 Materi Kimia")
 
-    st.markdown("""
-    <div class="card">
-    <h3>⚗️ Reaksi Kimia</h3>
-    Perubahan zat menjadi zat baru
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown("<div class='card'><h3>⚗️ Reaksi Kimia</h3><p>Perubahan zat menjadi zat baru</p></div>", unsafe_allow_html=True)
 
-    st.markdown("""
-    <div class="card">
-    <h3>🧪 Stoikiometri</h3>
-    Hubungan kuantitatif dalam reaksi kimia
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown("<div class='card'><h3>🧪 Stoikiometri</h3><p>Hubungan kuantitatif reaksi</p></div>", unsafe_allow_html=True)
 
 # =========================
 # KELOMPOK

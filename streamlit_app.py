@@ -89,13 +89,13 @@ menu = st.sidebar.radio(
 )
 
 # =========================
-# HOME (LANDING PAGE POLISH)
+# HOME
 # =========================
 if menu == "🏠 Home":
 
     st.markdown("""
     <div style="text-align:center; padding:20px">
-        <h1>⚗️ Kalkulator Kimia</h1>
+        <h1>⚗️ Kalkulator Persamaan Reaksi Kimia dan Stoikiometri</h1>
         <p style="font-size:18px; color:#4d6fa3">
         Persamaan Reaksi Kimia & Stoikiometri
         </p>
@@ -129,6 +129,43 @@ if menu == "🏠 Home":
         Informasi anggota kelompok
         </div>
         """, unsafe_allow_html=True)
+
+    # =========================
+    # 📘 PENJELASAN PANJANG (TAMBAHAN BARU)
+    # =========================
+    st.markdown("---")
+
+    st.markdown("""
+    <div class="card">
+    <h2>📘 Tentang & Kegunaan Kalkulator</h2>
+
+    <p>
+    Aplikasi <b>Kalkulator Persamaan Reaksi Kimia dan Stoikiometri</b> ini dibuat untuk membantu memahami konsep dasar kimia secara lebih mudah, cepat, dan interaktif.
+    Dalam pembelajaran kimia, banyak siswa sering mengalami kesulitan dalam menyeimbangkan persamaan reaksi serta menghitung perbandingan zat dalam reaksi kimia.
+    </p>
+
+    <p>
+    Melalui aplikasi ini, pengguna dapat memasukkan persamaan reaksi kimia sederhana untuk kemudian dianalisis menjadi bagian reaktan dan produk.
+    Hal ini membantu dalam memahami bagaimana suatu zat berubah menjadi zat lain dalam reaksi kimia.
+    Selain itu, fitur stoikiometri memungkinkan pengguna untuk menghitung jumlah mol dari suatu zat berdasarkan massa dan Mr (massa molekul relatif), sehingga perhitungan kimia menjadi lebih praktis.
+    </p>
+
+    <p>
+    <b>Manfaat utama aplikasi ini antara lain:</b><br>
+    - Mempermudah pemahaman konsep reaksi kimia<br>
+    - Membantu latihan soal stoikiometri dengan cepat<br>
+    - Mengurangi kesalahan dalam perhitungan manual<br>
+    - Menjadi media belajar interaktif berbasis teknologi<br>
+    - Membuat pembelajaran kimia lebih menarik dan tidak membosankan
+    </p>
+
+    <p>
+    Aplikasi ini dirancang dengan tampilan sederhana agar mudah digunakan oleh pelajar.
+    Dengan sistem otomatis, pengguna dapat lebih cepat memahami konsep kimia yang sebelumnya terasa sulit.
+    </p>
+
+    </div>
+    """, unsafe_allow_html=True)
 
 # =========================
 # REAKSI KIMIA

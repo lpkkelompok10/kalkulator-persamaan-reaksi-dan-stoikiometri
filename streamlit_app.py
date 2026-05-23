@@ -4,10 +4,10 @@ import requests
 from streamlit_lottie import st_lottie
 
 # =========================
-# CONFIG
+# CONFIG (JUDUL TIDAK DIUBAH)
 # =========================
 st.set_page_config(
-    page_title="Kalkulator Kimia - Movie Mode",
+    page_title="Kalkulator Persamaan Reaksi dan Stoikiometri",
     page_icon="⚗️",
     layout="wide"
 )
@@ -27,38 +27,7 @@ atom = load_lottie("https://assets9.lottiefiles.com/packages/lf20_yd8qxj.json")
 lab = load_lottie("https://assets2.lottiefiles.com/packages/lf20_w51pcehl.json")
 
 # =========================
-# 🎬 CINEMATIC INTRO (MOVIE OPENING)
-# =========================
-intro = st.empty()
-
-with intro.container():
-    st.markdown("""
-    <style>
-    .intro {
-        text-align:center;
-        padding: 80px 20px;
-        animation: fadeIn 2s ease;
-    }
-
-    @keyframes fadeIn {
-        from {opacity:0;}
-        to {opacity:1;}
-    }
-    </style>
-
-    <div class="intro">
-        <h1>⚗️ CHEMISTRY CINEMATIC LAB</h1>
-        <h3>Kalkulator Persamaan Reaksi & Stoikiometri</h3>
-        <p>Kelompok 10</p>
-    </div>
-    """, unsafe_allow_html=True)
-
-    time.sleep(2)
-
-intro.empty()
-
-# =========================
-# STYLE (MOVIE MODE)
+# CSS (ZOOM + FLOAT + FADE)
 # =========================
 st.markdown("""
 <style>
@@ -68,7 +37,23 @@ st.markdown("""
     background: radial-gradient(circle at top, #eaf3ff, #ffffff);
 }
 
-/* 🎈 FLOATING EFFECT */
+/* 🔥 PAGE TRANSITION ZOOM EFFECT */
+.block-container {
+    animation: zoomIn 0.5s ease;
+}
+
+@keyframes zoomIn {
+    0% {
+        transform: scale(0.96);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* FLOAT ANIMATION */
 .float {
     animation: float 3s ease-in-out infinite;
 }
@@ -79,34 +64,22 @@ st.markdown("""
     100% { transform: translateY(0px); }
 }
 
-/* 💥 BUTTON BOUNCE (BANTAL EFFECT) */
+/* BUTTON BOUNCE */
 .stButton>button {
     background-color: #4da3ff;
     color: white;
-    border-radius: 14px;
-    padding: 10px 18px;
-    transition: 0.2s ease;
+    border-radius: 12px;
     box-shadow: 0 6px 0 #2b78d4;
+    transition: 0.2s ease;
 }
 
 .stButton>button:hover {
     transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 10px 0 #2b78d4;
 }
 
 .stButton>button:active {
-    transform: translateY(4px);
+    transform: translateY(3px);
     box-shadow: 0 2px 0 #2b78d4;
-}
-
-/* 🎬 FADE TRANSITION CONTENT */
-.block-container {
-    animation: fadeUp 0.6s ease;
-}
-
-@keyframes fadeUp {
-    from {opacity:0; transform: translateY(10px);}
-    to {opacity:1; transform: translateY(0);}
 }
 
 /* CARD */
@@ -134,7 +107,7 @@ menu = st.sidebar.radio(
 # =========================
 if menu == "🏠 Home":
 
-    st.title("⚗️ Chemistry Movie Mode Lab")
+    st.title("⚗️ Kalkulator Persamaan Reaksi dan Stoikiometri")
 
     col1, col2 = st.columns(2)
 
@@ -146,7 +119,7 @@ if menu == "🏠 Home":
             st.markdown('</div>', unsafe_allow_html=True)
 
     with col2:
-        st.markdown("### 🧑‍🔬 Lab")
+        st.markdown("### 🧑‍🔬 Laboratorium")
         if lab:
             st.markdown('<div class="float">', unsafe_allow_html=True)
             st_lottie(lab, height=280)
@@ -157,7 +130,7 @@ if menu == "🏠 Home":
 # =========================
 elif menu == "⚗️ Reaksi Kimia":
 
-    st.title("⚗️ Simulasi Reaksi Kimia")
+    st.title("⚗️ Persamaan Reaksi Kimia")
 
     reaction = st.selectbox(
         "Pilih Reaksi",
@@ -170,14 +143,15 @@ elif menu == "⚗️ Reaksi Kimia":
             "CaCO3 -> CaO + CO2",
             "Mg + O2 -> MgO",
             "Al + O2 -> Al2O3",
-            "N2 + H2 -> NH3"
+            "N2 + H2 -> NH3",
+            "S + O2 -> SO2"
         ]
     )
 
-    if st.button("▶ Jalankan"):
+    if st.button("Jalankan Reaksi"):
 
-        with st.spinner("Running reaction..."):
-            time.sleep(1)
+        with st.spinner("Memproses reaksi..."):
+            time.sleep(0.8)
 
         left, right = reaction.split("->")
 
@@ -191,14 +165,14 @@ elif menu == "⚗️ Reaksi Kimia":
             st.markdown("<div class='card'><h3>🟢 Produk</h3></div>", unsafe_allow_html=True)
             st.write(right.strip())
 
-        st.success("Reaction completed!")
+        st.success("Reaksi selesai!")
 
 # =========================
 # STOIKIOMETRI
 # =========================
 elif menu == "🧪 Stoikiometri":
 
-    st.title("🧪 Stoikiometri Calculator")
+    st.title("🧪 Stoikiometri")
 
     col1, col2 = st.columns(2)
 
@@ -224,9 +198,19 @@ elif menu == "📘 Materi":
 
     st.title("📘 Materi Kimia")
 
-    st.markdown("<div class='card'><h3>⚗️ Reaksi Kimia</h3><p>Perubahan zat menjadi zat baru</p></div>", unsafe_allow_html=True)
+    st.markdown("""
+    <div class='card'>
+    <h3>⚗️ Reaksi Kimia</h3>
+    Perubahan zat menjadi zat baru
+    </div>
+    """, unsafe_allow_html=True)
 
-    st.markdown("<div class='card'><h3>🧪 Stoikiometri</h3><p>Hubungan kuantitatif reaksi</p></div>", unsafe_allow_html=True)
+    st.markdown("""
+    <div class='card'>
+    <h3>🧪 Stoikiometri</h3>
+    Hubungan kuantitatif dalam reaksi kimia
+    </div>
+    """, unsafe_allow_html=True)
 
 # =========================
 # KELOMPOK

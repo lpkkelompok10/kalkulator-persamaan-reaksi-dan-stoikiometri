@@ -1,25 +1,23 @@
 import streamlit as st
 import time
-import requests
 
 # =========================
 # CONFIG
 # =========================
 st.set_page_config(
-    page_title="Kalkulator Kimia - Kelompok 10",
+    page_title="Kalkulator Kimia & Stoikiometri - Kelompok 10",
     page_icon="⚗️",
     layout="wide"
 )
 
 # =========================
-# STYLE (ULTIMATE CLEAN UI)
+# STYLE
 # =========================
 st.markdown("""
 <style>
 
-/* background */
 .stApp {
-    background: linear-gradient(180deg, #f4f8ff, #ffffff);
+    background: #f4f8ff;
 }
 
 /* sidebar */
@@ -40,25 +38,24 @@ section[data-testid="stSidebar"] div[role="radiogroup"] > label {
 section[data-testid="stSidebar"] div[role="radiogroup"] > label:hover {
     transform: translateX(6px);
     background: #dbeaff;
-    box-shadow: 0px 12px 24px rgba(0,0,0,0.12);
 }
 
-/* CARD */
+/* card */
 .card {
     background: white;
     padding: 22px;
-    border-radius: 18px;
-    box-shadow: 0px 6px 20px rgba(0,0,0,0.08);
-    transition: all 0.25s ease;
+    border-radius: 16px;
+    box-shadow: 0px 6px 18px rgba(0,0,0,0.08);
     margin-bottom: 12px;
+    transition: all 0.25s ease;
 }
 
 .card:hover {
-    transform: translateY(-10px) scale(1.02);
-    box-shadow: 0px 18px 40px rgba(0,0,0,0.15);
+    transform: translateY(-8px);
+    box-shadow: 0px 18px 35px rgba(0,0,0,0.15);
 }
 
-/* BUTTON */
+/* button */
 .stButton>button {
     background-color: #4da3ff;
     color: white;
@@ -73,73 +70,42 @@ section[data-testid="stSidebar"] div[role="radiogroup"] > label:hover {
     transform: scale(1.05);
 }
 
-/* TITLE */
+/* title */
 h1, h2, h3 {
     color: #1f4f8b;
-}
-
-/* CENTER HEADER */
-.header {
-    text-align: center;
-    padding: 20px;
-}
-
-.header h1 {
-    font-size: 40px;
-    margin-bottom: 0;
-}
-
-.header p {
-    color: #4d6fa3;
-    font-size: 18px;
 }
 
 </style>
 """, unsafe_allow_html=True)
 
 # =========================
-# LOTTIE FUNCTION
-# =========================
-def load_lottie(url):
-    try:
-        r = requests.get(url)
-        if r.status_code == 200:
-            return r.json()
-    except:
-        return None
-
-# =========================
-# SIDEBAR MENU
+# MENU
 # =========================
 menu = st.sidebar.radio(
-    "📌 Navigation",
-    ["🏠 Home", "⚗️ Reaksi Kimia", "🧪 Stoikiometri", "👥 Kelompok 10"]
+    "📌 Menu",
+    ["🏠 Home", "⚗️ Reaksi Kimia", "🧪 Stoikiometri", "📘 Materi Kimia", "👥 Kelompok 10"]
 )
 
 # =========================
-# HOME (ULTIMATE LANDING PAGE)
+# HOME
 # =========================
 if menu == "🏠 Home":
 
     st.markdown("""
-    <div class="header">
+    <div style="text-align:center; padding:15px">
         <h1>⚗️ Kalkulator Kimia</h1>
-        <p>Persamaan Reaksi Kimia & Stoikiometri - Kelompok 10</p>
+        <p style="color:#4d6fa3; font-size:18px">
+        Persamaan Reaksi Kimia & Stoikiometri - Kelompok 10
+        </p>
     </div>
     """, unsafe_allow_html=True)
 
-    # LOTTIE ANIMATION
-    try:
-        from streamlit_lottie import st_lottie
-
-        animation = load_lottie(
-            "https://assets10.lottiefiles.com/packages/lf20_jtbfg2nb.json"
-        )
-
-        if animation:
-            st_lottie(animation, height=260)
-    except:
-        st.info("Animasi tidak aktif")
+    # GAMBAR KIMIA
+    st.image(
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Periodic_table_large.png/800px-Periodic_table_large.png",
+        caption="Tabel Periodik Unsur",
+        use_container_width=True
+    )
 
     st.markdown("---")
 
@@ -149,7 +115,7 @@ if menu == "🏠 Home":
         st.markdown("""
         <div class="card">
         <h3>🔬 Reaksi Kimia</h3>
-        Analisis & baca persamaan reaksi
+        Analisis persamaan reaksi
         </div>
         """, unsafe_allow_html=True)
 
@@ -157,15 +123,38 @@ if menu == "🏠 Home":
         st.markdown("""
         <div class="card">
         <h3>🧪 Stoikiometri</h3>
-        Hitung mol dengan cepat & mudah
+        Perhitungan mol
         </div>
         """, unsafe_allow_html=True)
 
     with col3:
         st.markdown("""
         <div class="card">
-        <h3>👥 Kelompok 10</h3>
-        Informasi anggota kelompok
+        <h3>📘 Materi</h3>
+        Belajar kimia interaktif
+        </div>
+        """, unsafe_allow_html=True)
+
+    st.markdown("---")
+
+    # TENTANG APLIKASI
+    if st.button("📌 Tentang Aplikasi"):
+
+        st.markdown("""
+        <div class="card">
+        <h2>📘 Tentang Aplikasi</h2>
+
+        Aplikasi ini dibuat untuk membantu pembelajaran kimia interaktif.
+
+        <h3>🎯 Tujuan:</h3>
+        - Memahami reaksi kimia lebih mudah  
+        - Menghitung stoikiometri secara cepat  
+        - Media belajar yang lebih interaktif  
+
+        <h3>💡 Manfaat:</h3>
+        - Belajar lebih visual  
+        - Mengurangi kesulitan hitung manual  
+        - Cocok untuk latihan soal  
         </div>
         """, unsafe_allow_html=True)
 
@@ -178,12 +167,11 @@ elif menu == "⚗️ Reaksi Kimia":
 
     reaction = st.text_input("Masukkan reaksi (contoh: H2 + O2 -> H2O)")
 
-    if st.button("Proses Reaksi"):
+    if st.button("Proses"):
 
         if reaction:
-
-            with st.spinner("⚗️ Memproses reaksi..."):
-                time.sleep(1.3)
+            with st.spinner("⚗️ Memproses..."):
+                time.sleep(1)
 
             try:
                 left, right = reaction.split("->")
@@ -206,13 +194,10 @@ elif menu == "⚗️ Reaksi Kimia":
                     """, unsafe_allow_html=True)
                     st.write(right.strip())
 
-                st.success("Reaksi berhasil diproses!")
+                st.success("Berhasil diproses!")
 
             except:
-                st.error("Format salah! gunakan ->")
-
-        else:
-            st.warning("Isi dulu reaksi!")
+                st.error("Format salah!")
 
 # =========================
 # STOIKIOMETRI
@@ -229,10 +214,9 @@ elif menu == "🧪 Stoikiometri":
     with col2:
         Mr = st.number_input("Mr zat", min_value=0.0)
 
-    if st.button("Hitung Mol"):
+    if st.button("Hitung"):
 
         if Mr > 0:
-
             with st.spinner("🧪 Menghitung..."):
                 time.sleep(1)
 
@@ -240,7 +224,7 @@ elif menu == "🧪 Stoikiometri":
 
             st.markdown("""
             <div class="card">
-            <h3>📊 Hasil Perhitungan</h3>
+            <h3>📊 Hasil</h3>
             </div>
             """, unsafe_allow_html=True)
 
@@ -250,17 +234,39 @@ elif menu == "🧪 Stoikiometri":
             st.warning("Mr tidak boleh 0")
 
 # =========================
-# KELOMPOK 10
+# MATERI KIMIA
+# =========================
+elif menu == "📘 Materi Kimia":
+
+    st.title("📘 Materi Kimia Interaktif")
+
+    st.markdown("""
+    <div class="card">
+    <h3>⚗️ Reaksi Kimia</h3>
+    Reaksi kimia adalah proses perubahan zat menjadi zat baru.
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class="card">
+    <h3>🧪 Stoikiometri</h3>
+    Cabang kimia yang mempelajari hubungan kuantitatif zat dalam reaksi.
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class="card">
+    <h3>💡 Contoh Reaksi</h3>
+    2H₂ + O₂ → 2H₂O
+    </div>
+    """, unsafe_allow_html=True)
+
+# =========================
+# KELOMPOK
 # =========================
 elif menu == "👥 Kelompok 10":
 
     st.title("👥 Kelompok 10")
-
-    st.markdown("""
-    <div class="card">
-    <h3>📋 Anggota Kelompok</h3>
-    </div>
-    """, unsafe_allow_html=True)
 
     members = [
         "Faturrahman Chandika (2560774)",

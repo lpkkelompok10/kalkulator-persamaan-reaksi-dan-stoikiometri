@@ -5,58 +5,56 @@ import time
 # CONFIG
 # =========================
 st.set_page_config(
-    page_title="Stoikiometri Kelompok 10",
+    page_title="Kalkulator Persamaan Reaksi Kimia & Stoikiometri",
     page_icon="⚗️",
     layout="wide"
 )
 
 # =========================
-# MODERN UI CSS (WEB APP FEEL)
+# STYLE (FINAL CLEAN POLISH)
 # =========================
 st.markdown("""
 <style>
 
 /* background */
 .stApp {
-    background: #f5f9ff;
+    background: #f4f8ff;
 }
 
 /* sidebar */
 [data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #e8f2ff, #f7fbff);
+    background: linear-gradient(180deg, #e6f0ff, #f9fbff);
 }
 
-/* sidebar menu (radio) */
+/* sidebar items */
 section[data-testid="stSidebar"] div[role="radiogroup"] > label {
     background: white;
     padding: 10px;
     border-radius: 12px;
     margin-bottom: 8px;
-    transition: all 0.25s ease;
-    box-shadow: 0px 2px 6px rgba(0,0,0,0.06);
+    transition: 0.25s ease;
+    box-shadow: 0px 2px 8px rgba(0,0,0,0.05);
 }
 
-/* hover sidebar (ngambang) */
 section[data-testid="stSidebar"] div[role="radiogroup"] > label:hover {
     transform: translateX(6px);
     background: #dbeaff;
-    box-shadow: 0px 10px 20px rgba(0,0,0,0.12);
+    box-shadow: 0px 10px 22px rgba(0,0,0,0.12);
 }
 
 /* card */
 .card {
     background: white;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0px 3px 12px rgba(0,0,0,0.08);
+    padding: 22px;
+    border-radius: 16px;
+    box-shadow: 0px 6px 18px rgba(0,0,0,0.08);
     margin-bottom: 12px;
     transition: all 0.25s ease;
 }
 
-/* hover card (floating effect) */
 .card:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0px 14px 30px rgba(0,0,0,0.18);
+    transform: translateY(-8px);
+    box-shadow: 0px 18px 35px rgba(0,0,0,0.15);
 }
 
 /* button */
@@ -69,13 +67,12 @@ section[data-testid="stSidebar"] div[role="radiogroup"] > label:hover {
     transition: all 0.2s ease;
 }
 
-/* button hover */
 .stButton>button:hover {
     background-color: #1f7ae0;
     transform: scale(1.05);
 }
 
-/* text */
+/* title */
 h1, h2, h3 {
     color: #1f4f8b;
 }
@@ -84,63 +81,68 @@ h1, h2, h3 {
 """, unsafe_allow_html=True)
 
 # =========================
-# MENU SIDEBAR
+# SIDEBAR
 # =========================
 menu = st.sidebar.radio(
     "📌 Menu",
-    ["🏠 Home", "⚗️ Stoikiometri", "🧪 Mol", "👥 Kelompok 10"]
+    ["🏠 Home", "⚗️ Reaksi Kimia", "🧪 Stoikiometri", "👥 Kelompok 10"]
 )
 
 # =========================
-# HOME
+# HOME (LANDING PAGE POLISH)
 # =========================
 if menu == "🏠 Home":
-    st.title("⚗️ Stoikiometri App")
 
     st.markdown("""
-    <div class="card">
-    <h3>👋 Selamat Datang</h3>
-    Aplikasi ini membantu menyetarakan reaksi kimia dan menghitung mol dengan tampilan modern.
+    <div style="text-align:center; padding:20px">
+        <h1>⚗️ Kalkulator Kimia</h1>
+        <p style="font-size:18px; color:#4d6fa3">
+        Persamaan Reaksi Kimia & Stoikiometri
+        </p>
     </div>
     """, unsafe_allow_html=True)
+
+    st.markdown("---")
 
     col1, col2, col3 = st.columns(3)
 
     with col1:
         st.markdown("""
         <div class="card">
-        <h3>🔬 Reaksi</h3>
-        Setarakan reaksi kimia
+        <h3>🔬 Reaksi Kimia</h3>
+        Analisis persamaan reaksi
         </div>
         """, unsafe_allow_html=True)
 
     with col2:
         st.markdown("""
         <div class="card">
-        <h3>🧪 Mol</h3>
-        Hitung massa ke mol
+        <h3>🧪 Stoikiometri</h3>
+        Hitung mol dengan cepat
         </div>
         """, unsafe_allow_html=True)
 
     with col3:
         st.markdown("""
         <div class="card">
-        <h3>👥 Kelompok</h3>
-        Data anggota kelompok 10
+        <h3>👥 Kelompok 10</h3>
+        Informasi anggota kelompok
         </div>
         """, unsafe_allow_html=True)
 
 # =========================
-# STOIKIOMETRI
+# REAKSI KIMIA
 # =========================
-elif menu == "⚗️ Stoikiometri":
-    st.title("⚗️ Setarakan Reaksi Kimia")
+elif menu == "⚗️ Reaksi Kimia":
+
+    st.title("⚗️ Persamaan Reaksi Kimia")
 
     reaction = st.text_input("Masukkan reaksi (contoh: H2 + O2 -> H2O)")
 
     if st.button("Proses Reaksi"):
 
         if reaction:
+
             with st.spinner("⚗️ Memproses reaksi..."):
                 time.sleep(1.2)
 
@@ -168,16 +170,17 @@ elif menu == "⚗️ Stoikiometri":
                 st.success("Reaksi berhasil diproses!")
 
             except:
-                st.error("Format salah! gunakan ->")
+                st.error("Format salah! gunakan tanda ->")
 
         else:
-            st.warning("Isi reaksi dulu!")
+            st.warning("Isi dulu reaksi!")
 
 # =========================
-# MOL CALCULATOR
+# STOIKIOMETRI
 # =========================
-elif menu == "🧪 Mol":
-    st.title("🧪 Kalkulator Mol")
+elif menu == "🧪 Stoikiometri":
+
+    st.title("🧪 Kalkulator Stoikiometri")
 
     col1, col2 = st.columns(2)
 
@@ -190,6 +193,7 @@ elif menu == "🧪 Mol":
     if st.button("Hitung Mol"):
 
         if Mr > 0:
+
             with st.spinner("🧪 Menghitung..."):
                 time.sleep(1)
 
@@ -201,7 +205,7 @@ elif menu == "🧪 Mol":
             </div>
             """, unsafe_allow_html=True)
 
-            st.success(f"Hasil = {mol:.4f} mol")
+            st.success(f"{mol:.4f} mol")
 
         else:
             st.warning("Mr tidak boleh 0")
@@ -210,7 +214,14 @@ elif menu == "🧪 Mol":
 # KELOMPOK 10
 # =========================
 elif menu == "👥 Kelompok 10":
+
     st.title("👥 Kelompok 10")
+
+    st.markdown("""
+    <div class="card">
+    <h3>📋 Anggota Kelompok</h3>
+    </div>
+    """, unsafe_allow_html=True)
 
     members = [
         "Faturrahman Chandika (2560774)",

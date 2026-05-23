@@ -11,69 +11,65 @@ st.set_page_config(
 )
 
 # =========================
-# STYLE
+# THEME TOGGLE (FINAL BONUS)
 # =========================
-st.markdown("""
+theme = st.sidebar.selectbox("🎨 Theme", ["Light", "Soft Dark"])
+
+if theme == "Soft Dark":
+    bg = "#0f172a"
+    card = "#1e293b"
+    text = "white"
+    subtext = "#cbd5e1"
+else:
+    bg = "#f4f8ff"
+    card = "white"
+    text = "#1f4f8b"
+    subtext = "#4d6fa3"
+
+# =========================
+# GLOBAL STYLE
+# =========================
+st.markdown(f"""
 <style>
 
-.stApp {
-    background: #f4f8ff;
-}
+.stApp {{
+    background: {bg};
+    color: {text};
+}}
 
-/* sidebar */
-[data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #e6f0ff, #f9fbff);
-}
-
-/* sidebar items */
-section[data-testid="stSidebar"] div[role="radiogroup"] > label {
-    background: white;
-    padding: 10px;
-    border-radius: 12px;
-    margin-bottom: 8px;
-    transition: all 0.25s ease;
-    box-shadow: 0px 2px 8px rgba(0,0,0,0.06);
-}
-
-section[data-testid="stSidebar"] div[role="radiogroup"] > label:hover {
-    transform: translateX(6px);
-    background: #dbeaff;
-}
-
-/* card */
-.card {
-    background: white;
+.card {{
+    background: {card};
     padding: 22px;
     border-radius: 16px;
     box-shadow: 0px 6px 18px rgba(0,0,0,0.08);
     margin-bottom: 12px;
-    transition: all 0.25s ease;
-}
+    transition: 0.25s ease;
+}}
 
-.card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0px 18px 35px rgba(0,0,0,0.15);
-}
+.card:hover {{
+    transform: translateY(-6px);
+}}
 
-/* button */
-.stButton>button {
+h1, h2, h3 {{
+    color: {text};
+}}
+
+p {{
+    color: {subtext};
+}}
+
+.stButton>button {{
     background-color: #4da3ff;
     color: white;
     border-radius: 10px;
     padding: 8px 16px;
     border: none;
-    transition: all 0.2s ease;
-}
+}}
 
-.stButton>button:hover {
+.stButton>button:hover {{
     background-color: #1f7ae0;
     transform: scale(1.05);
-}
-
-/* title */
-h1, h2, h3 {
-    color: #1f4f8b;
-}
+}}
 
 </style>
 """, unsafe_allow_html=True)
@@ -83,7 +79,7 @@ h1, h2, h3 {
 # =========================
 menu = st.sidebar.radio(
     "📌 Menu",
-    ["🏠 Home", "⚗️ Reaksi Kimia", "🧪 Stoikiometri", "📘 Materi Kimia", "👥 Kelompok 10"]
+    ["🏠 Home", "⚗️ Reaksi Kimia", "🧪 Stoikiometri", "📘 Materi", "👥 Kelompok 10"]
 )
 
 # =========================
@@ -92,15 +88,20 @@ menu = st.sidebar.radio(
 if menu == "🏠 Home":
 
     st.markdown("""
-    <div style="text-align:center; padding:15px">
+    <div style="text-align:center; padding:10px">
         <h1>⚗️ Kalkulator Kimia</h1>
-        <p style="color:#4d6fa3; font-size:18px">
-        Persamaan Reaksi Kimia & Stoikiometri - Kelompok 10
-        </p>
+        <p>Persamaan Reaksi Kimia & Stoikiometri - Kelompok 10</p>
     </div>
     """, unsafe_allow_html=True)
 
-    # GAMBAR KIMIA
+    # GAMBAR 1
+    st.image(
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Water_molecule_3D.svg/800px-Water_molecule_3D.svg.png",
+        caption="Struktur Molekul Air (H₂O)",
+        use_container_width=True
+    )
+
+    # GAMBAR 2
     st.image(
         "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Periodic_table_large.png/800px-Periodic_table_large.png",
         caption="Tabel Periodik Unsur",
@@ -112,49 +113,34 @@ if menu == "🏠 Home":
     col1, col2, col3 = st.columns(3)
 
     with col1:
-        st.markdown("""
-        <div class="card">
-        <h3>🔬 Reaksi Kimia</h3>
-        Analisis persamaan reaksi
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown("<div class='card'><h3>🔬 Reaksi</h3><p>Analisis reaksi kimia</p></div>", unsafe_allow_html=True)
 
     with col2:
-        st.markdown("""
-        <div class="card">
-        <h3>🧪 Stoikiometri</h3>
-        Perhitungan mol
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown("<div class='card'><h3>🧪 Stoikiometri</h3><p>Hitung mol otomatis</p></div>", unsafe_allow_html=True)
 
     with col3:
-        st.markdown("""
-        <div class="card">
-        <h3>📘 Materi</h3>
-        Belajar kimia interaktif
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown("<div class='card'><h3>📘 Materi</h3><p>Belajar kimia dasar</p></div>", unsafe_allow_html=True)
 
     st.markdown("---")
 
-    # TENTANG APLIKASI
     if st.button("📌 Tentang Aplikasi"):
 
         st.markdown("""
         <div class="card">
         <h2>📘 Tentang Aplikasi</h2>
 
-        Aplikasi ini dibuat untuk membantu pembelajaran kimia interaktif.
+        Aplikasi ini dibuat untuk membantu pembelajaran kimia secara interaktif.
 
-        <h3>🎯 Tujuan:</h3>
-        - Memahami reaksi kimia lebih mudah  
-        - Menghitung stoikiometri secara cepat  
-        - Media belajar yang lebih interaktif  
+        <h3>🎯 Tujuan</h3>
+        - Memahami reaksi kimia  
+        - Menghitung stoikiometri  
+        - Media belajar modern  
 
-        <h3>💡 Manfaat:</h3>
-        - Belajar lebih visual  
-        - Mengurangi kesulitan hitung manual  
-        - Cocok untuk latihan soal  
+        <h3>💡 Manfaat</h3>
+        - Lebih mudah dipahami  
+        - Visual interaktif  
+        - Latihan cepat  
+
         </div>
         """, unsafe_allow_html=True)
 
@@ -170,7 +156,7 @@ elif menu == "⚗️ Reaksi Kimia":
     if st.button("Proses"):
 
         if reaction:
-            with st.spinner("⚗️ Memproses..."):
+            with st.spinner("⚗️ Memproses reaksi..."):
                 time.sleep(1)
 
             try:
@@ -179,25 +165,20 @@ elif menu == "⚗️ Reaksi Kimia":
                 col1, col2 = st.columns(2)
 
                 with col1:
-                    st.markdown("""
-                    <div class="card">
-                    <h3>🔵 Reaktan</h3>
-                    </div>
-                    """, unsafe_allow_html=True)
+                    st.markdown("<div class='card'><h3>🔵 Reaktan</h3></div>", unsafe_allow_html=True)
                     st.write(left.strip())
 
                 with col2:
-                    st.markdown("""
-                    <div class="card">
-                    <h3>🟢 Produk</h3>
-                    </div>
-                    """, unsafe_allow_html=True)
+                    st.markdown("<div class='card'><h3>🟢 Produk</h3></div>", unsafe_allow_html=True)
                     st.write(right.strip())
 
-                st.success("Berhasil diproses!")
+                st.success("Berhasil!")
 
             except:
                 st.error("Format salah!")
+
+        else:
+            st.warning("Isi dulu!")
 
 # =========================
 # STOIKIOMETRI
@@ -222,44 +203,24 @@ elif menu == "🧪 Stoikiometri":
 
             mol = massa / Mr
 
-            st.markdown("""
-            <div class="card">
-            <h3>📊 Hasil</h3>
-            </div>
-            """, unsafe_allow_html=True)
-
+            st.markdown("<div class='card'><h3>📊 Hasil</h3></div>", unsafe_allow_html=True)
             st.success(f"{mol:.4f} mol")
 
         else:
             st.warning("Mr tidak boleh 0")
 
 # =========================
-# MATERI KIMIA
+# MATERI
 # =========================
-elif menu == "📘 Materi Kimia":
+elif menu == "📘 Materi":
 
-    st.title("📘 Materi Kimia Interaktif")
+    st.title("📘 Materi Kimia")
 
-    st.markdown("""
-    <div class="card">
-    <h3>⚗️ Reaksi Kimia</h3>
-    Reaksi kimia adalah proses perubahan zat menjadi zat baru.
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown("<div class='card'><h3>⚗️ Reaksi Kimia</h3><p>Perubahan zat menjadi zat baru.</p></div>", unsafe_allow_html=True)
 
-    st.markdown("""
-    <div class="card">
-    <h3>🧪 Stoikiometri</h3>
-    Cabang kimia yang mempelajari hubungan kuantitatif zat dalam reaksi.
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown("<div class='card'><h3>🧪 Stoikiometri</h3><p>Hubungan kuantitatif dalam reaksi.</p></div>", unsafe_allow_html=True)
 
-    st.markdown("""
-    <div class="card">
-    <h3>💡 Contoh Reaksi</h3>
-    2H₂ + O₂ → 2H₂O
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown("<div class='card'><h3>💡 Contoh</h3><p>2H₂ + O₂ → 2H₂O</p></div>", unsafe_allow_html=True)
 
 # =========================
 # KELOMPOK
@@ -277,8 +238,4 @@ elif menu == "👥 Kelompok 10":
     ]
 
     for m in members:
-        st.markdown(f"""
-        <div class="card">
-        {m}
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown(f"<div class='card'>{m}</div>", unsafe_allow_html=True)

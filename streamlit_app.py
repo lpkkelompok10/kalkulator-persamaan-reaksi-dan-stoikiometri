@@ -25,30 +25,7 @@ def load_lottie(url):
     return None
 
 # =========================
-# SOUND (OPTIONAL)
-# =========================
-def play_click_sound():
-    audio_file = "https://www.soundjay.com/buttons/sounds/button-16.mp3"
-    st.markdown(f"""
-    <audio autoplay>
-        <source src="{audio_file}" type="audio/mpeg">
-    </audio>
-    """, unsafe_allow_html=True)
-
-# =========================
-# TYPING EFFECT (CINEMATIC)
-# =========================
-def type_text(text, delay=0.02):
-    placeholder = st.empty()
-    typed = ""
-
-    for char in text:
-        typed += char
-        time.sleep(delay)
-        placeholder.markdown(f"### {typed}")
-
-# =========================
-# 🎬 SPLASH SCREEN
+# 🎬 SPLASH SCREEN (CHEMICAL ANALYST INTRO)
 # =========================
 splash = st.empty()
 
@@ -64,6 +41,7 @@ with splash.container():
         font-weight:bold;
         color:#1f4f8b;
         margin-top:40px;
+        animation: fadeIn 1s ease;
     }
 
     .intro-sub{
@@ -71,22 +49,29 @@ with splash.container():
         color:#4d6fa3;
         font-size:18px;
     }
+
+    @keyframes fadeIn {
+        from {opacity:0;}
+        to {opacity:1;}
+    }
     </style>
     """, unsafe_allow_html=True)
 
     st.markdown("<div class='intro-title'>🧑‍🔬 CHEMICAL ANALYST LAB</div>", unsafe_allow_html=True)
-    st.markdown("<div class='intro-sub'>Initializing Simulation System...</div>", unsafe_allow_html=True)
+    st.markdown("<div class='intro-sub'>Initializing Chemistry Simulation System...</div>", unsafe_allow_html=True)
 
     if intro_anim:
-        st_lottie(intro_anim, height=300)
+        st_lottie(intro_anim, height=320)
 
+    # =========================
+    # LOADING BAR (NASA STYLE)
+    # =========================
     progress = st.progress(0)
     status = st.empty()
 
     for i in range(100):
-        time.sleep(0.01)
+        time.sleep(0.02)
         progress.progress(i + 1)
-
         if i < 30:
             status.write("⚗️ Loading atoms...")
         elif i < 60:
@@ -94,26 +79,29 @@ with splash.container():
         elif i < 90:
             status.write("🔬 Calibrating reactions...")
         else:
-            status.write("✅ Ready!")
+            status.write("✅ System ready!")
 
     time.sleep(0.5)
 
 splash.empty()
 
 # =========================
-# STYLE (TETAP PUNYAMU + CLEAN)
+# STYLE (FINAL CLEAN POLISH)
 # =========================
 st.markdown("""
 <style>
 
+/* background */
 .stApp {
     background: #f4f8ff;
 }
 
+/* sidebar */
 [data-testid="stSidebar"] {
     background: linear-gradient(180deg, #e6f0ff, #f9fbff);
 }
 
+/* sidebar items */
 section[data-testid="stSidebar"] div[role="radiogroup"] > label {
     background: white;
     padding: 10px;
@@ -129,6 +117,7 @@ section[data-testid="stSidebar"] div[role="radiogroup"] > label:hover {
     box-shadow: 0px 10px 22px rgba(0,0,0,0.12);
 }
 
+/* card */
 .card {
     background: white;
     padding: 22px;
@@ -143,6 +132,7 @@ section[data-testid="stSidebar"] div[role="radiogroup"] > label:hover {
     box-shadow: 0px 18px 35px rgba(0,0,0,0.15);
 }
 
+/* button */
 .stButton>button {
     background-color: #4da3ff;
     color: white;
@@ -157,6 +147,7 @@ section[data-testid="stSidebar"] div[role="radiogroup"] > label:hover {
     transform: scale(1.05);
 }
 
+/* title */
 h1, h2, h3 {
     color: #1f4f8b;
 }
@@ -177,13 +168,14 @@ menu = st.sidebar.radio(
 # =========================
 if menu == "🏠 Home":
 
-    type_text("🧑‍🔬 Initializing Chemical System...", 0.02)
-    time.sleep(0.3)
-    type_text("⚗️ Loading Reaction Engine...", 0.02)
-    time.sleep(0.3)
-    type_text("🧪 Loading Stoichiometry Module...", 0.02)
-    time.sleep(0.3)
-    type_text("✅ System Ready", 0.02)
+    st.markdown("""
+    <div style="text-align:center; padding:20px">
+        <h1>⚗️ Kalkulator Persamaan Reaksi Kimia dan Stoikiometri</h1>
+        <p style="font-size:18px; color:#4d6fa3">
+        Chemistry Simulation Lab
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
 
     st.markdown("---")
 
@@ -220,19 +212,22 @@ if menu == "🏠 Home":
     <h2>📘 Tentang & Kegunaan Kalkulator</h2>
 
     <p>
-    Aplikasi ini dibuat untuk membantu memahami konsep dasar kimia seperti reaksi kimia dan stoikiometri secara interaktif dan mudah.
+    Aplikasi ini dibuat untuk membantu memahami konsep dasar kimia seperti reaksi kimia dan stoikiometri secara lebih mudah, cepat, dan interaktif.
+    Banyak siswa kesulitan dalam memahami perubahan zat dalam reaksi kimia serta perhitungan mol, sehingga aplikasi ini hadir sebagai solusi pembelajaran visual dan praktis.
     </p>
 
     <p>
-    Pengguna dapat memasukkan reaksi kimia, melihat hasil reaktan dan produk, serta menghitung mol secara otomatis dari massa dan Mr.
+    Dengan aplikasi ini, pengguna dapat memasukkan persamaan reaksi dan langsung memisahkan reaktan serta produk.
+    Selain itu, fitur stoikiometri membantu menghitung jumlah mol dari massa dan Mr dengan otomatis.
     </p>
 
     <p>
-    <b>Manfaat:</b><br>
-    - Belajar reaksi kimia lebih mudah<br>
-    - Latihan stoikiometri cepat<br>
-    - Mengurangi kesalahan hitung<br>
-    - Media belajar interaktif modern
+    <b>Manfaat utama:</b><br>
+    - Mempermudah belajar reaksi kimia<br>
+    - Membantu perhitungan stoikiometri<br>
+    - Mengurangi kesalahan hitung manual<br>
+    - Media belajar interaktif<br>
+    - Lebih menarik dibanding metode konvensional
     </p>
 
     </div>
@@ -248,10 +243,10 @@ elif menu == "⚗️ Reaksi Kimia":
     reaction = st.text_input("Masukkan reaksi (contoh: H2 + O2 -> H2O)")
 
     if st.button("Proses Reaksi"):
-        play_click_sound()
 
         if reaction:
-            with st.spinner("⚗️ Memproses..."):
+
+            with st.spinner("⚗️ Memproses reaksi..."):
                 time.sleep(1)
 
             try:
@@ -278,7 +273,7 @@ elif menu == "⚗️ Reaksi Kimia":
                 st.success("Reaksi berhasil diproses!")
 
             except:
-                st.error("Format salah! gunakan ->")
+                st.error("Format salah! gunakan tanda ->")
 
         else:
             st.warning("Isi dulu reaksi!")
@@ -299,9 +294,9 @@ elif menu == "🧪 Stoikiometri":
         Mr = st.number_input("Mr zat", min_value=0.0)
 
     if st.button("Hitung Mol"):
-        play_click_sound()
 
         if Mr > 0:
+
             with st.spinner("🧪 Menghitung..."):
                 time.sleep(1)
 
@@ -309,7 +304,7 @@ elif menu == "🧪 Stoikiometri":
 
             st.markdown("""
             <div class="card">
-            <h3>📊 Hasil</h3>
+            <h3>📊 Hasil Perhitungan</h3>
             </div>
             """, unsafe_allow_html=True)
 

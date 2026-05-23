@@ -1,5 +1,4 @@
 import streamlit as st
-import requests
 import time
 
 # =========================
@@ -12,17 +11,36 @@ st.set_page_config(
 )
 
 # =========================
-# STYLE SOFT BLUE MODERN
+# MODERN UI CSS (WEB APP FEEL)
 # =========================
 st.markdown("""
 <style>
+
+/* background */
 .stApp {
     background: #f5f9ff;
 }
 
 /* sidebar */
 [data-testid="stSidebar"] {
-    background: #e8f2ff;
+    background: linear-gradient(180deg, #e8f2ff, #f7fbff);
+}
+
+/* sidebar menu (radio) */
+section[data-testid="stSidebar"] div[role="radiogroup"] > label {
+    background: white;
+    padding: 10px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+    transition: all 0.25s ease;
+    box-shadow: 0px 2px 6px rgba(0,0,0,0.06);
+}
+
+/* hover sidebar (ngambang) */
+section[data-testid="stSidebar"] div[role="radiogroup"] > label:hover {
+    transform: translateX(6px);
+    background: #dbeaff;
+    box-shadow: 0px 10px 20px rgba(0,0,0,0.12);
 }
 
 /* card */
@@ -30,13 +48,15 @@ st.markdown("""
     background: white;
     padding: 20px;
     border-radius: 15px;
-    box-shadow: 0px 2px 10px rgba(0,0,0,0.08);
-    margin-bottom: 10px;
+    box-shadow: 0px 3px 12px rgba(0,0,0,0.08);
+    margin-bottom: 12px;
+    transition: all 0.25s ease;
 }
 
-/* title */
-h1, h2, h3 {
-    color: #1f4f8b;
+/* hover card (floating effect) */
+.card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0px 14px 30px rgba(0,0,0,0.18);
 }
 
 /* button */
@@ -46,27 +66,25 @@ h1, h2, h3 {
     border-radius: 10px;
     padding: 8px 16px;
     border: none;
+    transition: all 0.2s ease;
 }
 
+/* button hover */
 .stButton>button:hover {
     background-color: #1f7ae0;
+    transform: scale(1.05);
 }
+
+/* text */
+h1, h2, h3 {
+    color: #1f4f8b;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
 # =========================
-# LOTTIE FUNCTION
-# =========================
-def load_lottie(url):
-    try:
-        r = requests.get(url)
-        if r.status_code == 200:
-            return r.json()
-    except:
-        return None
-
-# =========================
-# SIDEBAR MENU
+# MENU SIDEBAR
 # =========================
 menu = st.sidebar.radio(
     "📌 Menu",
@@ -77,19 +95,14 @@ menu = st.sidebar.radio(
 # HOME
 # =========================
 if menu == "🏠 Home":
-    st.title("⚗️ Stoikiometri App - Kelompok 10")
+    st.title("⚗️ Stoikiometri App")
 
-    # Lottie animation
-    try:
-        from streamlit_lottie import st_lottie
-
-        lottie_url = "https://assets10.lottiefiles.com/packages/lf20_jtbfg2nb.json"
-        animation = load_lottie(lottie_url)
-
-        if animation:
-            st_lottie(animation, height=250)
-    except:
-        st.info("Animasi tidak aktif")
+    st.markdown("""
+    <div class="card">
+    <h3>👋 Selamat Datang</h3>
+    Aplikasi ini membantu menyetarakan reaksi kimia dan menghitung mol dengan tampilan modern.
+    </div>
+    """, unsafe_allow_html=True)
 
     col1, col2, col3 = st.columns(3)
 
@@ -97,7 +110,7 @@ if menu == "🏠 Home":
         st.markdown("""
         <div class="card">
         <h3>🔬 Reaksi</h3>
-        <p>Setarakan dan baca reaksi kimia</p>
+        Setarakan reaksi kimia
         </div>
         """, unsafe_allow_html=True)
 
@@ -105,7 +118,7 @@ if menu == "🏠 Home":
         st.markdown("""
         <div class="card">
         <h3>🧪 Mol</h3>
-        <p>Kalkulator massa ke mol</p>
+        Hitung massa ke mol
         </div>
         """, unsafe_allow_html=True)
 
@@ -113,7 +126,7 @@ if menu == "🏠 Home":
         st.markdown("""
         <div class="card">
         <h3>👥 Kelompok</h3>
-        <p>Anggota Kelompok 10</p>
+        Data anggota kelompok 10
         </div>
         """, unsafe_allow_html=True)
 
@@ -184,11 +197,11 @@ elif menu == "🧪 Mol":
 
             st.markdown("""
             <div class="card">
-            <h3>📊 Hasil</h3>
+            <h3>📊 Hasil Perhitungan</h3>
             </div>
             """, unsafe_allow_html=True)
 
-            st.success(f"{mol:.4f} mol")
+            st.success(f"Hasil = {mol:.4f} mol")
 
         else:
             st.warning("Mr tidak boleh 0")

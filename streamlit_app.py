@@ -1,5 +1,7 @@
 import streamlit as st
 import time
+import requests
+from streamlit_lottie import st_lottie
 
 # =========================
 # CONFIG
@@ -11,53 +13,78 @@ st.set_page_config(
 )
 
 # =========================
-# STYLE (FINAL CLEAN POLISH)
+# LOTTIE
+# =========================
+def load_lottie(url):
+    try:
+        r = requests.get(url)
+        if r.status_code == 200:
+            return r.json()
+    except:
+        return None
+    return None
+
+# =========================
+# STYLE (SAFE + SMOKE + GLOW EFFECT)
 # =========================
 st.markdown("""
 <style>
 
-/* background */
+/* BACKGROUND */
 .stApp {
     background: #f4f8ff;
+    position: relative;
+    overflow: hidden;
 }
 
-/* sidebar */
-[data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #e6f0ff, #f9fbff);
+/* 🌫️ SMOKE SAFE */
+.smoke {
+    position: fixed;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(77,163,255,0.25), transparent 60%);
+    filter: blur(80px);
+    top: -100px;
+    left: -150px;
+    animation: floatSmoke 14s infinite ease-in-out;
+    z-index: 0;
+    pointer-events: none;
 }
 
-/* sidebar items */
-section[data-testid="stSidebar"] div[role="radiogroup"] > label {
+.smoke2 {
+    position: fixed;
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(31,79,139,0.18), transparent 60%);
+    filter: blur(90px);
+    bottom: -200px;
+    right: -200px;
+    animation: floatSmoke 18s infinite ease-in-out;
+    z-index: 0;
+    pointer-events: none;
+}
+
+@keyframes floatSmoke {
+    0% {transform: translate(0,0) scale(1); opacity:0.4;}
+    50% {transform: translate(80px,-60px) scale(1.2); opacity:0.7;}
+    100% {transform: translate(0,0) scale(1); opacity:0.4;}
+}
+
+/* REACTION GLOW BOX */
+.reaction-box {
     background: white;
-    padding: 10px;
-    border-radius: 12px;
-    margin-bottom: 8px;
-    transition: 0.25s ease;
-    box-shadow: 0px 2px 8px rgba(0,0,0,0.05);
-}
-
-section[data-testid="stSidebar"] div[role="radiogroup"] > label:hover {
-    transform: translateX(6px);
-    background: #dbeaff;
-    box-shadow: 0px 10px 22px rgba(0,0,0,0.12);
-}
-
-/* card */
-.card {
-    background: white;
-    padding: 22px;
     border-radius: 16px;
-    box-shadow: 0px 6px 18px rgba(0,0,0,0.08);
-    margin-bottom: 12px;
-    transition: all 0.25s ease;
+    padding: 20px;
+    box-shadow: 0 0 0 rgba(77,163,255,0);
+    transition: all 0.4s ease;
 }
 
-.card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0px 18px 35px rgba(0,0,0,0.15);
+.reaction-box:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 30px rgba(77,163,255,0.4);
 }
 
-/* button */
+/* BUTTON */
 .stButton>button {
     background-color: #4da3ff;
     color: white;
@@ -72,16 +99,39 @@ section[data-testid="stSidebar"] div[role="radiogroup"] > label:hover {
     transform: scale(1.05);
 }
 
-/* title */
-h1, h2, h3 {
-    color: #1f4f8b;
+/* CARD */
+.card {
+    background: white;
+    padding: 22px;
+    border-radius: 16px;
+    box-shadow: 0px 6px 18px rgba(0,0,0,0.08);
+    margin-bottom: 12px;
+    transition: 0.25s;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0px 18px 35px rgba(0,0,0,0.15);
+}
+
+h1,h2,h3 {color:#1f4f8b;}
+
+.block-container {
+    position: relative;
+    z-index: 2;
 }
 
 </style>
 """, unsafe_allow_html=True)
 
+# smoke layer
+st.markdown("""
+<div class="smoke"></div>
+<div class="smoke2"></div>
+""", unsafe_allow_html=True)
+
 # =========================
-# SIDEBAR
+# MENU
 # =========================
 menu = st.sidebar.radio(
     "📌 Menu",
@@ -89,46 +139,35 @@ menu = st.sidebar.radio(
 )
 
 # =========================
-# HOME (LANDING PAGE POLISH)
+# HOME (CHEMICAL ANALYST INTRO)
 # =========================
 if menu == "🏠 Home":
 
+    intro = load_lottie("https://assets2.lottiefiles.com/packages/lf20_khzniaya.json")
+
     st.markdown("""
     <div style="text-align:center; padding:20px">
-        <h1>⚗️ Kalkulator Kimia</h1>
-        <p style="font-size:18px; color:#4d6fa3">
-        Persamaan Reaksi Kimia & Stoikiometri
-        </p>
+        <h1>🧑‍🔬 Chemical Analyst Lab</h1>
+        <p style="color:#4d6fa3;">Initializing Chemistry System...</p>
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown("---")
+    if intro:
+        st_lottie(intro, height=300)
 
-    col1, col2, col3 = st.columns(3)
+    progress = st.progress(0)
+    status = st.empty()
 
-    with col1:
-        st.markdown("""
-        <div class="card">
-        <h3>🔬 Reaksi Kimia</h3>
-        Analisis persamaan reaksi
-        </div>
-        """, unsafe_allow_html=True)
+    for i in range(100):
+        time.sleep(0.01)
+        progress.progress(i + 1)
 
-    with col2:
-        st.markdown("""
-        <div class="card">
-        <h3>🧪 Stoikiometri</h3>
-        Hitung mol dengan cepat
-        </div>
-        """, unsafe_allow_html=True)
-
-    with col3:
-        st.markdown("""
-        <div class="card">
-        <h3>👥 Kelompok 10</h3>
-        Informasi anggota kelompok
-        </div>
-        """, unsafe_allow_html=True)
+        if i < 30:
+            status.write("⚗️ Detecting molecules...")
+        elif i < 60:
+            status.write("🧪 Mixing compounds...")
+        else:
+            status.write("🔬 System ready!")
 
 # =========================
 # REAKSI KIMIA
@@ -143,34 +182,34 @@ elif menu == "⚗️ Reaksi Kimia":
 
         if reaction:
 
-            with st.spinner("⚗️ Memproses reaksi..."):
-                time.sleep(1.2)
+            with st.spinner("⚗️ Memproses..."):
+                time.sleep(1)
 
             try:
                 left, right = reaction.split("->")
+
+                st.markdown('<div class="reaction-box">', unsafe_allow_html=True)
 
                 col1, col2 = st.columns(2)
 
                 with col1:
                     st.markdown("""
-                    <div class="card">
-                    <h3>🔵 Reaktan</h3>
-                    </div>
+                    <div class="card"><h3>🔵 Reaktan</h3></div>
                     """, unsafe_allow_html=True)
                     st.write(left.strip())
 
                 with col2:
                     st.markdown("""
-                    <div class="card">
-                    <h3>🟢 Produk</h3>
-                    </div>
+                    <div class="card"><h3>🟢 Produk</h3></div>
                     """, unsafe_allow_html=True)
                     st.write(right.strip())
 
-                st.success("Reaksi berhasil diproses!")
+                st.markdown("</div>", unsafe_allow_html=True)
+
+                st.success("💥 Reaksi berhasil diproses!")
 
             except:
-                st.error("Format salah! gunakan tanda ->")
+                st.error("Format salah! gunakan ->")
 
         else:
             st.warning("Isi dulu reaksi!")
@@ -201,7 +240,7 @@ elif menu == "🧪 Stoikiometri":
 
             st.markdown("""
             <div class="card">
-            <h3>📊 Hasil Perhitungan</h3>
+            <h3>📊 Hasil</h3>
             </div>
             """, unsafe_allow_html=True)
 
@@ -216,12 +255,6 @@ elif menu == "🧪 Stoikiometri":
 elif menu == "👥 Kelompok 10":
 
     st.title("👥 Kelompok 10")
-
-    st.markdown("""
-    <div class="card">
-    <h3>📋 Anggota Kelompok</h3>
-    </div>
-    """, unsafe_allow_html=True)
 
     members = [
         "Faturrahman Chandika (2560774)",

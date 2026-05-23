@@ -1,5 +1,7 @@
 import streamlit as st
 import time
+import requests
+from streamlit_lottie import st_lottie
 
 # =========================
 # CONFIG
@@ -9,6 +11,79 @@ st.set_page_config(
     page_icon="⚗️",
     layout="wide"
 )
+
+# =========================
+# LOTTIE FUNCTION
+# =========================
+def load_lottie(url):
+    try:
+        r = requests.get(url)
+        if r.status_code == 200:
+            return r.json()
+    except:
+        return None
+    return None
+
+# =========================
+# 🎬 SPLASH SCREEN (CHEMICAL ANALYST INTRO)
+# =========================
+splash = st.empty()
+
+intro_anim = load_lottie("https://assets2.lottiefiles.com/packages/lf20_khzniaya.json")
+
+with splash.container():
+
+    st.markdown("""
+    <style>
+    .intro-title{
+        text-align:center;
+        font-size:42px;
+        font-weight:bold;
+        color:#1f4f8b;
+        margin-top:40px;
+        animation: fadeIn 1s ease;
+    }
+
+    .intro-sub{
+        text-align:center;
+        color:#4d6fa3;
+        font-size:18px;
+    }
+
+    @keyframes fadeIn {
+        from {opacity:0;}
+        to {opacity:1;}
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+    st.markdown("<div class='intro-title'>🧑‍🔬 CHEMICAL ANALYST LAB</div>", unsafe_allow_html=True)
+    st.markdown("<div class='intro-sub'>Initializing Chemistry Simulation System...</div>", unsafe_allow_html=True)
+
+    if intro_anim:
+        st_lottie(intro_anim, height=320)
+
+    # =========================
+    # LOADING BAR (NASA STYLE)
+    # =========================
+    progress = st.progress(0)
+    status = st.empty()
+
+    for i in range(100):
+        time.sleep(0.02)
+        progress.progress(i + 1)
+        if i < 30:
+            status.write("⚗️ Loading atoms...")
+        elif i < 60:
+            status.write("🧪 Mixing compounds...")
+        elif i < 90:
+            status.write("🔬 Calibrating reactions...")
+        else:
+            status.write("✅ System ready!")
+
+    time.sleep(0.5)
+
+splash.empty()
 
 # =========================
 # STYLE (FINAL CLEAN POLISH)
@@ -81,7 +156,7 @@ h1, h2, h3 {
 """, unsafe_allow_html=True)
 
 # =========================
-# SIDEBAR
+# SIDEBAR MENU
 # =========================
 menu = st.sidebar.radio(
     "📌 Menu",
@@ -97,7 +172,7 @@ if menu == "🏠 Home":
     <div style="text-align:center; padding:20px">
         <h1>⚗️ Kalkulator Persamaan Reaksi Kimia dan Stoikiometri</h1>
         <p style="font-size:18px; color:#4d6fa3">
-        Persamaan Reaksi Kimia & Stoikiometri
+        Chemistry Simulation Lab
         </p>
     </div>
     """, unsafe_allow_html=True)
@@ -130,9 +205,6 @@ if menu == "🏠 Home":
         </div>
         """, unsafe_allow_html=True)
 
-    # =========================
-    # 📘 PENJELASAN PANJANG (TAMBAHAN BARU)
-    # =========================
     st.markdown("---")
 
     st.markdown("""
@@ -140,28 +212,22 @@ if menu == "🏠 Home":
     <h2>📘 Tentang & Kegunaan Kalkulator</h2>
 
     <p>
-    Aplikasi <b>Kalkulator Persamaan Reaksi Kimia dan Stoikiometri</b> ini dibuat untuk membantu memahami konsep dasar kimia secara lebih mudah, cepat, dan interaktif.
-    Dalam pembelajaran kimia, banyak siswa sering mengalami kesulitan dalam menyeimbangkan persamaan reaksi serta menghitung perbandingan zat dalam reaksi kimia.
+    Aplikasi ini dibuat untuk membantu memahami konsep dasar kimia seperti reaksi kimia dan stoikiometri secara lebih mudah, cepat, dan interaktif.
+    Banyak siswa kesulitan dalam memahami perubahan zat dalam reaksi kimia serta perhitungan mol, sehingga aplikasi ini hadir sebagai solusi pembelajaran visual dan praktis.
     </p>
 
     <p>
-    Melalui aplikasi ini, pengguna dapat memasukkan persamaan reaksi kimia sederhana untuk kemudian dianalisis menjadi bagian reaktan dan produk.
-    Hal ini membantu dalam memahami bagaimana suatu zat berubah menjadi zat lain dalam reaksi kimia.
-    Selain itu, fitur stoikiometri memungkinkan pengguna untuk menghitung jumlah mol dari suatu zat berdasarkan massa dan Mr (massa molekul relatif), sehingga perhitungan kimia menjadi lebih praktis.
+    Dengan aplikasi ini, pengguna dapat memasukkan persamaan reaksi dan langsung memisahkan reaktan serta produk.
+    Selain itu, fitur stoikiometri membantu menghitung jumlah mol dari massa dan Mr dengan otomatis.
     </p>
 
     <p>
-    <b>Manfaat utama aplikasi ini antara lain:</b><br>
-    - Mempermudah pemahaman konsep reaksi kimia<br>
-    - Membantu latihan soal stoikiometri dengan cepat<br>
-    - Mengurangi kesalahan dalam perhitungan manual<br>
-    - Menjadi media belajar interaktif berbasis teknologi<br>
-    - Membuat pembelajaran kimia lebih menarik dan tidak membosankan
-    </p>
-
-    <p>
-    Aplikasi ini dirancang dengan tampilan sederhana agar mudah digunakan oleh pelajar.
-    Dengan sistem otomatis, pengguna dapat lebih cepat memahami konsep kimia yang sebelumnya terasa sulit.
+    <b>Manfaat utama:</b><br>
+    - Mempermudah belajar reaksi kimia<br>
+    - Membantu perhitungan stoikiometri<br>
+    - Mengurangi kesalahan hitung manual<br>
+    - Media belajar interaktif<br>
+    - Lebih menarik dibanding metode konvensional
     </p>
 
     </div>
@@ -181,7 +247,7 @@ elif menu == "⚗️ Reaksi Kimia":
         if reaction:
 
             with st.spinner("⚗️ Memproses reaksi..."):
-                time.sleep(1.2)
+                time.sleep(1)
 
             try:
                 left, right = reaction.split("->")
@@ -253,12 +319,6 @@ elif menu == "🧪 Stoikiometri":
 elif menu == "👥 Kelompok 10":
 
     st.title("👥 Kelompok 10")
-
-    st.markdown("""
-    <div class="card">
-    <h3>📋 Anggota Kelompok</h3>
-    </div>
-    """, unsafe_allow_html=True)
 
     members = [
         "Faturrahman Chandika (2560774)",

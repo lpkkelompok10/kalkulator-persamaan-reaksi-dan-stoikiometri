@@ -5,19 +5,20 @@ import time
 # CONFIG
 # =========================
 st.set_page_config(
-    page_title="Kalkulator Kimia & Stoikiometri - Kelompok 10",
+    page_title="Kalkulator Persamaan Reaksi Kimia & Stoikiometri",
     page_icon="⚗️",
     layout="wide"
 )
 
 # =========================
-# STYLE UI SOFT BLUE
+# STYLE (FINAL CLEAN POLISH)
 # =========================
 st.markdown("""
 <style>
 
+/* background */
 .stApp {
-    background: linear-gradient(180deg, #f4f8ff, #ffffff);
+    background: #f4f8ff;
 }
 
 /* sidebar */
@@ -31,13 +32,14 @@ section[data-testid="stSidebar"] div[role="radiogroup"] > label {
     padding: 10px;
     border-radius: 12px;
     margin-bottom: 8px;
-    transition: all 0.25s ease;
-    box-shadow: 0px 2px 8px rgba(0,0,0,0.06);
+    transition: 0.25s ease;
+    box-shadow: 0px 2px 8px rgba(0,0,0,0.05);
 }
 
 section[data-testid="stSidebar"] div[role="radiogroup"] > label:hover {
     transform: translateX(6px);
     background: #dbeaff;
+    box-shadow: 0px 10px 22px rgba(0,0,0,0.12);
 }
 
 /* card */
@@ -79,56 +81,29 @@ h1, h2, h3 {
 """, unsafe_allow_html=True)
 
 # =========================
-# MENU
+# SIDEBAR
 # =========================
 menu = st.sidebar.radio(
     "📌 Menu",
-    ["🏠 Home", "⚗️ Reaksi Kimia", "🧪 Stoikiometri", "📘 Materi Kimia", "👥 Kelompok 10"]
+    ["🏠 Home", "⚗️ Reaksi Kimia", "🧪 Stoikiometri", "👥 Kelompok 10"]
 )
 
 # =========================
-# HOME
+# HOME (LANDING PAGE POLISH)
 # =========================
 if menu == "🏠 Home":
 
     st.markdown("""
-    <div style="text-align:center; padding:15px">
+    <div style="text-align:center; padding:20px">
         <h1>⚗️ Kalkulator Kimia</h1>
-        <p style="color:#4d6fa3; font-size:18px">
-        Persamaan Reaksi Kimia & Stoikiometri - Kelompok 10
+        <p style="font-size:18px; color:#4d6fa3">
+        Persamaan Reaksi Kimia & Stoikiometri
         </p>
     </div>
     """, unsafe_allow_html=True)
 
-    # =========================
-    # GAMBAR 1 - MOLEKUL AIR
-    # =========================
-    st.markdown("### 🔬 Visual Molekul Kimia")
-
-    st.image(
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Water_molecule_3D.svg/800px-Water_molecule_3D.svg.png",
-        caption="Struktur Molekul Air (H₂O)",
-        use_container_width=True
-    )
-
     st.markdown("---")
 
-    # =========================
-    # GAMBAR 2 - TABEL PERIODIK
-    # =========================
-    st.markdown("### 🧪 Tabel Periodik Unsur")
-
-    st.image(
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Periodic_table_large.png/800px-Periodic_table_large.png",
-        caption="Tabel Periodik Unsur",
-        use_container_width=True
-    )
-
-    st.markdown("---")
-
-    # =========================
-    # FEATURE CARDS
-    # =========================
     col1, col2, col3 = st.columns(3)
 
     with col1:
@@ -150,33 +125,8 @@ if menu == "🏠 Home":
     with col3:
         st.markdown("""
         <div class="card">
-        <h3>📘 Materi</h3>
-        Belajar kimia interaktif
-        </div>
-        """, unsafe_allow_html=True)
-
-    st.markdown("---")
-
-    # =========================
-    # ABOUT BUTTON
-    # =========================
-    if st.button("📌 Tentang Aplikasi"):
-
-        st.markdown("""
-        <div class="card">
-        <h2>📘 Tentang Aplikasi</h2>
-
-        Aplikasi ini dibuat untuk membantu pembelajaran kimia interaktif.
-
-        <h3>🎯 Tujuan:</h3>
-        - Memahami reaksi kimia  
-        - Menghitung stoikiometri  
-        - Media belajar interaktif  
-
-        <h3>💡 Manfaat:</h3>
-        - Lebih mudah dipahami  
-        - Visualisasi konsep kimia  
-        - Latihan soal cepat  
+        <h3>👥 Kelompok 10</h3>
+        Informasi anggota kelompok
         </div>
         """, unsafe_allow_html=True)
 
@@ -189,12 +139,12 @@ elif menu == "⚗️ Reaksi Kimia":
 
     reaction = st.text_input("Masukkan reaksi (contoh: H2 + O2 -> H2O)")
 
-    if st.button("Proses"):
+    if st.button("Proses Reaksi"):
 
         if reaction:
 
-            with st.spinner("⚗️ Memproses..."):
-                time.sleep(1)
+            with st.spinner("⚗️ Memproses reaksi..."):
+                time.sleep(1.2)
 
             try:
                 left, right = reaction.split("->")
@@ -217,10 +167,10 @@ elif menu == "⚗️ Reaksi Kimia":
                     """, unsafe_allow_html=True)
                     st.write(right.strip())
 
-                st.success("Berhasil diproses!")
+                st.success("Reaksi berhasil diproses!")
 
             except:
-                st.error("Format salah! gunakan ->")
+                st.error("Format salah! gunakan tanda ->")
 
         else:
             st.warning("Isi dulu reaksi!")
@@ -240,9 +190,10 @@ elif menu == "🧪 Stoikiometri":
     with col2:
         Mr = st.number_input("Mr zat", min_value=0.0)
 
-    if st.button("Hitung"):
+    if st.button("Hitung Mol"):
 
         if Mr > 0:
+
             with st.spinner("🧪 Menghitung..."):
                 time.sleep(1)
 
@@ -250,7 +201,7 @@ elif menu == "🧪 Stoikiometri":
 
             st.markdown("""
             <div class="card">
-            <h3>📊 Hasil</h3>
+            <h3>📊 Hasil Perhitungan</h3>
             </div>
             """, unsafe_allow_html=True)
 
@@ -260,39 +211,17 @@ elif menu == "🧪 Stoikiometri":
             st.warning("Mr tidak boleh 0")
 
 # =========================
-# MATERI KIMIA
-# =========================
-elif menu == "📘 Materi Kimia":
-
-    st.title("📘 Materi Kimia Interaktif")
-
-    st.markdown("""
-    <div class="card">
-    <h3>⚗️ Reaksi Kimia</h3>
-    Reaksi kimia adalah perubahan zat menjadi zat baru.
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown("""
-    <div class="card">
-    <h3>🧪 Stoikiometri</h3>
-    Cabang kimia yang mempelajari hubungan kuantitatif zat dalam reaksi.
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown("""
-    <div class="card">
-    <h3>💡 Contoh</h3>
-    2H₂ + O₂ → 2H₂O
-    </div>
-    """, unsafe_allow_html=True)
-
-# =========================
 # KELOMPOK 10
 # =========================
 elif menu == "👥 Kelompok 10":
 
     st.title("👥 Kelompok 10")
+
+    st.markdown("""
+    <div class="card">
+    <h3>📋 Anggota Kelompok</h3>
+    </div>
+    """, unsafe_allow_html=True)
 
     members = [
         "Faturrahman Chandika (2560774)",

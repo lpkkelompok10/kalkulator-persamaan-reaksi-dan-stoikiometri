@@ -27,28 +27,45 @@ atom = load_lottie("https://assets9.lottiefiles.com/packages/lf20_yd8qxj.json")
 lab = load_lottie("https://assets2.lottiefiles.com/packages/lf20_w51pcehl.json")
 
 # =========================
-# STYLE CINEMATIC CLEAN
+# STYLE + PARTICLE BACKGROUND
 # =========================
 st.markdown("""
 <style>
 
 .stApp {
     background: radial-gradient(circle at top, #eaf3ff, #ffffff);
+    overflow-x: hidden;
 }
 
-.title {
-    text-align: center;
-    font-size: 42px;
-    font-weight: bold;
+/* FLOAT ANIMATION */
+.float-box {
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+}
+
+/* PARTICLE BACKGROUND */
+.particle {
+    position: fixed;
+    width: 6px;
+    height: 6px;
+    background: rgba(100,150,255,0.4);
+    border-radius: 50%;
+    animation: move 10s linear infinite;
+}
+
+@keyframes move {
+    0% { transform: translateY(100vh); opacity: 0; }
+    50% { opacity: 1; }
+    100% { transform: translateY(-10vh); opacity: 0; }
+}
+
+h1, h2, h3 {
     color: #1f4f8b;
-    margin-bottom: 0px;
-}
-
-.subtitle {
-    text-align: center;
-    color: #4d6fa3;
-    font-size: 18px;
-    margin-bottom: 20px;
 }
 
 .card {
@@ -73,41 +90,41 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # =========================
-# HEADER CINEMATIC
+# PARTICLE GENERATOR (VISUAL FAKE BACKGROUND)
 # =========================
-st.markdown("<div class='title'>⚗️ CHEMISTRY SIMULATION LAB</div>", unsafe_allow_html=True)
-st.markdown("<div class='subtitle'>Kalkulator Persamaan Reaksi Kimia & Stoikiometri - Kelompok 10</div>", unsafe_allow_html=True)
+st.markdown("""
+<div class="particle" style="left:10%; animation-delay:0s;"></div>
+<div class="particle" style="left:25%; animation-delay:2s;"></div>
+<div class="particle" style="left:40%; animation-delay:4s;"></div>
+<div class="particle" style="left:60%; animation-delay:1s;"></div>
+<div class="particle" style="left:75%; animation-delay:3s;"></div>
+<div class="particle" style="left:90%; animation-delay:5s;"></div>
+""", unsafe_allow_html=True)
 
 # =========================
-# INTRO PENJELASAN (REQUEST KAMU)
+# HEADER
 # =========================
-with st.expander("📘 Apa kegunaan aplikasi ini? (Klik untuk lihat)"):
-    st.markdown("""
-    Aplikasi ini digunakan untuk:
-    
-    - Menghitung dan memahami **persamaan reaksi kimia**
-    - Menghitung **stoikiometri (mol, massa, Mr)**
-    - Membantu belajar kimia secara **visual dan interaktif**
-    
-    💡 Cocok untuk latihan soal dan pembelajaran di kelas.
-    """)
-
-st.markdown("---")
+st.title("⚗️ Kalkulator Persamaan Reaksi & Stoikiometri")
+st.markdown("### 🌌 Chemistry Cinematic Lab Mode")
 
 # =========================
-# ANIMASI
+# ANIMASI FLOATING
 # =========================
 col1, col2 = st.columns(2)
 
 with col1:
     st.markdown("### ⚛️ Atom Simulation")
     if atom:
+        st.markdown('<div class="float-box">', unsafe_allow_html=True)
         st_lottie(atom, height=280)
+        st.markdown('</div>', unsafe_allow_html=True)
 
 with col2:
     st.markdown("### 🧑‍🔬 Lab Simulation")
     if lab:
+        st.markdown('<div class="float-box">', unsafe_allow_html=True)
         st_lottie(lab, height=280)
+        st.markdown('</div>', unsafe_allow_html=True)
 
 st.markdown("---")
 
@@ -143,11 +160,11 @@ if menu == "🏠 Home":
         st.markdown("<div class='card'><h3>📘 Materi</h3></div>", unsafe_allow_html=True)
 
 # =========================
-# REAKSI KIMIA (EXPANDED + LEBIH BANYAK)
+# REAKSI KIMIA
 # =========================
 elif menu == "⚗️ Reaksi Kimia":
 
-    st.title("⚗️ Simulasi Persamaan Reaksi Kimia")
+    st.title("⚗️ Simulasi Reaksi Kimia")
 
     reaction = st.selectbox(
         "Pilih Reaksi",
@@ -157,11 +174,13 @@ elif menu == "⚗️ Reaksi Kimia":
             "C + O2 -> CO2",
             "Fe + O2 -> Fe2O3",
             "CH4 + O2 -> CO2 + H2O",
-            "CaCO3 -> CaO + CO2"
+            "CaCO3 -> CaO + CO2",
+            "Mg + O2 -> MgO",
+            "Al + O2 -> Al2O3"
         ]
     )
 
-    if st.button("Jalankan Reaksi"):
+    if st.button("Jalankan"):
 
         with st.spinner("Memproses reaksi..."):
             time.sleep(1)
@@ -178,7 +197,7 @@ elif menu == "⚗️ Reaksi Kimia":
             st.markdown("<div class='card'><h3>🟢 Produk</h3></div>", unsafe_allow_html=True)
             st.write(right.strip())
 
-        st.success("Reaksi selesai diproses!")
+        st.success("Reaksi selesai!")
 
 # =========================
 # STOIKIOMETRI
@@ -211,19 +230,9 @@ elif menu == "📘 Materi":
 
     st.title("📘 Materi Kimia")
 
-    st.markdown("""
-    <div class='card'>
-    <h3>⚗️ Reaksi Kimia</h3>
-    Perubahan zat menjadi zat baru
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown("<div class='card'><h3>⚗️ Reaksi Kimia</h3><p>Perubahan zat menjadi zat baru</p></div>", unsafe_allow_html=True)
 
-    st.markdown("""
-    <div class='card'>
-    <h3>🧪 Stoikiometri</h3>
-    Hubungan kuantitatif dalam reaksi kimia
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown("<div class='card'><h3>🧪 Stoikiometri</h3><p>Hubungan kuantitatif reaksi</p></div>", unsafe_allow_html=True)
 
 # =========================
 # KELOMPOK

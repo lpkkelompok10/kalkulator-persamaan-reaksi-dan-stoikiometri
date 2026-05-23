@@ -2,3 +2,4 @@ streamlit
 chempy==0.8.4
 requests
 streamlit-lottie
+pillow

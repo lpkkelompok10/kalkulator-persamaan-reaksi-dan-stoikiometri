@@ -11,7 +11,7 @@ st.set_page_config(
 )
 
 # =========================
-# STYLE (FINAL CLEAN POLISH + CHEMICAL SMOKE)
+# STYLE (SAFE VERSION + SMOKE EFFECT AMAN)
 # =========================
 st.markdown("""
 <style>
@@ -23,36 +23,40 @@ st.markdown("""
     overflow: hidden;
 }
 
-/* 🌫️ CHEMICAL SMOKE EFFECT */
-.stApp::before,
-.stApp::after {
-    content: "";
-    position: absolute;
-    width: 400px;
-    height: 400px;
+/* 🌫️ SAFE CHEMICAL SMOKE (NO ::before / ::after) */
+.smoke {
+    position: fixed;
+    width: 600px;
+    height: 600px;
     background: radial-gradient(circle, rgba(77,163,255,0.25), transparent 60%);
-    filter: blur(60px);
-    animation: smokeMove 12s infinite ease-in-out;
+    filter: blur(80px);
+    top: -100px;
+    left: -150px;
+    animation: floatSmoke 12s infinite ease-in-out;
     z-index: 0;
     pointer-events: none;
 }
 
-.stApp::after {
-    width: 500px;
-    height: 500px;
+.smoke2 {
+    position: fixed;
+    width: 700px;
+    height: 700px;
     background: radial-gradient(circle, rgba(31,79,139,0.18), transparent 60%);
-    top: 60%;
-    left: 60%;
-    animation-duration: 16s;
+    filter: blur(90px);
+    bottom: -200px;
+    right: -200px;
+    animation: floatSmoke 16s infinite ease-in-out;
+    z-index: 0;
+    pointer-events: none;
 }
 
-@keyframes smokeMove {
+@keyframes floatSmoke {
     0% {
         transform: translate(0px, 0px) scale(1);
         opacity: 0.4;
     }
     50% {
-        transform: translate(120px, -80px) scale(1.3);
+        transform: translate(80px, -60px) scale(1.2);
         opacity: 0.7;
     }
     100% {
@@ -61,7 +65,7 @@ st.markdown("""
     }
 }
 
-/* FIX LAYER UI DI ATAS SMOKE */
+/* layer fix */
 .block-container {
     position: relative;
     z-index: 2;
@@ -124,6 +128,14 @@ h1, h2, h3 {
 }
 
 </style>
+""", unsafe_allow_html=True)
+
+# =========================
+# SAFE SMOKE LAYER (WAJIB ADA DI UI)
+# =========================
+st.markdown("""
+<div class="smoke"></div>
+<div class="smoke2"></div>
 """, unsafe_allow_html=True)
 
 # =========================
@@ -190,7 +202,7 @@ elif menu == "⚗️ Reaksi Kimia":
         if reaction:
 
             with st.spinner("⚗️ Memproses reaksi..."):
-                time.sleep(1.2)
+                time.sleep(1)
 
             try:
                 left, right = reaction.split("->")

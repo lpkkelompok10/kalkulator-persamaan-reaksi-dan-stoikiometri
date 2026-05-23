@@ -1,5 +1,6 @@
 import streamlit as st
 import time
+from PIL import Image, ImageDraw
 
 # =========================
 # CONFIG
@@ -11,68 +12,83 @@ st.set_page_config(
 )
 
 # =========================
-# THEME TOGGLE (FINAL BONUS)
+# STYLE
 # =========================
-theme = st.sidebar.selectbox("🎨 Theme", ["Light", "Soft Dark"])
-
-if theme == "Soft Dark":
-    bg = "#0f172a"
-    card = "#1e293b"
-    text = "white"
-    subtext = "#cbd5e1"
-else:
-    bg = "#f4f8ff"
-    card = "white"
-    text = "#1f4f8b"
-    subtext = "#4d6fa3"
-
-# =========================
-# GLOBAL STYLE
-# =========================
-st.markdown(f"""
+st.markdown("""
 <style>
 
-.stApp {{
-    background: {bg};
-    color: {text};
-}}
+.stApp {
+    background: linear-gradient(180deg, #f4f8ff, #ffffff);
+}
 
-.card {{
-    background: {card};
-    padding: 22px;
-    border-radius: 16px;
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
     box-shadow: 0px 6px 18px rgba(0,0,0,0.08);
     margin-bottom: 12px;
     transition: 0.25s ease;
-}}
+}
 
-.card:hover {{
+.card:hover {
     transform: translateY(-6px);
-}}
+}
 
-h1, h2, h3 {{
-    color: {text};
-}}
+h1, h2, h3 {
+    color: #1f4f8b;
+}
 
-p {{
-    color: {subtext};
-}}
-
-.stButton>button {{
+.stButton>button {
     background-color: #4da3ff;
     color: white;
     border-radius: 10px;
-    padding: 8px 16px;
-    border: none;
-}}
-
-.stButton>button:hover {{
-    background-color: #1f7ae0;
-    transform: scale(1.05);
-}}
+}
 
 </style>
 """, unsafe_allow_html=True)
+
+# =========================
+# GAMBAR 1: MOLEKUL AIR (H2O)
+# =========================
+def create_water_molecule():
+    img = Image.new("RGB", (600, 400), "white")
+    draw = ImageDraw.Draw(img)
+
+    # Oxygen
+    draw.ellipse((270, 170, 330, 230), fill="red")
+    draw.text((285, 200), "O", fill="white")
+
+    # Hydrogen 1
+    draw.ellipse((180, 100, 230, 150), fill="blue")
+    draw.text((200, 120), "H", fill="white")
+    draw.line((270, 200, 210, 130), fill="black", width=3)
+
+    # Hydrogen 2
+    draw.ellipse((370, 100, 420, 150), fill="blue")
+    draw.text((390, 120), "H", fill="white")
+    draw.line((330, 200, 395, 130), fill="black", width=3)
+
+    return img
+
+# =========================
+# GAMBAR 2: TABEL PERIODIK MINI
+# =========================
+def create_periodic_table():
+    img = Image.new("RGB", (600, 300), "white")
+    draw = ImageDraw.Draw(img)
+
+    elements = ["H", "He", "Li", "Be", "B", "C", "N", "O", "F", "Ne"]
+
+    x, y = 20, 20
+    for i, el in enumerate(elements):
+        draw.rectangle((x, y, x+50, y+50), outline="black")
+        draw.text((x+15, y+15), el, fill="black")
+        x += 55
+        if (i+1) % 5 == 0:
+            x = 20
+            y += 60
+
+    return img
 
 # =========================
 # MENU
@@ -87,59 +103,45 @@ menu = st.sidebar.radio(
 # =========================
 if menu == "🏠 Home":
 
-    st.markdown("""
-    <div style="text-align:center; padding:10px">
-        <h1>⚗️ Kalkulator Kimia</h1>
-        <p>Persamaan Reaksi Kimia & Stoikiometri - Kelompok 10</p>
-    </div>
-    """, unsafe_allow_html=True)
+    st.title("⚗️ Kalkulator Kimia & Stoikiometri")
 
-    # GAMBAR 1
-    st.image(
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Water_molecule_3D.svg/800px-Water_molecule_3D.svg.png",
-        caption="Struktur Molekul Air (H₂O)",
-        use_container_width=True
-    )
+    st.markdown("### 🔬 Visual Molekul Air (H₂O)")
+    st.image(create_water_molecule(), use_container_width=True)
 
-    # GAMBAR 2
-    st.image(
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Periodic_table_large.png/800px-Periodic_table_large.png",
-        caption="Tabel Periodik Unsur",
-        use_container_width=True
-    )
+    st.markdown("### 🧪 Tabel Periodik Mini")
+    st.image(create_periodic_table(), use_container_width=True)
 
     st.markdown("---")
 
     col1, col2, col3 = st.columns(3)
 
     with col1:
-        st.markdown("<div class='card'><h3>🔬 Reaksi</h3><p>Analisis reaksi kimia</p></div>", unsafe_allow_html=True)
+        st.markdown("<div class='card'><h3>🔬 Reaksi Kimia</h3></div>", unsafe_allow_html=True)
 
     with col2:
-        st.markdown("<div class='card'><h3>🧪 Stoikiometri</h3><p>Hitung mol otomatis</p></div>", unsafe_allow_html=True)
+        st.markdown("<div class='card'><h3>🧪 Stoikiometri</h3></div>", unsafe_allow_html=True)
 
     with col3:
-        st.markdown("<div class='card'><h3>📘 Materi</h3><p>Belajar kimia dasar</p></div>", unsafe_allow_html=True)
+        st.markdown("<div class='card'><h3>📘 Materi</h3></div>", unsafe_allow_html=True)
 
     st.markdown("---")
 
     if st.button("📌 Tentang Aplikasi"):
-
         st.markdown("""
         <div class="card">
         <h2>📘 Tentang Aplikasi</h2>
 
-        Aplikasi ini dibuat untuk membantu pembelajaran kimia secara interaktif.
+        Aplikasi ini dibuat untuk membantu pembelajaran kimia.
 
         <h3>🎯 Tujuan</h3>
         - Memahami reaksi kimia  
         - Menghitung stoikiometri  
-        - Media belajar modern  
+        - Media belajar interaktif  
 
         <h3>💡 Manfaat</h3>
-        - Lebih mudah dipahami  
-        - Visual interaktif  
-        - Latihan cepat  
+        - 100% tanpa error gambar  
+        - Jalan offline  
+        - Visual sederhana tapi jelas  
 
         </div>
         """, unsafe_allow_html=True)
@@ -151,12 +153,11 @@ elif menu == "⚗️ Reaksi Kimia":
 
     st.title("⚗️ Persamaan Reaksi Kimia")
 
-    reaction = st.text_input("Masukkan reaksi (contoh: H2 + O2 -> H2O)")
+    reaction = st.text_input("Contoh: H2 + O2 -> H2O")
 
     if st.button("Proses"):
-
         if reaction:
-            with st.spinner("⚗️ Memproses reaksi..."):
+            with st.spinner("Memproses..."):
                 time.sleep(1)
 
             try:
@@ -177,9 +178,6 @@ elif menu == "⚗️ Reaksi Kimia":
             except:
                 st.error("Format salah!")
 
-        else:
-            st.warning("Isi dulu!")
-
 # =========================
 # STOIKIOMETRI
 # =========================
@@ -196,16 +194,13 @@ elif menu == "🧪 Stoikiometri":
         Mr = st.number_input("Mr zat", min_value=0.0)
 
     if st.button("Hitung"):
-
         if Mr > 0:
-            with st.spinner("🧪 Menghitung..."):
+            with st.spinner("Menghitung..."):
                 time.sleep(1)
 
             mol = massa / Mr
-
             st.markdown("<div class='card'><h3>📊 Hasil</h3></div>", unsafe_allow_html=True)
             st.success(f"{mol:.4f} mol")
-
         else:
             st.warning("Mr tidak boleh 0")
 
@@ -219,8 +214,6 @@ elif menu == "📘 Materi":
     st.markdown("<div class='card'><h3>⚗️ Reaksi Kimia</h3><p>Perubahan zat menjadi zat baru.</p></div>", unsafe_allow_html=True)
 
     st.markdown("<div class='card'><h3>🧪 Stoikiometri</h3><p>Hubungan kuantitatif dalam reaksi.</p></div>", unsafe_allow_html=True)
-
-    st.markdown("<div class='card'><h3>💡 Contoh</h3><p>2H₂ + O₂ → 2H₂O</p></div>", unsafe_allow_html=True)
 
 # =========================
 # KELOMPOK

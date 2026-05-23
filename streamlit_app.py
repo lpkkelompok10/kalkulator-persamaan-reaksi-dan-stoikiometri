@@ -1,5 +1,7 @@
 import streamlit as st
 import time
+import requests
+from streamlit_lottie import st_lottie
 
 # =========================
 # CONFIG
@@ -11,7 +13,80 @@ st.set_page_config(
 )
 
 # =========================
-# STYLE (AMAN + SMOKE RINGAN)
+# LOTTIE FUNCTION
+# =========================
+def load_lottie(url):
+    try:
+        r = requests.get(url)
+        if r.status_code == 200:
+            return r.json()
+    except:
+        return None
+    return None
+
+# =========================
+# 🎬 SPLASH SCREEN (CHEMICAL ANALYST INTRO)
+# =========================
+splash = st.empty()
+
+intro_anim = load_lottie("https://assets2.lottiefiles.com/packages/lf20_khzniaya.json")
+
+with splash.container():
+
+    st.markdown("""
+    <style>
+    .intro-title{
+        text-align:center;
+        font-size:42px;
+        font-weight:bold;
+        color:#1f4f8b;
+        margin-top:40px;
+        animation: fadeIn 1s ease;
+    }
+
+    .intro-sub{
+        text-align:center;
+        color:#4d6fa3;
+        font-size:18px;
+    }
+
+    @keyframes fadeIn {
+        from {opacity:0;}
+        to {opacity:1;}
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+    st.markdown("<div class='intro-title'>🧑‍🔬 CHEMICAL ANALYST LAB</div>", unsafe_allow_html=True)
+    st.markdown("<div class='intro-sub'>Initializing Chemistry Simulation System...</div>", unsafe_allow_html=True)
+
+    if intro_anim:
+        st_lottie(intro_anim, height=320)
+
+    # =========================
+    # LOADING BAR (NASA STYLE)
+    # =========================
+    progress = st.progress(0)
+    status = st.empty()
+
+    for i in range(100):
+        time.sleep(0.02)
+        progress.progress(i + 1)
+        if i < 30:
+            status.write("⚗️ Loading atoms...")
+        elif i < 60:
+            status.write("🧪 Mixing compounds...")
+        elif i < 90:
+            status.write("🔬 Calibrating reactions...")
+        else:
+            status.write("✅ System ready!")
+
+    time.sleep(0.5)
+
+splash.empty()
+
+# =========================
+# STYLE (FINAL CLEAN POLISH)
 # =========================
 st.markdown("""
 <style>
@@ -19,39 +94,6 @@ st.markdown("""
 /* background */
 .stApp {
     background: #f4f8ff;
-    position: relative;
-    overflow: hidden;
-}
-
-/* 🌫️ SAFE SMOKE (TANPA LOOP / TANPA CRASH) */
-.smoke {
-    position: fixed;
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(77,163,255,0.25), transparent 60%);
-    filter: blur(80px);
-    top: -120px;
-    left: -150px;
-    z-index: 0;
-    pointer-events: none;
-}
-
-.smoke2 {
-    position: fixed;
-    width: 700px;
-    height: 700px;
-    background: radial-gradient(circle, rgba(31,79,139,0.18), transparent 60%);
-    filter: blur(90px);
-    bottom: -200px;
-    right: -200px;
-    z-index: 0;
-    pointer-events: none;
-}
-
-/* UI layer fix */
-.block-container {
-    position: relative;
-    z-index: 2;
 }
 
 /* sidebar */
@@ -59,6 +101,7 @@ st.markdown("""
     background: linear-gradient(180deg, #e6f0ff, #f9fbff);
 }
 
+/* sidebar items */
 section[data-testid="stSidebar"] div[role="radiogroup"] > label {
     background: white;
     padding: 10px;
@@ -104,6 +147,7 @@ section[data-testid="stSidebar"] div[role="radiogroup"] > label:hover {
     transform: scale(1.05);
 }
 
+/* title */
 h1, h2, h3 {
     color: #1f4f8b;
 }
@@ -111,14 +155,8 @@ h1, h2, h3 {
 </style>
 """, unsafe_allow_html=True)
 
-# smoke layer
-st.markdown("""
-<div class="smoke"></div>
-<div class="smoke2"></div>
-""", unsafe_allow_html=True)
-
 # =========================
-# SIDEBAR
+# SIDEBAR MENU
 # =========================
 menu = st.sidebar.radio(
     "📌 Menu",
@@ -126,20 +164,18 @@ menu = st.sidebar.radio(
 )
 
 # =========================
-# HOME (AMAN - TANPA LOOP / TANPA LOTTIE CRASH)
+# HOME
 # =========================
 if menu == "🏠 Home":
 
     st.markdown("""
     <div style="text-align:center; padding:20px">
-        <h1>⚗️ Kalkulator Kimia</h1>
+        <h1>⚗️ Kalkulator Persamaan Reaksi Kimia dan Stoikiometri</h1>
         <p style="font-size:18px; color:#4d6fa3">
-        Persamaan Reaksi Kimia & Stoikiometri
+        Chemistry Simulation Lab
         </p>
     </div>
     """, unsafe_allow_html=True)
-
-    st.info("🧑‍🔬 Chemical Analyst System Ready")
 
     st.markdown("---")
 
@@ -168,6 +204,34 @@ if menu == "🏠 Home":
         Informasi anggota kelompok
         </div>
         """, unsafe_allow_html=True)
+
+    st.markdown("---")
+
+    st.markdown("""
+    <div class="card">
+    <h2>📘 Tentang & Kegunaan Kalkulator</h2>
+
+    <p>
+    Aplikasi ini dibuat untuk membantu memahami konsep dasar kimia seperti reaksi kimia dan stoikiometri secara lebih mudah, cepat, dan interaktif.
+    Banyak siswa kesulitan dalam memahami perubahan zat dalam reaksi kimia serta perhitungan mol, sehingga aplikasi ini hadir sebagai solusi pembelajaran visual dan praktis.
+    </p>
+
+    <p>
+    Dengan aplikasi ini, pengguna dapat memasukkan persamaan reaksi dan langsung memisahkan reaktan serta produk.
+    Selain itu, fitur stoikiometri membantu menghitung jumlah mol dari massa dan Mr dengan otomatis.
+    </p>
+
+    <p>
+    <b>Manfaat utama:</b><br>
+    - Mempermudah belajar reaksi kimia<br>
+    - Membantu perhitungan stoikiometri<br>
+    - Mengurangi kesalahan hitung manual<br>
+    - Media belajar interaktif<br>
+    - Lebih menarik dibanding metode konvensional
+    </p>
+
+    </div>
+    """, unsafe_allow_html=True)
 
 # =========================
 # REAKSI KIMIA
@@ -209,7 +273,7 @@ elif menu == "⚗️ Reaksi Kimia":
                 st.success("Reaksi berhasil diproses!")
 
             except:
-                st.error("Format salah! gunakan ->")
+                st.error("Format salah! gunakan tanda ->")
 
         else:
             st.warning("Isi dulu reaksi!")

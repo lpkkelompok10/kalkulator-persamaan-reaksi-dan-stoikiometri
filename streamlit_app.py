@@ -1,28 +1,43 @@
 import streamlit as st
-import requests
 
 # =========================
 # CONFIG
 # =========================
 st.set_page_config(
-    page_title="Kalkulator Stoikiometri",
+    page_title="Stoikiometri Kelompok 10",
     page_icon="⚗️",
-    layout="centered"
+    layout="wide"
 )
 
 # =========================
-# STYLE SIMPLE (SOFT BLUE)
+# STYLE (SOFT BLUE MODERN APP)
 # =========================
 st.markdown("""
 <style>
+
 .stApp {
-    background: #f3f8ff;
+    background: #f5f9ff;
 }
 
+/* sidebar */
+[data-testid="stSidebar"] {
+    background: #e8f2ff;
+}
+
+/* cards */
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 2px 10px rgba(0,0,0,0.08);
+}
+
+/* title */
 h1, h2, h3 {
     color: #1f4f8b;
 }
 
+/* button */
 .stButton>button {
     background-color: #4da3ff;
     color: white;
@@ -30,68 +45,135 @@ h1, h2, h3 {
     padding: 8px 16px;
     border: none;
 }
+
+.stButton>button:hover {
+    background-color: #1f7ae0;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
 # =========================
-# TITLE
+# SIDEBAR
 # =========================
-st.title("⚗️ Kalkulator Stoikiometri")
-st.write("Aplikasi sederhana untuk menyetarakan reaksi dan menghitung mol")
+menu = st.sidebar.radio(
+    "📌 Menu",
+    ["🏠 Home", "⚗️ Stoikiometri", "🧪 Mol", "👥 Kelompok 10"]
+)
 
 # =========================
-# REAKSI (SIMPEL)
+# HOME (LANDING PAGE STYLE)
 # =========================
-st.subheader("🔬 Setarakan Reaksi")
+if menu == "🏠 Home":
+    st.title("⚗️ Stoikiometri App")
 
-reaction = st.text_input("Masukkan reaksi (contoh: H2 + O2 -> H2O)")
+    col1, col2, col3 = st.columns(3)
 
-if st.button("Proses Reaksi"):
-    if reaction:
-        try:
-            left, right = reaction.split("->")
+    with col1:
+        st.markdown("""
+        <div class="card">
+        <h3>🔬 Reaksi</h3>
+        <p>Setarakan reaksi kimia dengan tampilan rapi</p>
+        </div>
+        """, unsafe_allow_html=True)
 
-            st.success("Reaksi terbaca!")
+    with col2:
+        st.markdown("""
+        <div class="card">
+        <h3>🧪 Mol</h3>
+        <p>Kalkulator mol sederhana dan cepat</p>
+        </div>
+        """, unsafe_allow_html=True)
 
-            st.write("### Reaktan")
-            st.write(left.strip())
+    with col3:
+        st.markdown("""
+        <div class="card">
+        <h3>👥 Kelompok 10</h3>
+        <p>Data anggota kelompok lengkap</p>
+        </div>
+        """, unsafe_allow_html=True)
 
-            st.write("### Produk")
-            st.write(right.strip())
+# =========================
+# STOIKIOMETRI PAGE
+# =========================
+elif menu == "⚗️ Stoikiometri":
+    st.title("⚗️ Setarakan Reaksi Kimia")
 
-        except:
-            st.error("Format salah! pakai tanda ->")
-    else:
-        st.warning("Isi dulu reaksi!")
+    reaction = st.text_input("Masukkan reaksi (contoh: H2 + O2 -> H2O)")
+
+    col1, col2 = st.columns(2)
+
+    if st.button("Proses Reaksi"):
+        if reaction:
+            try:
+                left, right = reaction.split("->")
+
+                with col1:
+                    st.markdown("""
+                    <div class="card">
+                    <h3>🔵 Reaktan</h3>
+                    </div>
+                    """, unsafe_allow_html=True)
+                    st.write(left.strip())
+
+                with col2:
+                    st.markdown("""
+                    <div class="card">
+                    <h3>🟢 Produk</h3>
+                    </div>
+                    """, unsafe_allow_html=True)
+                    st.write(right.strip())
+
+            except:
+                st.error("Format salah! gunakan ->")
+        else:
+            st.warning("Isi reaksi dulu!")
 
 # =========================
 # MOL CALCULATOR
 # =========================
-st.divider()
-st.subheader("🧪 Hitung Mol")
+elif menu == "🧪 Mol":
+    st.title("🧪 Kalkulator Mol")
 
-massa = st.number_input("Massa (gram)", min_value=0.0)
-Mr = st.number_input("Mr zat", min_value=0.0)
+    col1, col2 = st.columns(2)
 
-if st.button("Hitung"):
-    if Mr > 0:
-        mol = massa / Mr
-        st.success(f"Hasil mol = {mol:.4f}")
-    else:
-        st.warning("Mr tidak boleh 0")
+    with col1:
+        massa = st.number_input("Massa (gram)", min_value=0.0)
+
+    with col2:
+        Mr = st.number_input("Mr zat", min_value=0.0)
+
+    if st.button("Hitung Mol"):
+        if Mr > 0:
+            mol = massa / Mr
+
+            st.markdown("""
+            <div class="card">
+            <h3>📊 Hasil Perhitungan</h3>
+            </div>
+            """, unsafe_allow_html=True)
+
+            st.success(f"{mol:.4f} mol")
+        else:
+            st.warning("Mr tidak boleh 0")
 
 # =========================
 # KELOMPOK 10
 # =========================
-st.divider()
-st.title("👥 Kelompok 10")
+elif menu == "👥 Kelompok 10":
+    st.title("👥 Kelompok 10")
 
-st.markdown("""
-1. Faturrahman Chandika (2560774)  
-2. Naisyla Nazwa S. (2560705)  
-3. Nassya Alifha Rasyikha (2560710)  
-4. Reva Aulia (2560749)  
-5. Sarah Nur Ichsani (2560774)  
-""")
+    members = [
+        "Faturrahman Chandika (2560774)",
+        "Naisyla Nazwa S. (2560705)",
+        "Nassya Alifha Rasyikha (2560710)",
+        "Reva Aulia (2560749)",
+        "Sarah Nur Ichsani (2560774)"
+    ]
 
-st.success("Kelompok 10 - Stoikiometri")
+    for m in members:
+        st.markdown(f"""
+        <div class="card">
+        {m}
+        </div>
+        """, unsafe_allow_html=True)

@@ -1,24 +1,25 @@
 import streamlit as st
 import time
+import requests
 
 # =========================
 # CONFIG
 # =========================
 st.set_page_config(
-    page_title="Kalkulator Persamaan Reaksi Kimia & Stoikiometri",
+    page_title="Kalkulator Kimia - Kelompok 10",
     page_icon="⚗️",
     layout="wide"
 )
 
 # =========================
-# STYLE (FINAL CLEAN POLISH)
+# STYLE (ULTIMATE CLEAN UI)
 # =========================
 st.markdown("""
 <style>
 
 /* background */
 .stApp {
-    background: #f4f8ff;
+    background: linear-gradient(180deg, #f4f8ff, #ffffff);
 }
 
 /* sidebar */
@@ -32,32 +33,32 @@ section[data-testid="stSidebar"] div[role="radiogroup"] > label {
     padding: 10px;
     border-radius: 12px;
     margin-bottom: 8px;
-    transition: 0.25s ease;
-    box-shadow: 0px 2px 8px rgba(0,0,0,0.05);
+    transition: all 0.25s ease;
+    box-shadow: 0px 2px 8px rgba(0,0,0,0.06);
 }
 
 section[data-testid="stSidebar"] div[role="radiogroup"] > label:hover {
     transform: translateX(6px);
     background: #dbeaff;
-    box-shadow: 0px 10px 22px rgba(0,0,0,0.12);
+    box-shadow: 0px 12px 24px rgba(0,0,0,0.12);
 }
 
-/* card */
+/* CARD */
 .card {
     background: white;
     padding: 22px;
-    border-radius: 16px;
-    box-shadow: 0px 6px 18px rgba(0,0,0,0.08);
-    margin-bottom: 12px;
+    border-radius: 18px;
+    box-shadow: 0px 6px 20px rgba(0,0,0,0.08);
     transition: all 0.25s ease;
+    margin-bottom: 12px;
 }
 
 .card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0px 18px 35px rgba(0,0,0,0.15);
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0px 18px 40px rgba(0,0,0,0.15);
 }
 
-/* button */
+/* BUTTON */
 .stButton>button {
     background-color: #4da3ff;
     color: white;
@@ -72,35 +73,73 @@ section[data-testid="stSidebar"] div[role="radiogroup"] > label:hover {
     transform: scale(1.05);
 }
 
-/* title */
+/* TITLE */
 h1, h2, h3 {
     color: #1f4f8b;
+}
+
+/* CENTER HEADER */
+.header {
+    text-align: center;
+    padding: 20px;
+}
+
+.header h1 {
+    font-size: 40px;
+    margin-bottom: 0;
+}
+
+.header p {
+    color: #4d6fa3;
+    font-size: 18px;
 }
 
 </style>
 """, unsafe_allow_html=True)
 
 # =========================
-# SIDEBAR
+# LOTTIE FUNCTION
+# =========================
+def load_lottie(url):
+    try:
+        r = requests.get(url)
+        if r.status_code == 200:
+            return r.json()
+    except:
+        return None
+
+# =========================
+# SIDEBAR MENU
 # =========================
 menu = st.sidebar.radio(
-    "📌 Menu",
+    "📌 Navigation",
     ["🏠 Home", "⚗️ Reaksi Kimia", "🧪 Stoikiometri", "👥 Kelompok 10"]
 )
 
 # =========================
-# HOME (LANDING PAGE POLISH)
+# HOME (ULTIMATE LANDING PAGE)
 # =========================
 if menu == "🏠 Home":
 
     st.markdown("""
-    <div style="text-align:center; padding:20px">
+    <div class="header">
         <h1>⚗️ Kalkulator Kimia</h1>
-        <p style="font-size:18px; color:#4d6fa3">
-        Persamaan Reaksi Kimia & Stoikiometri
-        </p>
+        <p>Persamaan Reaksi Kimia & Stoikiometri - Kelompok 10</p>
     </div>
     """, unsafe_allow_html=True)
+
+    # LOTTIE ANIMATION
+    try:
+        from streamlit_lottie import st_lottie
+
+        animation = load_lottie(
+            "https://assets10.lottiefiles.com/packages/lf20_jtbfg2nb.json"
+        )
+
+        if animation:
+            st_lottie(animation, height=260)
+    except:
+        st.info("Animasi tidak aktif")
 
     st.markdown("---")
 
@@ -110,7 +149,7 @@ if menu == "🏠 Home":
         st.markdown("""
         <div class="card">
         <h3>🔬 Reaksi Kimia</h3>
-        Analisis persamaan reaksi
+        Analisis & baca persamaan reaksi
         </div>
         """, unsafe_allow_html=True)
 
@@ -118,7 +157,7 @@ if menu == "🏠 Home":
         st.markdown("""
         <div class="card">
         <h3>🧪 Stoikiometri</h3>
-        Hitung mol dengan cepat
+        Hitung mol dengan cepat & mudah
         </div>
         """, unsafe_allow_html=True)
 
@@ -144,7 +183,7 @@ elif menu == "⚗️ Reaksi Kimia":
         if reaction:
 
             with st.spinner("⚗️ Memproses reaksi..."):
-                time.sleep(1.2)
+                time.sleep(1.3)
 
             try:
                 left, right = reaction.split("->")
@@ -170,7 +209,7 @@ elif menu == "⚗️ Reaksi Kimia":
                 st.success("Reaksi berhasil diproses!")
 
             except:
-                st.error("Format salah! gunakan tanda ->")
+                st.error("Format salah! gunakan ->")
 
         else:
             st.warning("Isi dulu reaksi!")

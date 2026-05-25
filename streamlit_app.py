@@ -73,9 +73,6 @@ with splash.container():
     if intro_anim:
         st_lottie(intro_anim, height=320)
 
-    # =========================
-    # LOADING BAR
-    # =========================
     progress = st.progress(0)
     status = st.empty()
 
@@ -110,39 +107,44 @@ st.markdown("""
     overflow: hidden;
 }
 
-/* FLOATING LAB ICONS */
+/* FLOATING LAB ITEMS */
 .stApp::before {
-    content: "⚗️ 🧪 ⚱️ ⚛️ 🔬 🧫 ⚗️ 🧪";
-    position: fixed;
-    top: 5%;
-    left: 2%;
-    font-size: 70px;
-    color: rgba(255,255,255,0.5);
-    z-index: 0;
-    animation: float1 18s linear infinite;
-    pointer-events: none;
-}
+    content:
+    "⚗️      🧪           🔬
 
-.stApp::after {
-    content: "🧪 ⚗️ 🔬 ⚱️ 🧫 ⚛️";
+     ⚱️          🧫
+
+          ⚛️         ⚗️
+
+    🧪             🔬
+
+         ⚱️
+
+    🧫          ⚗️";
+
     position: fixed;
-    bottom: 10%;
-    right: 2%;
-    font-size: 60px;
-    color: rgba(255,255,255,0.45);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 55px;
+    line-height: 140px;
+    color: rgba(255,255,255,0.35);
     z-index: 0;
-    animation: float2 22s linear infinite;
     pointer-events: none;
+    animation: floating 14s ease-in-out infinite;
+    white-space: pre;
 }
 
 /* FLOAT ANIMATION */
-@keyframes float1 {
+@keyframes floating {
+
     0% {
         transform: translateY(0px) rotate(0deg);
     }
 
     50% {
-        transform: translateY(-25px) rotate(4deg);
+        transform: translateY(-20px) rotate(2deg);
     }
 
     100% {
@@ -150,26 +152,13 @@ st.markdown("""
     }
 }
 
-@keyframes float2 {
-    0% {
-        transform: translateY(0px) rotate(0deg);
-    }
-
-    50% {
-        transform: translateY(30px) rotate(-4deg);
-    }
-
-    100% {
-        transform: translateY(0px) rotate(0deg);
-    }
-}
-
-/* sidebar */
+/* SIDEBAR */
 [data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #e6f0ff, #f9fbff);
+    background: rgba(230,240,255,0.92);
+    backdrop-filter: blur(8px);
 }
 
-/* sidebar items */
+/* SIDEBAR ITEMS */
 section[data-testid="stSidebar"] div[role="radiogroup"] > label {
     background: white;
     padding: 10px;
@@ -185,14 +174,14 @@ section[data-testid="stSidebar"] div[role="radiogroup"] > label:hover {
     box-shadow: 0px 10px 22px rgba(0,0,0,0.12);
 }
 
-/* card */
+/* CARD */
 .card {
-    background: rgba(255,255,255,0.85);
+    background: rgba(255,255,255,0.88);
     backdrop-filter: blur(10px);
     padding: 22px;
     border-radius: 16px;
     box-shadow: 0px 6px 18px rgba(0,0,0,0.08);
-    margin-bottom: 12px;
+    margin-bottom: 18px;
     transition: all 0.25s ease;
     position: relative;
     z-index: 2;
@@ -203,7 +192,7 @@ section[data-testid="stSidebar"] div[role="radiogroup"] > label:hover {
     box-shadow: 0px 18px 35px rgba(0,0,0,0.15);
 }
 
-/* button */
+/* BUTTON */
 .stButton>button {
     background-color: #4da3ff;
     color: white;
@@ -218,7 +207,7 @@ section[data-testid="stSidebar"] div[role="radiogroup"] > label:hover {
     transform: scale(1.05);
 }
 
-/* title */
+/* TITLE */
 h1, h2, h3 {
     color: #1f4f8b;
 }
@@ -284,11 +273,79 @@ if menu == "🏠 Home":
 
     <p>
     Aplikasi ini dibuat untuk membantu memahami konsep dasar kimia seperti reaksi kimia dan stoikiometri secara lebih mudah, cepat, dan interaktif.
+    Banyak siswa kesulitan dalam memahami perubahan zat dalam reaksi kimia serta perhitungan mol, sehingga aplikasi ini hadir sebagai solusi pembelajaran visual dan praktis.
     </p>
 
     <p>
     Dengan aplikasi ini, pengguna dapat memasukkan persamaan reaksi dan langsung memisahkan reaktan serta produk.
+    Selain itu, fitur stoikiometri membantu menghitung jumlah mol dari massa dan Mr dengan otomatis.
     </p>
+
+    <p>
+    <b>Manfaat utama:</b><br>
+    - Mempermudah belajar reaksi kimia<br>
+    - Membantu perhitungan stoikiometri<br>
+    - Mengurangi kesalahan hitung manual<br>
+    - Media belajar interaktif<br>
+    - Lebih menarik dibanding metode konvensional
+    </p>
+
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class="card">
+    <h2>🔬 Apa Itu Stoikiometri?</h2>
+
+    <p>
+    Stoikiometri adalah cabang ilmu kimia yang mempelajari hubungan kuantitatif antara zat-zat yang terlibat dalam suatu reaksi kimia.
+    Dengan stoikiometri, kita dapat menentukan jumlah pereaksi maupun produk berdasarkan persamaan reaksi yang sudah setara.
+    </p>
+
+    <ul>
+        <li>Menghitung jumlah mol zat</li>
+        <li>Menentukan massa zat hasil reaksi</li>
+        <li>Menganalisis pereaksi pembatas</li>
+        <li>Memahami hubungan koefisien reaksi</li>
+        <li>Membantu perhitungan laboratorium</li>
+    </ul>
+
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class="card">
+    <h2>📘 Cara Menggunakan Aplikasi</h2>
+
+    <ol>
+        <li>Pilih menu melalui sidebar</li>
+        <li>Masukkan persamaan reaksi kimia</li>
+        <li>Gunakan tanda -> untuk memisahkan reaktan dan produk</li>
+        <li>Masukkan massa dan nilai Mr pada menu stoikiometri</li>
+        <li>Klik tombol hitung</li>
+    </ol>
+
+    <p>
+    Contoh:
+    <br>
+    <b>H2 + O2 -> H2O</b>
+    </p>
+
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class="card">
+    <h2>🌍 Penerapan Kimia dalam Kehidupan</h2>
+
+    <ul>
+        <li>Produksi obat dan vaksin</li>
+        <li>Pembuatan makanan dan minuman</li>
+        <li>Pengolahan limbah</li>
+        <li>Pembuatan kosmetik</li>
+        <li>Produksi energi</li>
+        <li>Penelitian laboratorium</li>
+    </ul>
 
     </div>
     """, unsafe_allow_html=True)
@@ -299,6 +356,8 @@ if menu == "🏠 Home":
 elif menu == "⚗️ Reaksi Kimia":
 
     st.title("⚗️ Persamaan Reaksi Kimia")
+
+    st.info("Contoh input: H2 + O2 -> H2O")
 
     reaction = st.text_input(
         "Masukkan reaksi (contoh: H2 + O2 -> H2O)"
@@ -373,6 +432,10 @@ elif menu == "🧪 Stoikiometri":
             """, unsafe_allow_html=True)
 
             st.success(f"{mol:.4f} mol")
+
+            st.latex(r'''
+            n = \frac{m}{Mr}
+            ''')
 
         else:
             st.warning("Mr tidak boleh 0")

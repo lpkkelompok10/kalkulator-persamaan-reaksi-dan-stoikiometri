@@ -10,7 +10,7 @@ from streamlit_lottie import st_lottie
 st.set_page_config(
     page_title="Kalkulator Persamaan Reaksi Kimia & Stoikiometri",
     page_icon="🧑🏻‍🔬👩🏻‍🔬",
-    layout="wide"
+    layout="centered"
 )
 
 # =========================

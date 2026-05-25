@@ -1,4 +1,4 @@
-
+```python
 import streamlit as st
 import time
 import requests
@@ -42,17 +42,15 @@ with splash.container():
         text-align:center;
         font-size:42px;
         font-weight:bold;
-        color:white;
+        color:#1f4f8b;
         margin-top:40px;
         animation: fadeIn 1s ease;
-        text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
     }
 
     .intro-sub{
         text-align:center;
-        color:white;
+        color:#4d6fa3;
         font-size:18px;
-        text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
     }
 
     @keyframes fadeIn {
@@ -75,6 +73,9 @@ with splash.container():
     if intro_anim:
         st_lottie(intro_anim, height=320)
 
+    # =========================
+    # LOADING BAR
+    # =========================
     progress = st.progress(0)
     status = st.empty()
 
@@ -103,18 +104,69 @@ splash.empty()
 st.markdown("""
 <style>
 
-/* LABORATORY BACKGROUND */
+/* BACKGROUND */
 .stApp {
-    background-image: url("https://images.unsplash.com/photo-1532187643603-ba119ca4109e?q=80&w=1974&auto=format&fit=crop");
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
+    background: linear-gradient(135deg, #dfefff, #f8fbff);
+    overflow: hidden;
+}
+
+/* FLOATING LAB ICONS */
+.stApp::before {
+    content: "⚗️ 🧪 ⚱️ ⚛️ 🔬 🧫 ⚗️ 🧪";
+    position: fixed;
+    top: 5%;
+    left: 2%;
+    font-size: 70px;
+    color: rgba(255,255,255,0.5);
+    z-index: 0;
+    animation: float1 18s linear infinite;
+    pointer-events: none;
+}
+
+.stApp::after {
+    content: "🧪 ⚗️ 🔬 ⚱️ 🧫 ⚛️";
+    position: fixed;
+    bottom: 10%;
+    right: 2%;
+    font-size: 60px;
+    color: rgba(255,255,255,0.45);
+    z-index: 0;
+    animation: float2 22s linear infinite;
+    pointer-events: none;
+}
+
+/* FLOAT ANIMATION */
+@keyframes float1 {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-25px) rotate(4deg);
+    }
+
+    100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+}
+
+@keyframes float2 {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(30px) rotate(-4deg);
+    }
+
+    100% {
+        transform: translateY(0px) rotate(0deg);
+    }
 }
 
 /* sidebar */
 [data-testid="stSidebar"] {
-    background: rgba(230,240,255,0.92);
-    backdrop-filter: blur(6px);
+    background: linear-gradient(180deg, #e6f0ff, #f9fbff);
 }
 
 /* sidebar items */
@@ -135,18 +187,20 @@ section[data-testid="stSidebar"] div[role="radiogroup"] > label:hover {
 
 /* card */
 .card {
-    background: rgba(255,255,255,0.92);
-    backdrop-filter: blur(6px);
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(10px);
     padding: 22px;
     border-radius: 16px;
-    box-shadow: 0px 6px 18px rgba(0,0,0,0.12);
+    box-shadow: 0px 6px 18px rgba(0,0,0,0.08);
     margin-bottom: 12px;
     transition: all 0.25s ease;
+    position: relative;
+    z-index: 2;
 }
 
 .card:hover {
     transform: translateY(-8px);
-    box-shadow: 0px 18px 35px rgba(0,0,0,0.2);
+    box-shadow: 0px 18px 35px rgba(0,0,0,0.15);
 }
 
 /* button */
@@ -188,7 +242,7 @@ if menu == "🏠 Home":
     st.markdown("""
     <div style="text-align:center; padding:20px">
         <h1>⚗️ Kalkulator Persamaan Reaksi Kimia dan Stoikiometri</h1>
-        <p style="font-size:18px; color:white; text-shadow:2px 2px 10px black;">
+        <p style="font-size:18px; color:#4d6fa3">
         Chemistry Simulation Lab
         </p>
     </div>
@@ -236,53 +290,6 @@ if menu == "🏠 Home":
     Dengan aplikasi ini, pengguna dapat memasukkan persamaan reaksi dan langsung memisahkan reaktan serta produk.
     </p>
 
-    <p>
-    <b>Manfaat utama:</b><br>
-    - Mempermudah belajar reaksi kimia<br>
-    - Membantu perhitungan stoikiometri<br>
-    - Mengurangi kesalahan hitung manual<br>
-    - Media belajar interaktif
-    </p>
-
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown("""
-    <div class="card">
-    <h2>🔬 Apa Itu Stoikiometri?</h2>
-
-    <p>
-    Stoikiometri adalah cabang ilmu kimia yang mempelajari hubungan kuantitatif antara zat-zat dalam suatu reaksi kimia.
-    </p>
-
-    <ul>
-        <li>Menghitung jumlah mol zat</li>
-        <li>Menentukan massa zat</li>
-        <li>Menganalisis pereaksi pembatas</li>
-        <li>Membantu perhitungan laboratorium</li>
-    </ul>
-
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown("""
-    <div class="card">
-    <h2>📘 Cara Menggunakan Aplikasi</h2>
-
-    <ol>
-        <li>Pilih menu melalui sidebar</li>
-        <li>Masukkan persamaan reaksi kimia</li>
-        <li>Gunakan tanda -></li>
-        <li>Masukkan massa dan Mr</li>
-        <li>Klik tombol hitung</li>
-    </ol>
-
-    <p>
-    Contoh:
-    <br>
-    <b>H2 + O2 -> H2O</b>
-    </p>
-
     </div>
     """, unsafe_allow_html=True)
 
@@ -293,9 +300,9 @@ elif menu == "⚗️ Reaksi Kimia":
 
     st.title("⚗️ Persamaan Reaksi Kimia")
 
-    st.info("Contoh input: H2 + O2 -> H2O")
-
-    reaction = st.text_input("Masukkan reaksi")
+    reaction = st.text_input(
+        "Masukkan reaksi (contoh: H2 + O2 -> H2O)"
+    )
 
     if st.button("Proses Reaksi"):
 
@@ -333,7 +340,7 @@ elif menu == "⚗️ Reaksi Kimia":
                 st.error("Format salah! gunakan tanda ->")
 
         else:
-            st.warning("Isi dulu reaksinya!")
+            st.warning("Isi dulu reaksi!")
 
 # =========================
 # STOIKIOMETRI
@@ -345,16 +352,10 @@ elif menu == "🧪 Stoikiometri":
     col1, col2 = st.columns(2)
 
     with col1:
-        massa = st.number_input(
-            "Massa (gram)",
-            min_value=0.0
-        )
+        massa = st.number_input("Massa (gram)", min_value=0.0)
 
     with col2:
-        Mr = st.number_input(
-            "Mr zat",
-            min_value=0.0
-        )
+        Mr = st.number_input("Mr zat", min_value=0.0)
 
     if st.button("Hitung Mol"):
 
@@ -365,17 +366,19 @@ elif menu == "🧪 Stoikiometri":
 
             mol = massa / Mr
 
-            st.success(f"Hasil = {mol:.4f} mol")
+            st.markdown("""
+            <div class="card">
+            <h3>📊 Hasil Perhitungan</h3>
+            </div>
+            """, unsafe_allow_html=True)
 
-            st.latex(r'''
-            n = \frac{m}{Mr}
-            ''')
+            st.success(f"{mol:.4f} mol")
 
         else:
             st.warning("Mr tidak boleh 0")
 
 # =========================
-# KELOMPOK
+# KELOMPOK 10
 # =========================
 elif menu == "👥 Kelompok 10":
 
@@ -390,9 +393,9 @@ elif menu == "👥 Kelompok 10":
     ]
 
     for m in members:
-        st.markdown(f'''
+        st.markdown(f"""
         <div class="card">
         {m}
         </div>
-        ''', unsafe_allow_html=True)
-
+        """, unsafe_allow_html=True)
+```

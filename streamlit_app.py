@@ -61,7 +61,7 @@ with splash.container():
     """, unsafe_allow_html=True)
 
     st.markdown(
-        "<div class='intro-title'>🧑‍🔬 CHEMICAL ANALYST LAB</div>",
+        "<div class='intro-title'>🧑🏻‍🔬👩🏻‍🔬 CHEMICAL ANALYST LAB</div>",
         unsafe_allow_html=True
     )
 
@@ -107,48 +107,56 @@ st.markdown("""
     overflow: hidden;
 }
 
-/* FLOATING LAB ITEMS */
+/* FLOATING LAB IMAGE */
 .stApp::before {
-    content:
-    "⚗️      🧪           🔬
-
-     ⚱️          🧫
-
-          ⚛️         ⚗️
-
-    🧪             🔬
-
-         ⚱️
-
-    🧫          ⚗️";
-
+    content: "";
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    font-size: 55px;
-    line-height: 140px;
-    color: rgba(255,255,255,0.35);
-    z-index: 0;
+
+    background-image:
+    url("https://cdn-icons-png.flaticon.com/512/2784/2784445.png"),
+    url("https://cdn-icons-png.flaticon.com/512/2784/2784469.png"),
+    url("https://cdn-icons-png.flaticon.com/512/2784/2784459.png"),
+    url("https://cdn-icons-png.flaticon.com/512/2784/2784487.png");
+
+    background-repeat: no-repeat;
+
+    background-size:
+    90px,
+    70px,
+    80px,
+    75px;
+
+    background-position:
+    10% 20%,
+    80% 30%,
+    25% 70%,
+    70% 80%;
+
+    opacity: 0.12;
+
+    animation: floating 10s ease-in-out infinite;
+
     pointer-events: none;
-    animation: floating 14s ease-in-out infinite;
-    white-space: pre;
+    z-index: 0;
 }
 
 /* FLOAT ANIMATION */
 @keyframes floating {
 
     0% {
-        transform: translateY(0px) rotate(0deg);
+        transform: translateY(0px);
     }
 
     50% {
-        transform: translateY(-20px) rotate(2deg);
+        transform: translateY(-20px);
     }
 
     100% {
-        transform: translateY(0px) rotate(0deg);
+        transform: translateY(0px);
     }
 }
 
@@ -299,7 +307,6 @@ if menu == "🏠 Home":
 
     <p>
     Stoikiometri adalah cabang ilmu kimia yang mempelajari hubungan kuantitatif antara zat-zat yang terlibat dalam suatu reaksi kimia.
-    Dengan stoikiometri, kita dapat menentukan jumlah pereaksi maupun produk berdasarkan persamaan reaksi yang sudah setara.
     </p>
 
     <ul>
@@ -330,22 +337,6 @@ if menu == "🏠 Home":
     <br>
     <b>H2 + O2 -> H2O</b>
     </p>
-
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown("""
-    <div class="card">
-    <h2>🌍 Penerapan Kimia dalam Kehidupan</h2>
-
-    <ul>
-        <li>Produksi obat dan vaksin</li>
-        <li>Pembuatan makanan dan minuman</li>
-        <li>Pengolahan limbah</li>
-        <li>Pembuatan kosmetik</li>
-        <li>Produksi energi</li>
-        <li>Penelitian laboratorium</li>
-    </ul>
 
     </div>
     """, unsafe_allow_html=True)
@@ -434,7 +425,7 @@ elif menu == "🧪 Stoikiometri":
             st.success(f"{mol:.4f} mol")
 
             st.latex(r'''
-            n = \frac{m}{Mr}
+            n = \\frac{m}{Mr}
             ''')
 
         else:

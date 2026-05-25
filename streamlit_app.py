@@ -1,4 +1,4 @@
-
+```python
 import streamlit as st
 import time
 import requests
@@ -42,15 +42,17 @@ with splash.container():
         text-align:center;
         font-size:42px;
         font-weight:bold;
-        color:#1f4f8b;
+        color:white;
         margin-top:40px;
         animation: fadeIn 1s ease;
+        text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
     }
 
     .intro-sub{
         text-align:center;
-        color:#4d6fa3;
+        color:white;
         font-size:18px;
+        text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
     }
 
     @keyframes fadeIn {
@@ -101,14 +103,18 @@ splash.empty()
 st.markdown("""
 <style>
 
-/* background */
+/* LABORATORY BACKGROUND */
 .stApp {
-    background: #f4f8ff;
+    background-image: url("https://images.unsplash.com/photo-1532187643603-ba119ca4109e?q=80&w=1974&auto=format&fit=crop");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
 }
 
 /* sidebar */
 [data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #e6f0ff, #f9fbff);
+    background: rgba(230,240,255,0.92);
+    backdrop-filter: blur(6px);
 }
 
 /* sidebar items */
@@ -129,17 +135,18 @@ section[data-testid="stSidebar"] div[role="radiogroup"] > label:hover {
 
 /* card */
 .card {
-    background: white;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(6px);
     padding: 22px;
     border-radius: 16px;
-    box-shadow: 0px 6px 18px rgba(0,0,0,0.08);
+    box-shadow: 0px 6px 18px rgba(0,0,0,0.12);
     margin-bottom: 12px;
     transition: all 0.25s ease;
 }
 
 .card:hover {
     transform: translateY(-8px);
-    box-shadow: 0px 18px 35px rgba(0,0,0,0.15);
+    box-shadow: 0px 18px 35px rgba(0,0,0,0.2);
 }
 
 /* button */
@@ -181,7 +188,7 @@ if menu == "🏠 Home":
     st.markdown("""
     <div style="text-align:center; padding:20px">
         <h1>⚗️ Kalkulator Persamaan Reaksi Kimia dan Stoikiometri</h1>
-        <p style="font-size:18px; color:#4d6fa3">
+        <p style="font-size:18px; color:white; text-shadow:2px 2px 10px black;">
         Chemistry Simulation Lab
         </p>
     </div>
@@ -288,9 +295,7 @@ elif menu == "⚗️ Reaksi Kimia":
 
     st.info("Contoh input: H2 + O2 -> H2O")
 
-    reaction = st.text_input(
-        "Masukkan reaksi"
-    )
+    reaction = st.text_input("Masukkan reaksi")
 
     if st.button("Proses Reaksi"):
 
@@ -385,8 +390,9 @@ elif menu == "👥 Kelompok 10":
     ]
 
     for m in members:
-        st.markdown(f"""
+        st.markdown(f'''
         <div class="card">
         {m}
         </div>
-        """, unsafe_allow_html=True)
+        ''', unsafe_allow_html=True)
+```

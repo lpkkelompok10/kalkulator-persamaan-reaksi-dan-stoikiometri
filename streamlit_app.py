@@ -1,4 +1,4 @@
-```python
+
 import streamlit as st
 import time
 import requests
@@ -9,7 +9,7 @@ from streamlit_lottie import st_lottie
 # =========================
 st.set_page_config(
     page_title="Kalkulator Persamaan Reaksi Kimia & Stoikiometri",
-    page_icon="⚗️",
+    page_icon="🧑🏻‍🔬👩🏻‍🔬",
     layout="wide"
 )
 
@@ -398,4 +398,4 @@ elif menu == "👥 Kelompok 10":
         {m}
         </div>
         """, unsafe_allow_html=True)
-```
+

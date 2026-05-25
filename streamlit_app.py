@@ -9,7 +9,7 @@ from streamlit_lottie import st_lottie
 st.set_page_config(
     page_title="Kalkulator Persamaan Reaksi Kimia & Stoikiometri",
     page_icon="🧑🏻‍🔬👩🏻‍🔬",
-    layout="wide"
+    layout="centered"
 )
 
 # =========================
@@ -79,7 +79,7 @@ with splash.container():
     """, unsafe_allow_html=True)
 
     st.markdown(
-        "<div class='intro-title'>🧑‍🔬 CHEMICAL ANALYST LAB</div>",
+        "<div class='intro-title'>🧑🏻‍🔬👩🏻‍🔬 CHEMICAL ANALYST LAB</div>",
         unsafe_allow_html=True
     )
 
@@ -324,6 +324,110 @@ if menu == "🏠 Home":
         <p style="font-size:18px; color:#b8863b">
         Chemistry Simulation Lab
         </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("---")
+
+    st.markdown("""
+    <div class="card">
+    <h2>📘 Tentang Aplikasi</h2>
+
+    <p>
+    Kalkulator Persamaan Reaksi Kimia dan Stoikiometri merupakan aplikasi pembelajaran berbasis digital
+    yang dirancang untuk membantu memahami konsep-konsep dasar kimia dengan lebih mudah, cepat,
+    dan interaktif.
+    </p>
+
+    <p>
+    Dalam pembelajaran kimia, banyak siswa mengalami kesulitan ketika mempelajari reaksi kimia,
+    persamaan reaksi, stoikiometri, mol, massa molekul relatif (Mr), serta hubungan antar zat
+    dalam suatu reaksi.
+    </p>
+
+    <p>
+    Aplikasi ini memiliki tampilan visual bertema laboratorium kimia sehingga memberikan nuansa
+    seperti berada di dalam laboratorium sungguhan.
+    </p>
+
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class="card">
+    <h2>🧪 Kegunaan Aplikasi</h2>
+
+    <ul>
+    <li>Membantu memahami konsep reaksi kimia</li>
+    <li>Membantu menghitung jumlah mol zat</li>
+    <li>Membantu memisahkan reaktan dan produk</li>
+    <li>Mengurangi kesalahan perhitungan manual</li>
+    <li>Mempermudah pembelajaran stoikiometri</li>
+    <li>Media belajar interaktif berbasis teknologi</li>
+    <li>Membantu praktikum laboratorium</li>
+    <li>Membantu memahami hubungan massa dan mol</li>
+    <li>Mempermudah analisis persamaan reaksi</li>
+    <li>Meningkatkan minat belajar kimia</li>
+    </ul>
+
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class="card">
+    <h2>⚗️ Pengertian Stoikiometri</h2>
+
+    <p>
+    Stoikiometri adalah cabang ilmu kimia yang mempelajari hubungan kuantitatif antara pereaksi
+    dan hasil reaksi dalam suatu persamaan kimia.
+    </p>
+
+    <p>
+    Konsep stoikiometri sangat penting dalam dunia industri, laboratorium, farmasi,
+    kedokteran, pengolahan limbah, penelitian ilmiah, dan teknologi pangan.
+    </p>
+
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class="card">
+    <h2>📐 Rumus Dasar Stoikiometri</h2>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.latex(r'''
+    n = \frac{m}{Mr}
+    ''')
+
+    st.latex(r'''
+    m = n \times Mr
+    ''')
+
+    st.latex(r'''
+    n = \frac{jumlah\ partikel}{6.02 \times 10^{23}}
+    ''')
+
+    st.latex(r'''
+    n = \frac{V}{22.4}
+    ''')
+
+    st.latex(r'''
+    2H_2 + O_2 \rightarrow 2H_2O
+    ''')
+
+    st.markdown("""
+    <div class="card">
+    <h2>📖 Cara Menggunakan Aplikasi</h2>
+
+    <ol>
+    <li>Pilih menu pada sidebar</li>
+    <li>Masukkan persamaan reaksi kimia</li>
+    <li>Gunakan tanda -> untuk memisahkan reaktan dan produk</li>
+    <li>Masukkan massa dan Mr</li>
+    <li>Klik tombol hitung</li>
+    </ol>
+
     </div>
     """, unsafe_allow_html=True)
 

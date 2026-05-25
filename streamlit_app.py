@@ -61,7 +61,7 @@ with splash.container():
     """, unsafe_allow_html=True)
 
     st.markdown(
-        "<div class='intro-title'>🧑🏻‍🔬👩🏻‍🔬 CHEMICAL ANALYST LAB</div>",
+        "<div class='intro-title'>🧑🏻‍🔬👩🏻‍🔬CHEMICAL ANALYST LAB</div>",
         unsafe_allow_html=True
     )
 
@@ -73,6 +73,9 @@ with splash.container():
     if intro_anim:
         st_lottie(intro_anim, height=320)
 
+    # =========================
+    # LOADING BAR
+    # =========================
     progress = st.progress(0)
     status = st.empty()
 
@@ -103,7 +106,7 @@ st.markdown("""
 
 /* BACKGROUND */
 .stApp {
-    background: linear-gradient(135deg, #dfefff, #f8fbff);
+    background: linear-gradient(135deg, #ffffff, #f8fbff);
     overflow: hidden;
 }
 
@@ -120,25 +123,74 @@ st.markdown("""
     url("https://cdn-icons-png.flaticon.com/512/2784/2784445.png"),
     url("https://cdn-icons-png.flaticon.com/512/2784/2784469.png"),
     url("https://cdn-icons-png.flaticon.com/512/2784/2784459.png"),
-    url("https://cdn-icons-png.flaticon.com/512/2784/2784487.png");
+    url("https://cdn-icons-png.flaticon.com/512/2784/2784487.png"),
+    url("https://cdn-icons-png.flaticon.com/512/2784/2784474.png"),
+    url("https://cdn-icons-png.flaticon.com/512/2784/2784491.png"),
+    url("https://cdn-icons-png.flaticon.com/512/2784/2784509.png"),
+    url("https://cdn-icons-png.flaticon.com/512/2784/2784516.png");
 
     background-repeat: no-repeat;
 
     background-size:
+    100px,
+    85px,
+    95px,
+    80px,
     90px,
     70px,
-    80px,
-    75px;
+    75px,
+    88px;
 
     background-position:
-    10% 20%,
-    80% 30%,
-    25% 70%,
-    70% 80%;
+    5% 15%,
+    85% 10%,
+    18% 55%,
+    75% 65%,
+    50% 20%,
+    35% 82%,
+    92% 45%,
+    60% 88%;
 
-    opacity: 0.12;
+    opacity: 0.10;
 
-    animation: floating 10s ease-in-out infinite;
+    animation: floating 12s ease-in-out infinite;
+
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* SECOND FLOATING LAYER */
+.stApp::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background-image:
+    url("https://cdn-icons-png.flaticon.com/512/2784/2784487.png"),
+    url("https://cdn-icons-png.flaticon.com/512/2784/2784445.png"),
+    url("https://cdn-icons-png.flaticon.com/512/2784/2784516.png"),
+    url("https://cdn-icons-png.flaticon.com/512/2784/2784474.png");
+
+    background-repeat: no-repeat;
+
+    background-size:
+    70px,
+    75px,
+    65px,
+    72px;
+
+    background-position:
+    10% 90%,
+    80% 85%,
+    45% 50%,
+    60% 8%;
+
+    opacity: 0.08;
+
+    animation: floating2 16s ease-in-out infinite;
 
     pointer-events: none;
     z-index: 0;
@@ -148,11 +200,26 @@ st.markdown("""
 @keyframes floating {
 
     0% {
+        transform: translateY(0px) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-25px) rotate(3deg);
+    }
+
+    100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+}
+
+@keyframes floating2 {
+
+    0% {
         transform: translateY(0px);
     }
 
     50% {
-        transform: translateY(-20px);
+        transform: translateY(20px);
     }
 
     100% {
@@ -160,13 +227,12 @@ st.markdown("""
     }
 }
 
-/* SIDEBAR */
+/* sidebar */
 [data-testid="stSidebar"] {
-    background: rgba(230,240,255,0.92);
-    backdrop-filter: blur(8px);
+    background: linear-gradient(180deg, #e6f0ff, #f9fbff);
 }
 
-/* SIDEBAR ITEMS */
+/* sidebar items */
 section[data-testid="stSidebar"] div[role="radiogroup"] > label {
     background: white;
     padding: 10px;
@@ -182,7 +248,7 @@ section[data-testid="stSidebar"] div[role="radiogroup"] > label:hover {
     box-shadow: 0px 10px 22px rgba(0,0,0,0.12);
 }
 
-/* CARD */
+/* card */
 .card {
     background: rgba(255,255,255,0.88);
     backdrop-filter: blur(10px);
@@ -200,7 +266,7 @@ section[data-testid="stSidebar"] div[role="radiogroup"] > label:hover {
     box-shadow: 0px 18px 35px rgba(0,0,0,0.15);
 }
 
-/* BUTTON */
+/* button */
 .stButton>button {
     background-color: #4da3ff;
     color: white;
@@ -215,7 +281,7 @@ section[data-testid="stSidebar"] div[role="radiogroup"] > label:hover {
     transform: scale(1.05);
 }
 
-/* TITLE */
+/* title */
 h1, h2, h3 {
     color: #1f4f8b;
 }
@@ -300,156 +366,3 @@ if menu == "🏠 Home":
 
     </div>
     """, unsafe_allow_html=True)
-
-    st.markdown("""
-    <div class="card">
-    <h2>🔬 Apa Itu Stoikiometri?</h2>
-
-    <p>
-    Stoikiometri adalah cabang ilmu kimia yang mempelajari hubungan kuantitatif antara zat-zat yang terlibat dalam suatu reaksi kimia.
-    </p>
-
-    <ul>
-        <li>Menghitung jumlah mol zat</li>
-        <li>Menentukan massa zat hasil reaksi</li>
-        <li>Menganalisis pereaksi pembatas</li>
-        <li>Memahami hubungan koefisien reaksi</li>
-        <li>Membantu perhitungan laboratorium</li>
-    </ul>
-
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown("""
-    <div class="card">
-    <h2>📘 Cara Menggunakan Aplikasi</h2>
-
-    <ol>
-        <li>Pilih menu melalui sidebar</li>
-        <li>Masukkan persamaan reaksi kimia</li>
-        <li>Gunakan tanda -> untuk memisahkan reaktan dan produk</li>
-        <li>Masukkan massa dan nilai Mr pada menu stoikiometri</li>
-        <li>Klik tombol hitung</li>
-    </ol>
-
-    <p>
-    Contoh:
-    <br>
-    <b>H2 + O2 -> H2O</b>
-    </p>
-
-    </div>
-    """, unsafe_allow_html=True)
-
-# =========================
-# REAKSI KIMIA
-# =========================
-elif menu == "⚗️ Reaksi Kimia":
-
-    st.title("⚗️ Persamaan Reaksi Kimia")
-
-    st.info("Contoh input: H2 + O2 -> H2O")
-
-    reaction = st.text_input(
-        "Masukkan reaksi (contoh: H2 + O2 -> H2O)"
-    )
-
-    if st.button("Proses Reaksi"):
-
-        if reaction:
-
-            with st.spinner("⚗️ Memproses reaksi..."):
-                time.sleep(1)
-
-            try:
-                left, right = reaction.split("->")
-
-                col1, col2 = st.columns(2)
-
-                with col1:
-                    st.markdown("""
-                    <div class="card">
-                    <h3>🔵 Reaktan</h3>
-                    </div>
-                    """, unsafe_allow_html=True)
-
-                    st.write(left.strip())
-
-                with col2:
-                    st.markdown("""
-                    <div class="card">
-                    <h3>🟢 Produk</h3>
-                    </div>
-                    """, unsafe_allow_html=True)
-
-                    st.write(right.strip())
-
-                st.success("Reaksi berhasil diproses!")
-
-            except:
-                st.error("Format salah! gunakan tanda ->")
-
-        else:
-            st.warning("Isi dulu reaksi!")
-
-# =========================
-# STOIKIOMETRI
-# =========================
-elif menu == "🧪 Stoikiometri":
-
-    st.title("🧪 Kalkulator Stoikiometri")
-
-    col1, col2 = st.columns(2)
-
-    with col1:
-        massa = st.number_input("Massa (gram)", min_value=0.0)
-
-    with col2:
-        Mr = st.number_input("Mr zat", min_value=0.0)
-
-    if st.button("Hitung Mol"):
-
-        if Mr > 0:
-
-            with st.spinner("🧪 Menghitung..."):
-                time.sleep(1)
-
-            mol = massa / Mr
-
-            st.markdown("""
-            <div class="card">
-            <h3>📊 Hasil Perhitungan</h3>
-            </div>
-            """, unsafe_allow_html=True)
-
-            st.success(f"{mol:.4f} mol")
-
-            st.latex(r'''
-            n = \\frac{m}{Mr}
-            ''')
-
-        else:
-            st.warning("Mr tidak boleh 0")
-
-# =========================
-# KELOMPOK 10
-# =========================
-elif menu == "👥 Kelompok 10":
-
-    st.title("👥 Kelompok 10")
-
-    members = [
-        "Faturrahman Chandika (2560630)",
-        "Naisyla Nazwa S. (2560705)",
-        "Nassya Alifha Rasyikha (2560710)",
-        "Reva Aulia (2560749)",
-        "Sarah Nur Ichsani (2560774)"
-    ]
-
-    for m in members:
-        st.markdown(f"""
-        <div class="card">
-        {m}
-        </div>
-        """, unsafe_allow_html=True)
-

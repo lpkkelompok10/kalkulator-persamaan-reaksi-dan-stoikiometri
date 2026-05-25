@@ -1,3 +1,4 @@
+
 import streamlit as st
 import time
 import requests
@@ -72,9 +73,6 @@ with splash.container():
     if intro_anim:
         st_lottie(intro_anim, height=320)
 
-    # =========================
-    # LOADING BAR
-    # =========================
     progress = st.progress(0)
     status = st.empty()
 
@@ -345,23 +343,132 @@ if menu == "🏠 Home":
     <h2>📘 Tentang & Kegunaan Kalkulator</h2>
 
     <p>
-    Aplikasi ini dibuat untuk membantu memahami konsep dasar kimia seperti reaksi kimia dan stoikiometri secara lebih mudah, cepat, dan interaktif.
-    Banyak siswa kesulitan dalam memahami perubahan zat dalam reaksi kimia serta perhitungan mol, sehingga aplikasi ini hadir sebagai solusi pembelajaran visual dan praktis.
+    Aplikasi Kalkulator Persamaan Reaksi Kimia dan Stoikiometri ini dibuat sebagai media pembelajaran interaktif untuk membantu memahami konsep dasar kimia secara lebih mudah, modern, dan menarik.
+    Dalam pembelajaran kimia, banyak siswa mengalami kesulitan ketika mempelajari persamaan reaksi, hubungan antar zat, serta perhitungan mol dan massa zat.
+    Karena itu, aplikasi ini hadir sebagai solusi digital yang membantu proses belajar menjadi lebih cepat dan praktis.
     </p>
 
     <p>
-    Dengan aplikasi ini, pengguna dapat memasukkan persamaan reaksi dan langsung memisahkan reaktan serta produk.
-    Selain itu, fitur stoikiometri membantu menghitung jumlah mol dari massa dan Mr dengan otomatis.
+    Melalui aplikasi ini, pengguna dapat memisahkan reaktan dan produk dari suatu persamaan reaksi kimia serta melakukan perhitungan stoikiometri secara otomatis menggunakan rumus dasar kimia.
+    Aplikasi ini juga dirancang dengan tampilan visual laboratorium agar pembelajaran terasa lebih interaktif dan tidak membosankan.
     </p>
 
     <p>
-    <b>Manfaat utama:</b><br>
-    - Mempermudah belajar reaksi kimia<br>
-    - Membantu perhitungan stoikiometri<br>
-    - Mengurangi kesalahan hitung manual<br>
-    - Media belajar interaktif<br>
-    - Lebih menarik dibanding metode konvensional
+    <b>Manfaat aplikasi:</b>
     </p>
+
+    <ul>
+    <li>Mempermudah memahami konsep reaksi kimia</li>
+    <li>Membantu menghitung mol secara otomatis</li>
+    <li>Mengurangi kesalahan perhitungan manual</li>
+    <li>Menjadi media belajar kimia interaktif</li>
+    <li>Membantu praktikum dan pembelajaran laboratorium</li>
+    <li>Meningkatkan minat belajar siswa terhadap kimia</li>
+    <li>Membantu memahami hubungan massa, mol, dan Mr</li>
+    </ul>
+
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class="card">
+    <h2>🧪 Apa Itu Stoikiometri?</h2>
+
+    <p>
+    Stoikiometri adalah cabang ilmu kimia yang mempelajari hubungan kuantitatif antara pereaksi dan hasil reaksi dalam suatu persamaan kimia.
+    Stoikiometri digunakan untuk menghitung jumlah zat yang diperlukan maupun yang dihasilkan dalam suatu reaksi berdasarkan koefisien reaksi yang telah setara.
+    </p>
+
+    <p>
+    Konsep stoikiometri sangat penting dalam kimia karena digunakan dalam berbagai bidang seperti industri, farmasi, laboratorium, pengolahan limbah, hingga penelitian ilmiah.
+    </p>
+
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class="card">
+    <h2>📐 Rumus Dasar Stoikiometri</h2>
+    <h3>1️⃣ Menghitung Mol</h3>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.latex(r'''
+    n = \frac{m}{Mr}
+    ''')
+
+    st.markdown("""
+    <div class="card">
+    <ul>
+    <li><b>n</b> = jumlah mol</li>
+    <li><b>m</b> = massa zat (gram)</li>
+    <li><b>Mr</b> = massa molekul relatif</li>
+    </ul>
+
+    <h3>2️⃣ Hubungan Jumlah Partikel</h3>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.latex(r'''
+    n = \frac{jumlah\ partikel}{6.02 \times 10^{23}}
+    ''')
+
+    st.markdown("""
+    <div class="card">
+    <h3>3️⃣ Volume Gas</h3>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.latex(r'''
+    n = \frac{V}{22.4}
+    ''')
+
+    st.markdown("""
+    <div class="card">
+    <p>
+    Rumus volume gas digunakan pada kondisi STP (Suhu dan Tekanan Standar),
+    dimana 1 mol gas memiliki volume 22,4 liter.
+    </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class="card">
+    <h2>📖 Cara Menggunakan Aplikasi</h2>
+
+    <ol>
+    <li>Pilih menu pada sidebar sesuai kebutuhan</li>
+    <li>Masukkan persamaan reaksi kimia</li>
+    <li>Gunakan tanda -> untuk memisahkan reaktan dan produk</li>
+    <li>Masukkan massa zat dan nilai Mr</li>
+    <li>Klik tombol hitung</li>
+    <li>Hasil perhitungan mol akan muncul otomatis</li>
+    </ol>
+
+    <p>
+    <b>Contoh reaksi:</b><br>
+    H₂ + O₂ -> H₂O
+    </p>
+
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class="card">
+    <h2>🌍 Penerapan Kimia dalam Kehidupan</h2>
+
+    <ul>
+    <li>Produksi obat dan vaksin</li>
+    <li>Pembuatan makanan dan minuman</li>
+    <li>Pengolahan limbah industri</li>
+    <li>Pembuatan pupuk</li>
+    <li>Pembuatan kosmetik</li>
+    <li>Produksi bahan bakar</li>
+    <li>Penelitian laboratorium</li>
+    <li>Analisis kualitas produk</li>
+    <li>Industri farmasi dan kesehatan</li>
+    <li>Teknologi energi dan lingkungan</li>
+    </ul>
 
     </div>
     """, unsafe_allow_html=True)
@@ -443,6 +550,10 @@ elif menu == "🧪 Stoikiometri":
 
             st.success(f"{mol:.4f} mol")
 
+            st.latex(r'''
+            n = \frac{m}{Mr}
+            ''')
+
         else:
             st.warning("Mr tidak boleh 0")
 
@@ -467,3 +578,4 @@ elif menu == "👥 Kelompok 10":
         <h3>🧑‍🔬 {m}</h3>
         </div>
         """, unsafe_allow_html=True)
+

@@ -1,4 +1,3 @@
-
 import streamlit as st
 import time
 import requests
@@ -10,7 +9,7 @@ from streamlit_lottie import st_lottie
 st.set_page_config(
     page_title="Kalkulator Persamaan Reaksi Kimia & Stoikiometri",
     page_icon="🧑🏻‍🔬👩🏻‍🔬",
-    layout="centered"
+    layout="wide"
 )
 
 # =========================
@@ -26,13 +25,32 @@ def load_lottie(url):
     return None
 
 # =========================
-# 🎬 SPLASH SCREEN
+# ANIMATIONS
 # =========================
-splash = st.empty()
-
 intro_anim = load_lottie(
     "https://assets2.lottiefiles.com/packages/lf20_khzniaya.json"
 )
+
+home_anim = load_lottie(
+    "https://assets9.lottiefiles.com/packages/lf20_qp1q7mct.json"
+)
+
+reaction_anim = load_lottie(
+    "https://assets2.lottiefiles.com/packages/lf20_0yfsb3a1.json"
+)
+
+stoik_anim = load_lottie(
+    "https://assets4.lottiefiles.com/packages/lf20_l13szxy9.json"
+)
+
+team_anim = load_lottie(
+    "https://assets1.lottiefiles.com/packages/lf20_tutvdkg0.json"
+)
+
+# =========================
+# SPLASH SCREEN
+# =========================
+splash = st.empty()
 
 with splash.container():
 
@@ -61,7 +79,7 @@ with splash.container():
     """, unsafe_allow_html=True)
 
     st.markdown(
-        "<div class='intro-title'>🧑🏻‍🔬👩🏻‍🔬 CHEMICAL ANALYST LAB</div>",
+        "<div class='intro-title'>🧑‍🔬 CHEMICAL ANALYST LAB</div>",
         unsafe_allow_html=True
     )
 
@@ -156,7 +174,6 @@ st.markdown("""
     z-index: 0;
 }
 
-/* SECOND FLOATING LAYER */
 .stApp::after {
     content: "";
     position: fixed;
@@ -193,7 +210,6 @@ st.markdown("""
     z-index: 0;
 }
 
-/* FLOAT ANIMATION */
 @keyframes floating {
 
     0% {
@@ -299,6 +315,9 @@ menu = st.sidebar.radio(
 # =========================
 if menu == "🏠 Home":
 
+    if home_anim:
+        st_lottie(home_anim, height=280)
+
     st.markdown("""
     <div style="text-align:center; padding:20px">
         <h1>⚗️ Kalkulator Persamaan Reaksi Kimia dan Stoikiometri</h1>
@@ -308,175 +327,13 @@ if menu == "🏠 Home":
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown("---")
-
-    col1, col2, col3 = st.columns(3)
-
-    with col1:
-        st.markdown("""
-        <div class="card">
-        <h3>🔬 Reaksi Kimia</h3>
-        Analisis persamaan reaksi
-        </div>
-        """, unsafe_allow_html=True)
-
-    with col2:
-        st.markdown("""
-        <div class="card">
-        <h3>🧪 Stoikiometri</h3>
-        Hitung mol dengan cepat
-        </div>
-        """, unsafe_allow_html=True)
-
-    with col3:
-        st.markdown("""
-        <div class="card">
-        <h3>👥 Kelompok 10</h3>
-        Informasi anggota kelompok
-        </div>
-        """, unsafe_allow_html=True)
-
-    st.markdown("---")
-
-    st.markdown("""
-    <div class="card">
-    <h2>📘 Tentang & Kegunaan Kalkulator</h2>
-
-    <p>
-    Aplikasi Kalkulator Persamaan Reaksi Kimia dan Stoikiometri ini dibuat sebagai media pembelajaran interaktif untuk membantu memahami konsep dasar kimia secara lebih mudah, modern, dan menarik.
-    Dalam pembelajaran kimia, banyak siswa mengalami kesulitan ketika mempelajari persamaan reaksi, hubungan antar zat, serta perhitungan mol dan massa zat.
-    Karena itu, aplikasi ini hadir sebagai solusi digital yang membantu proses belajar menjadi lebih cepat dan praktis.
-    </p>
-
-    <p>
-    Melalui aplikasi ini, pengguna dapat memisahkan reaktan dan produk dari suatu persamaan reaksi kimia serta melakukan perhitungan stoikiometri secara otomatis menggunakan rumus dasar kimia.
-    Aplikasi ini juga dirancang dengan tampilan visual laboratorium agar pembelajaran terasa lebih interaktif dan tidak membosankan.
-    </p>
-
-    <p>
-    <b>Manfaat aplikasi:</b>
-    </p>
-
-    <ul>
-    <li>Mempermudah memahami konsep reaksi kimia</li>
-    <li>Membantu menghitung mol secara otomatis</li>
-    <li>Mengurangi kesalahan perhitungan manual</li>
-    <li>Menjadi media belajar kimia interaktif</li>
-    <li>Membantu praktikum dan pembelajaran laboratorium</li>
-    <li>Meningkatkan minat belajar siswa terhadap kimia</li>
-    <li>Membantu memahami hubungan massa, mol, dan Mr</li>
-    </ul>
-
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown("""
-    <div class="card">
-    <h2>🧪 Apa Itu Stoikiometri?</h2>
-
-    <p>
-    Stoikiometri adalah cabang ilmu kimia yang mempelajari hubungan kuantitatif antara pereaksi dan hasil reaksi dalam suatu persamaan kimia.
-    Stoikiometri digunakan untuk menghitung jumlah zat yang diperlukan maupun yang dihasilkan dalam suatu reaksi berdasarkan koefisien reaksi yang telah setara.
-    </p>
-
-    <p>
-    Konsep stoikiometri sangat penting dalam kimia karena digunakan dalam berbagai bidang seperti industri, farmasi, laboratorium, pengolahan limbah, hingga penelitian ilmiah.
-    </p>
-
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown("""
-    <div class="card">
-    <h2>📐 Rumus Dasar Stoikiometri</h2>
-    <h3>1️⃣ Menghitung Mol</h3>
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.latex(r'''
-    n = \frac{m}{Mr}
-    ''')
-
-    st.markdown("""
-    <div class="card">
-    <ul>
-    <li><b>n</b> = jumlah mol</li>
-    <li><b>m</b> = massa zat (gram)</li>
-    <li><b>Mr</b> = massa molekul relatif</li>
-    </ul>
-
-    <h3>2️⃣ Hubungan Jumlah Partikel</h3>
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.latex(r'''
-    n = \frac{jumlah\ partikel}{6.02 \times 10^{23}}
-    ''')
-
-    st.markdown("""
-    <div class="card">
-    <h3>3️⃣ Volume Gas</h3>
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.latex(r'''
-    n = \frac{V}{22.4}
-    ''')
-
-    st.markdown("""
-    <div class="card">
-    <p>
-    Rumus volume gas digunakan pada kondisi STP (Suhu dan Tekanan Standar),
-    dimana 1 mol gas memiliki volume 22,4 liter.
-    </p>
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown("""
-    <div class="card">
-    <h2>📖 Cara Menggunakan Aplikasi</h2>
-
-    <ol>
-    <li>Pilih menu pada sidebar sesuai kebutuhan</li>
-    <li>Masukkan persamaan reaksi kimia</li>
-    <li>Gunakan tanda -> untuk memisahkan reaktan dan produk</li>
-    <li>Masukkan massa zat dan nilai Mr</li>
-    <li>Klik tombol hitung</li>
-    <li>Hasil perhitungan mol akan muncul otomatis</li>
-    </ol>
-
-    <p>
-    <b>Contoh reaksi:</b><br>
-    H₂ + O₂ -> H₂O
-    </p>
-
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown("""
-    <div class="card">
-    <h2>🌍 Penerapan Kimia dalam Kehidupan</h2>
-
-    <ul>
-    <li>Produksi obat dan vaksin</li>
-    <li>Pembuatan makanan dan minuman</li>
-    <li>Pengolahan limbah industri</li>
-    <li>Pembuatan pupuk</li>
-    <li>Pembuatan kosmetik</li>
-    <li>Produksi bahan bakar</li>
-    <li>Penelitian laboratorium</li>
-    <li>Analisis kualitas produk</li>
-    <li>Industri farmasi dan kesehatan</li>
-    <li>Teknologi energi dan lingkungan</li>
-    </ul>
-
-    </div>
-    """, unsafe_allow_html=True)
-
 # =========================
 # REAKSI KIMIA
 # =========================
 elif menu == "⚗️ Reaksi Kimia":
+
+    if reaction_anim:
+        st_lottie(reaction_anim, height=250)
 
     st.title("⚗️ Persamaan Reaksi Kimia")
 
@@ -515,13 +372,13 @@ elif menu == "⚗️ Reaksi Kimia":
             except:
                 st.error("Format salah! gunakan tanda ->")
 
-        else:
-            st.warning("Isi dulu reaksi!")
-
 # =========================
 # STOIKIOMETRI
 # =========================
 elif menu == "🧪 Stoikiometri":
+
+    if stoik_anim:
+        st_lottie(stoik_anim, height=250)
 
     st.title("🧪 Kalkulator Stoikiometri")
 
@@ -550,10 +407,6 @@ elif menu == "🧪 Stoikiometri":
 
             st.success(f"{mol:.4f} mol")
 
-            st.latex(r'''
-            n = \frac{m}{Mr}
-            ''')
-
         else:
             st.warning("Mr tidak boleh 0")
 
@@ -561,6 +414,9 @@ elif menu == "🧪 Stoikiometri":
 # KELOMPOK 10
 # =========================
 elif menu == "👥 Kelompok 10":
+
+    if team_anim:
+        st_lottie(team_anim, height=250)
 
     st.title("👥 Kelompok 10")
 
@@ -578,4 +434,3 @@ elif menu == "👥 Kelompok 10":
         <h3>🧑‍🔬 {m}</h3>
         </div>
         """, unsafe_allow_html=True)
-

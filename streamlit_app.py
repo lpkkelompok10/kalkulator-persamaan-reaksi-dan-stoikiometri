@@ -1,4 +1,4 @@
-```python
+
 import streamlit as st
 import time
 import requests
@@ -390,4 +390,3 @@ elif menu == "👥 Kelompok 10":
         {m}
         </div>
         """, unsafe_allow_html=True)
-```

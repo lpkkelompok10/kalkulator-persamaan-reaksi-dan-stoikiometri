@@ -377,7 +377,7 @@ elif menu == "👥 Kelompok 10":
     st.title("👥 Kelompok 10")
 
     members = [
-        "Faturrahman Chandika (2560774)",
+        "Faturrahman Chandika (2560630)",
         "Naisyla Nazwa S. (2560705)",
         "Nassya Alifha Rasyikha (2560710)",
         "Reva Aulia (2560749)",

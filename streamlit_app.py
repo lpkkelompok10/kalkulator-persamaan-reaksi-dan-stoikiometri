@@ -26,11 +26,13 @@ def load_lottie(url):
     return None
 
 # =========================
-# 🎬 SPLASH SCREEN
+# SPLASH SCREEN
 # =========================
 splash = st.empty()
 
-intro_anim = load_lottie("https://assets2.lottiefiles.com/packages/lf20_khzniaya.json")
+intro_anim = load_lottie(
+    "https://assets2.lottiefiles.com/packages/lf20_khzniaya.json"
+)
 
 with splash.container():
 
@@ -58,20 +60,26 @@ with splash.container():
     </style>
     """, unsafe_allow_html=True)
 
-    st.markdown("<div class='intro-title'>🧑‍🔬 CHEMICAL ANALYST LAB</div>", unsafe_allow_html=True)
-    st.markdown("<div class='intro-sub'>Initializing Chemistry Simulation System...</div>", unsafe_allow_html=True)
+    st.markdown(
+        "<div class='intro-title'>🧑‍🔬 CHEMICAL ANALYST LAB</div>",
+        unsafe_allow_html=True
+    )
+
+    st.markdown(
+        "<div class='intro-sub'>Initializing Chemistry Simulation System...</div>",
+        unsafe_allow_html=True
+    )
 
     if intro_anim:
         st_lottie(intro_anim, height=320)
 
-    # =========================
-    # LOADING BAR
-    # =========================
     progress = st.progress(0)
     status = st.empty()
 
     for i in range(100):
+
         time.sleep(0.02)
+
         progress.progress(i + 1)
 
         if i < 30:
@@ -209,21 +217,16 @@ if menu == "🏠 Home":
 
     st.markdown("---")
 
-    # =========================
-    # TENTANG APLIKASI
-    # =========================
     st.markdown("""
     <div class="card">
     <h2>📘 Tentang & Kegunaan Kalkulator</h2>
 
     <p>
     Aplikasi ini dibuat untuk membantu memahami konsep dasar kimia seperti reaksi kimia dan stoikiometri secara lebih mudah, cepat, dan interaktif.
-    Banyak siswa kesulitan dalam memahami perubahan zat dalam reaksi kimia serta perhitungan mol, sehingga aplikasi ini hadir sebagai solusi pembelajaran visual dan praktis.
     </p>
 
     <p>
     Dengan aplikasi ini, pengguna dapat memasukkan persamaan reaksi dan langsung memisahkan reaktan serta produk.
-    Selain itu, fitur stoikiometri membantu menghitung jumlah mol dari massa dan Mr dengan otomatis.
     </p>
 
     <p>
@@ -231,49 +234,30 @@ if menu == "🏠 Home":
     - Mempermudah belajar reaksi kimia<br>
     - Membantu perhitungan stoikiometri<br>
     - Mengurangi kesalahan hitung manual<br>
-    - Media belajar interaktif<br>
-    - Lebih menarik dibanding metode konvensional
+    - Media belajar interaktif
     </p>
 
     </div>
     """, unsafe_allow_html=True)
 
-    # =========================
-    # APA ITU STOIKIOMETRI
-    # =========================
     st.markdown("""
     <div class="card">
     <h2>🔬 Apa Itu Stoikiometri?</h2>
 
     <p>
-    Stoikiometri adalah cabang ilmu kimia yang mempelajari hubungan kuantitatif antara zat-zat yang terlibat dalam suatu reaksi kimia.
-    Dengan stoikiometri, kita dapat menentukan jumlah pereaksi maupun produk berdasarkan persamaan reaksi yang sudah setara.
-    </p>
-
-    <p>
-    Dalam pembelajaran kimia, stoikiometri digunakan untuk:
+    Stoikiometri adalah cabang ilmu kimia yang mempelajari hubungan kuantitatif antara zat-zat dalam suatu reaksi kimia.
     </p>
 
     <ul>
         <li>Menghitung jumlah mol zat</li>
-        <li>Menentukan massa zat hasil reaksi</li>
+        <li>Menentukan massa zat</li>
         <li>Menganalisis pereaksi pembatas</li>
-        <li>Memahami hubungan koefisien reaksi</li>
         <li>Membantu perhitungan laboratorium</li>
     </ul>
-
-    <p>
-    Stoikiometri tidak hanya digunakan di sekolah atau laboratorium,
-    tetapi juga dimanfaatkan dalam industri farmasi, pengolahan makanan,
-    produksi bahan bakar, hingga penelitian ilmiah modern.
-    </p>
 
     </div>
     """, unsafe_allow_html=True)
 
-    # =========================
-    # CARA MENGGUNAKAN
-    # =========================
     st.markdown("""
     <div class="card">
     <h2>📘 Cara Menggunakan Aplikasi</h2>
@@ -281,40 +265,16 @@ if menu == "🏠 Home":
     <ol>
         <li>Pilih menu melalui sidebar</li>
         <li>Masukkan persamaan reaksi kimia</li>
-        <li>Gunakan tanda -> untuk memisahkan reaktan dan produk</li>
-        <li>Masukkan massa dan nilai Mr pada menu stoikiometri</li>
+        <li>Gunakan tanda -></li>
+        <li>Masukkan massa dan Mr</li>
         <li>Klik tombol hitung</li>
     </ol>
 
     <p>
-    Contoh reaksi:
+    Contoh:
     <br>
     <b>H2 + O2 -> H2O</b>
     </p>
-
-    </div>
-    """, unsafe_allow_html=True)
-
-    # =========================
-    # PENERAPAN KIMIA
-    # =========================
-    st.markdown("""
-    <div class="card">
-    <h2>🌍 Penerapan Kimia dalam Kehidupan</h2>
-
-    <p>
-    Ilmu kimia memiliki peran penting dalam kehidupan sehari-hari.
-    Hampir semua aktivitas manusia berkaitan dengan reaksi kimia.
-    </p>
-
-    <ul>
-        <li>Produksi obat dan vaksin</li>
-        <li>Pembuatan makanan dan minuman</li>
-        <li>Pengolahan limbah</li>
-        <li>Pembuatan kosmetik</li>
-        <li>Produksi energi</li>
-        <li>Penelitian laboratorium</li>
-    </ul>
 
     </div>
     """, unsafe_allow_html=True)
@@ -329,7 +289,7 @@ elif menu == "⚗️ Reaksi Kimia":
     st.info("Contoh input: H2 + O2 -> H2O")
 
     reaction = st.text_input(
-        "Masukkan reaksi (contoh: H2 + O2 -> H2O)"
+        "Masukkan reaksi"
     )
 
     if st.button("Proses Reaksi"):
@@ -368,7 +328,7 @@ elif menu == "⚗️ Reaksi Kimia":
                 st.error("Format salah! gunakan tanda ->")
 
         else:
-            st.warning("Isi dulu reaksi!")
+            st.warning("Isi dulu reaksinya!")
 
 # =========================
 # STOIKIOMETRI
@@ -376,13 +336,6 @@ elif menu == "⚗️ Reaksi Kimia":
 elif menu == "🧪 Stoikiometri":
 
     st.title("🧪 Kalkulator Stoikiometri")
-
-    st.markdown("""
-    <div class="card">
-    Stoikiometri digunakan untuk menghitung hubungan jumlah zat
-    dalam suatu reaksi kimia menggunakan konsep mol.
-    </div>
-    """, unsafe_allow_html=True)
 
     col1, col2 = st.columns(2)
 
@@ -407,13 +360,7 @@ elif menu == "🧪 Stoikiometri":
 
             mol = massa / Mr
 
-            st.markdown("""
-            <div class="card">
-            <h3>📊 Hasil Perhitungan</h3>
-            </div>
-            """, unsafe_allow_html=True)
-
-            st.success(f"{mol:.4f} mol")
+            st.success(f"Hasil = {mol:.4f} mol")
 
             st.latex(r'''
             n = \frac{m}{Mr}
@@ -423,7 +370,7 @@ elif menu == "🧪 Stoikiometri":
             st.warning("Mr tidak boleh 0")
 
 # =========================
-# KELOMPOK 10
+# KELOMPOK
 # =========================
 elif menu == "👥 Kelompok 10":
 

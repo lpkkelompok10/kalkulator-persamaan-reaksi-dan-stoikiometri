@@ -430,57 +430,13 @@ if menu == "🏠 Home":
 
     </div>
     """, unsafe_allow_html=True)
-
-# =========================
-# REAKSI KIMIA
-# =========================
-elif menu == "⚗️ Reaksi Kimia":
-
-    if reaction_anim:
-        st_lottie(reaction_anim, height=250)
-
-    st.title("⚗️ Persamaan Reaksi Kimia")
-
-    reaction = st.text_input("Masukkan reaksi (contoh: H2 + O2 -> H2O)")
-
-    if st.button("Proses Reaksi"):
-
-        if reaction:
-
-            with st.spinner("⚗️ Memproses reaksi..."):
-                time.sleep(1)
-
-            try:
-                left, right = reaction.split("->")
-
-                col1, col2 = st.columns(2)
-
-                with col1:
-                    st.markdown("""
-                    <div class="card">
-                    <h3>🔵 Reaktan</h3>
-                    </div>
-                    """, unsafe_allow_html=True)
-                    st.write(left.strip())
-
-                with col2:
-                    st.markdown("""
-                    <div class="card">
-                    <h3>🟢 Produk</h3>
-                    </div>
-                    """, unsafe_allow_html=True)
-                    st.write(right.strip())
-
-                st.success("Reaksi berhasil diproses!")
-
-            except:
-                st.error("Format salah! gunakan tanda ->")
-
+```python
 # =========================
 # STOIKIOMETRI
 # =========================
 elif menu == "🧪 Stoikiometri":
 
+    # ===== KODE ASLI KAMU (TETAP) =====
     if stoik_anim:
         st_lottie(stoik_anim, height=250)
 
@@ -513,34 +469,6 @@ elif menu == "🧪 Stoikiometri":
 
         else:
             st.warning("Mr tidak boleh 0")
-
-# =========================
-# KELOMPOK 10
-# =========================
-elif menu == "👥 Kelompok 10":
-
-    if team_anim:
-        st_lottie(team_anim, height=250)
-
-    st.title("👥 Kelompok 10")
-
-    members = [
-        "Faturrahman Chandika (2560630)",
-        "Naisyla Nazwa S. (2560705)",
-        "Nassya Alifha Rasyikha (2560710)",
-        "Reva Aulia (2560749)",
-        "Sarah Nur Ichsani (2560774)"
-    ]
-
-    for m in members:
-        st.markdown(f"""
-        <div class="card">
-        <h3>🧑‍🔬 {m}</h3>
-        </div>
-        """, unsafe_allow_html=True)
-        else:
-            st.warning("Mr tidak boleh 0")
-            ```python id="0r3zjv"
 
     # =====================================
     # TAMBAHAN FITUR STOIKIOMETRI
@@ -797,4 +725,28 @@ elif menu == "👥 Kelompok 10":
                 st.success(
                     "✅ Kedua pereaksi habis bersamaan"
                 )
-```
+
+# =========================
+# KELOMPOK 10
+# =========================
+elif menu == "👥 Kelompok 10":
+
+    if team_anim:
+        st_lottie(team_anim, height=250)
+
+    st.title("👥 Kelompok 10")
+
+    members = [
+        "Faturrahman Chandika (2560630)",
+        "Naisyla Nazwa S. (2560705)",
+        "Nassya Alifha Rasyikha (2560710)",
+        "Reva Aulia (2560749)",
+        "Sarah Nur Ichsani (2560774)"
+    ]
+
+    for m in members:
+        st.markdown(f"""
+        <div class="card">
+        <h3>🧑‍🔬 {m}</h3>
+        </div>
+        """, unsafe_allow_html=True)

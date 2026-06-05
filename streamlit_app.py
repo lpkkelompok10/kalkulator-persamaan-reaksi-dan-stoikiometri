@@ -538,3 +538,263 @@ elif menu == "👥 Kelompok 10":
         <h3>🧑‍🔬 {m}</h3>
         </div>
         """, unsafe_allow_html=True)
+        else:
+            st.warning("Mr tidak boleh 0")
+            ```python id="0r3zjv"
+
+    # =====================================
+    # TAMBAHAN FITUR STOIKIOMETRI
+    # =====================================
+
+    st.markdown("---")
+
+    st.markdown("""
+    <div class="card">
+    <h2>🧪 Kalkulator Stoikiometri Tambahan</h2>
+    <p>
+    Fitur tambahan untuk membantu perhitungan kimia lainnya.
+    </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    fitur = st.selectbox(
+        "Pilih Perhitungan Tambahan",
+        [
+            "Mol dari Partikel",
+            "Mol dari Volume Gas",
+            "Molaritas",
+            "Pengenceran",
+            "Persen Rendemen",
+            "Pereaksi Pembatas"
+        ]
+    )
+
+    # =========================
+    # MOL DARI PARTIKEL
+    # =========================
+    if fitur == "Mol dari Partikel":
+
+        partikel = st.number_input(
+            "Jumlah Partikel",
+            min_value=0.0,
+            format="%.2e"
+        )
+
+        if st.button("Hitung Partikel"):
+
+            hasil = partikel / (6.02e23)
+
+            st.markdown("""
+            <div class="card">
+            <h3>📊 Hasil Perhitungan</h3>
+            </div>
+            """, unsafe_allow_html=True)
+
+            st.success(f"{hasil:.6e} mol")
+
+    # =========================
+    # MOL DARI VOLUME GAS
+    # =========================
+    elif fitur == "Mol dari Volume Gas":
+
+        volume = st.number_input(
+            "Volume Gas STP (L)",
+            min_value=0.0
+        )
+
+        if st.button("Hitung Volume Gas"):
+
+            hasil = volume / 22.4
+
+            st.markdown("""
+            <div class="card">
+            <h3>📊 Hasil Perhitungan</h3>
+            </div>
+            """, unsafe_allow_html=True)
+
+            st.success(f"{hasil:.4f} mol")
+
+    # =========================
+    # MOLARITAS
+    # =========================
+    elif fitur == "Molaritas":
+
+        col1, col2 = st.columns(2)
+
+        with col1:
+            mol_molaritas = st.number_input(
+                "Jumlah Mol ",
+                min_value=0.0
+            )
+
+        with col2:
+            volume_molaritas = st.number_input(
+                "Volume Larutan (L)",
+                min_value=0.0
+            )
+
+        if st.button("Hitung Molaritas"):
+
+            if volume_molaritas > 0:
+
+                hasil = (
+                    mol_molaritas /
+                    volume_molaritas
+                )
+
+                st.markdown("""
+                <div class="card">
+                <h3>📊 Hasil Perhitungan</h3>
+                </div>
+                """, unsafe_allow_html=True)
+
+                st.success(f"{hasil:.4f} M")
+
+            else:
+                st.warning("Volume tidak boleh 0")
+
+    # =========================
+    # PENGENCERAN
+    # =========================
+    elif fitur == "Pengenceran":
+
+        st.latex(r"M_1V_1 = M_2V_2")
+
+        col1, col2 = st.columns(2)
+
+        with col1:
+            M1 = st.number_input(
+                "M1",
+                min_value=0.0
+            )
+
+            V1 = st.number_input(
+                "V1 (mL)",
+                min_value=0.0
+            )
+
+        with col2:
+            M2 = st.number_input(
+                "M2",
+                min_value=0.0
+            )
+
+        if st.button("Hitung Pengenceran"):
+
+            if M2 > 0:
+
+                hasil = (M1 * V1) / M2
+
+                st.markdown("""
+                <div class="card">
+                <h3>📊 Hasil Perhitungan</h3>
+                </div>
+                """, unsafe_allow_html=True)
+
+                st.success(
+                    f"Volume akhir = {hasil:.2f} mL"
+                )
+
+            else:
+                st.warning("M2 tidak boleh 0")
+
+    # =========================
+    # PERSEN RENDEMEN
+    # =========================
+    elif fitur == "Persen Rendemen":
+
+        col1, col2 = st.columns(2)
+
+        with col1:
+            teori = st.number_input(
+                "Hasil Teori",
+                min_value=0.0
+            )
+
+        with col2:
+            aktual = st.number_input(
+                "Hasil Aktual",
+                min_value=0.0
+            )
+
+        if st.button("Hitung Rendemen"):
+
+            if teori > 0:
+
+                hasil = (aktual / teori) * 100
+
+                st.markdown("""
+                <div class="card">
+                <h3>📊 Hasil Perhitungan</h3>
+                </div>
+                """, unsafe_allow_html=True)
+
+                st.success(f"{hasil:.2f}%")
+
+            else:
+                st.warning(
+                    "Hasil teori tidak boleh 0"
+                )
+
+    # =========================
+    # PEREAKSI PEMBATAS
+    # =========================
+    elif fitur == "Pereaksi Pembatas":
+
+        col1, col2 = st.columns(2)
+
+        with col1:
+
+            mol_a = st.number_input(
+                "Mol Pereaksi A",
+                min_value=0.0
+            )
+
+            koef_a = st.number_input(
+                "Koefisien A",
+                min_value=1.0
+            )
+
+        with col2:
+
+            mol_b = st.number_input(
+                "Mol Pereaksi B",
+                min_value=0.0
+            )
+
+            koef_b = st.number_input(
+                "Koefisien B",
+                min_value=1.0
+            )
+
+        if st.button(
+            "Tentukan Pereaksi Pembatas"
+        ):
+
+            nilai_a = mol_a / koef_a
+            nilai_b = mol_b / koef_b
+
+            st.markdown("""
+            <div class="card">
+            <h3>📊 Hasil Analisis</h3>
+            </div>
+            """, unsafe_allow_html=True)
+
+            if nilai_a < nilai_b:
+
+                st.error(
+                    "⚠️ Pereaksi A adalah pereaksi pembatas"
+                )
+
+            elif nilai_b < nilai_a:
+
+                st.error(
+                    "⚠️ Pereaksi B adalah pereaksi pembatas"
+                )
+
+            else:
+
+                st.success(
+                    "✅ Kedua pereaksi habis bersamaan"
+                )
+```

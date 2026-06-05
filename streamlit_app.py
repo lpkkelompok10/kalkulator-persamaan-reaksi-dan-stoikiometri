@@ -430,7 +430,7 @@ if menu == "🏠 Home":
 
     </div>
     """, unsafe_allow_html=True)
-```python
+
 # =========================
 # STOIKIOMETRI
 # =========================

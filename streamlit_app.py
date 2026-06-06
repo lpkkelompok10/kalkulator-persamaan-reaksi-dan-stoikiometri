@@ -722,7 +722,7 @@ elif menu == "🧪 Stoikiometri":
         else:
             st.success(f"{hasil_mol} mol")
 
-    else:
+      else:
         st.warning("Mr tidak boleh 0")
     # =====================================
     # TAMBAHAN FITUR STOIKIOMETRI

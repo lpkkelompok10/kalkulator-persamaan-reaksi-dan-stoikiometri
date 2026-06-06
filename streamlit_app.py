@@ -829,7 +829,18 @@ elif menu == "🧪 Stoikiometri":
             </div>
             """, unsafe_allow_html=True)
 
-            st.success(f"{hasil:.4f} mol")
+           st.markdown("### 🧮 Cara Penyelesaian")
+
+           :contentReference[oaicite:0]{index=0}
+
+           st.write("**Diketahui:**")
+           st.write(f"V = {volume} L")
+
+           st.write("**Perhitungan:**")
+           st.write(f"n = {volume} / 22.4")
+           st.write(f"n = {hasil:g} mol")
+
+           st.success(f"Hasil akhir = {hasil:g} mol")
 
     # =========================
     # MOLARITAS
@@ -865,7 +876,19 @@ elif menu == "🧪 Stoikiometri":
                 </div>
                 """, unsafe_allow_html=True)
 
-                st.success(f"{hasil:.4f} M")
+                st.markdown("### 🧮 Cara Penyelesaian")
+
+                st.latex(r"M=\frac{n}{V}")
+
+                st.write("**Diketahui:**")
+                st.write(f"n = {mol_molaritas} mol")
+                st.write(f"V = {volume_molaritas} L")
+
+                st.write("**Perhitungan:**")
+                st.write(f"M = {mol_molaritas} / {volume_molaritas}")
+                st.write(f"M = {hasil:g} M")
+
+                st.success(f"Hasil akhir = {hasil:g} M")
 
             else:
                 st.warning("Volume tidak boleh 0")
@@ -902,6 +925,20 @@ elif menu == "🧪 Stoikiometri":
 
                 hasil = (M1 * V1) / M2
 
+                st.markdown("### 🧮 Cara Penyelesaian")
+
+                st.latex(r"M_1V_1=M_2V_2")
+
+                st.write("**Diketahui:**")
+                st.write(f"M₁ = {M1}")
+                st.write(f"V₁ = {V1}")
+                st.write(f"M₂ = {M2}")
+
+                st.write("**Perhitungan:**")
+                st.write(f"V₂ = ({M1} × {V1}) / {M2}")
+                st.write(f"V₂ = {hasil:g} mL")
+
+                st.success(f"Volume akhir = {hasil:g} mL")
                 st.markdown("""
                 <div class="card">
                 <h3>📊 Hasil Perhitungan</h3>
@@ -946,7 +983,23 @@ elif menu == "🧪 Stoikiometri":
                 </div>
                 """, unsafe_allow_html=True)
 
-                st.success(f"{hasil:.2f}%")
+                st.markdown("### 🧮 Cara Penyelesaian")
+
+                st.write("**Rumus:**")
+
+                st.latex(
+                r"\%\ Rendemen=\frac{Hasil\ Aktual}{Hasil\ Teori}\times100"
+                )
+
+                st.write("**Diketahui:**")
+                st.write(f"Hasil Teori = {teori}")
+                st.write(f"Hasil Aktual = {aktual}")
+
+                st.write("**Perhitungan:**")
+                st.write(f"({aktual}/{teori}) × 100")
+                st.write(f"= {hasil:.2f}%")
+
+                st.success(f"Hasil akhir = {hasil:.2f}%")
 
             else:
                 st.warning(

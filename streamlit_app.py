@@ -527,20 +527,20 @@ elif menu == "⚗️ Reaksi Kimia":
                 st.success(
                     f"Jumlah produk = {len(daftar_produk)}"
                 )
-st.success("✅ Persamaan reaksi berhasil dianalisis")
+        st.success("✅ Persamaan reaksi berhasil dianalisis")
 
-st.info(
-    f"Total zat dalam reaksi = "
-    f"{len(daftar_reaktan) + len(daftar_produk)}"
-)
+        st.info(
+            f"Total zat dalam reaksi = "
+            f"{len(daftar_reaktan) + len(daftar_produk)}"
+        )
 
-st.markdown("### 📖 Interpretasi")
+        st.markdown("### 📖 Interpretasi")
 
-st.write(
-    f"Persamaan reaksi memiliki "
-    f"{len(daftar_reaktan)} reaktan "
-    f"dan {len(daftar_produk)} produk."
-)
+        st.write(
+            f"Persamaan reaksi memiliki "
+            f"{len(daftar_reaktan)} reaktan "
+            f"dan {len(daftar_produk)} produk."
+        )
     # ==================================
     # JENIS REAKSI
     # ==================================

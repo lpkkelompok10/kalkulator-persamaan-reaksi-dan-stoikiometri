@@ -831,8 +831,6 @@ elif menu == "🧪 Stoikiometri":
 
             st.markdown("### 🧮 Cara Penyelesaian")
 
-            :contentReference[oaicite:0]{index=0}
-
             st.write("**Diketahui:**")
             st.write(f"V = {volume} L")
 

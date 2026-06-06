@@ -430,7 +430,104 @@ if menu == "🏠 Home":
 
     </div>
     """, unsafe_allow_html=True)
+# =========================
+# REAKSI KIMIA
+# =========================
+elif menu == "⚗️ Reaksi Kimia":
 
+    if reaction_anim:
+        st_lottie(reaction_anim, height=250)
+
+    st.title("⚗️ Analisis Persamaan Reaksi Kimia")
+
+    st.markdown("""
+    <div class="card">
+    <h2>🧪 Persamaan Reaksi</h2>
+    <p>
+    Masukkan persamaan reaksi menggunakan tanda -> untuk memisahkan
+    reaktan dan produk.
+    </p>
+    <p>
+    Contoh:
+    2H₂ + O₂ -> 2H₂O
+    </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    reaksi = st.text_input(
+        "Masukkan Persamaan Reaksi",
+        placeholder="Contoh: 2H2 + O2 -> 2H2O"
+    )
+
+    if st.button("Analisis Reaksi"):
+
+        if not reaksi:
+
+            st.warning("Masukkan persamaan reaksi terlebih dahulu.")
+
+        elif "->" not in reaksi:
+
+            st.error(
+                "Gunakan tanda -> untuk memisahkan reaktan dan produk."
+            )
+
+        else:
+
+            reaktan, produk = reaksi.split("->")
+
+            daftar_reaktan = [
+                x.strip()
+                for x in reaktan.split("+")
+            ]
+
+            daftar_produk = [
+                x.strip()
+                for x in produk.split("+")
+            ]
+
+            st.markdown("""
+            <div class="card">
+            <h3>📊 Hasil Analisis</h3>
+            </div>
+            """, unsafe_allow_html=True)
+
+            st.success("Persamaan berhasil dianalisis")
+
+            col1, col2 = st.columns(2)
+
+            with col1:
+
+                st.subheader("🧪 Reaktan")
+
+                for r in daftar_reaktan:
+                    st.write("•", r)
+
+            with col2:
+
+                st.subheader("⚗️ Produk")
+
+                for p in daftar_produk:
+                    st.write("•", p)
+
+            st.info(
+                f"Jumlah reaktan = {len(daftar_reaktan)}"
+            )
+
+            st.info(
+                f"Jumlah produk = {len(daftar_produk)}"
+            )
+
+            st.markdown("---")
+
+            st.subheader("📋 Ringkasan")
+
+            st.write(
+                f"Persamaan reaksi terdiri dari "
+                f"{len(daftar_reaktan)} reaktan "
+                f"dan {len(daftar_produk)} produk."
+            )
+
+            st.code(reaksi)
 # =========================
 # STOIKIOMETRI
 # =========================

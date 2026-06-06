@@ -700,8 +700,10 @@ elif menu == "🧪 Stoikiometri":
     with col2:
         Mr = st.number_input("Mr zat", min_value=0.0)
         
-        if st.button("Hitung Mol"):
+       if st.button("Hitung Mol"):
+
     if Mr > 0:
+
         with st.spinner("🧪 Menghitung..."):
             time.sleep(1)
 

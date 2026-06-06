@@ -699,26 +699,27 @@ elif menu == "🧪 Stoikiometri":
 
     with col2:
         Mr = st.number_input("Mr zat", min_value=0.0)
-        
-       if st.button("Hitung Mol"):
+ if st.button("Hitung Mol"):
 
-           if Mr > 0:
+     if Mr > 0:
 
-              with st.spinner("🧪 Menghitung..."):
-              time.sleep(1)
+        with st.spinner("🧪 Menghitung..."):
+            time.sleep(1)
 
-              mol = massa / Mr
+        mol = massa / Mr
 
-              st.markdown("""
-              <div class="card">
-              <h3>📊 Hasil Perhitungan</h3>
-              </div>
-             """, unsafe_allow_html=True)
+        st.markdown("""
+        <div class="card">
+        <h3>📊 Hasil Perhitungan</h3>
+        </div>
+        """, unsafe_allow_html=True)
 
-             if mol.is_integer():
-                st.success(f"{int(mol)} mol")
-             else:
-                st.success(f"{mol:.4f} mol")
+        hasil_mol = round(mol, 4)
+
+        if hasil_mol == int(hasil_mol):
+            st.success(f"{int(hasil_mol)} mol")
+        else:
+            st.success(f"{hasil_mol} mol")
 
     else:
         st.warning("Mr tidak boleh 0")

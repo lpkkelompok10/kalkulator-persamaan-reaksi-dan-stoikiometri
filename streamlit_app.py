@@ -438,96 +438,249 @@ elif menu == "⚗️ Reaksi Kimia":
     if reaction_anim:
         st_lottie(reaction_anim, height=250)
 
-    st.title("⚗️ Analisis Persamaan Reaksi Kimia")
+    st.title("⚗️ Kalkulator Reaksi Kimia")
 
     st.markdown("""
     <div class="card">
-    <h2>🧪 Persamaan Reaksi</h2>
+    <h2>🧪 Fitur Reaksi Kimia</h2>
     <p>
-    Masukkan persamaan reaksi menggunakan tanda -> untuk memisahkan
-    reaktan dan produk.
-    </p>
-    <p>
-    Contoh:
-    2H₂ + O₂ -> 2H₂O
+    Pilih fitur yang ingin digunakan untuk mempelajari
+    dan menganalisis reaksi kimia.
     </p>
     </div>
     """, unsafe_allow_html=True)
 
-    reaksi = st.text_input(
-        "Masukkan Persamaan Reaksi",
-        placeholder="Contoh: 2H2 + O2 -> 2H2O"
+    fitur_reaksi = st.selectbox(
+        "Pilih Fitur",
+        [
+            "Analisis Persamaan",
+            "Jenis Reaksi",
+            "Prediksi Produk Reaksi",
+            "Daftar Reaksi Umum"
+        ]
     )
 
-    if st.button("Analisis Reaksi"):
+    # ==================================
+    # ANALISIS PERSAMAAN
+    # ==================================
+    if fitur_reaksi == "Analisis Persamaan":
 
-        if not reaksi:
+        reaksi = st.text_input(
+            "Masukkan Persamaan Reaksi",
+            placeholder="Contoh: 2H2 + O2 -> 2H2O"
+        )
 
-            st.warning("Masukkan persamaan reaksi terlebih dahulu.")
+        if st.button("Analisis Reaksi"):
 
-        elif "->" not in reaksi:
+            if not reaksi:
 
-            st.error(
-                "Gunakan tanda -> untuk memisahkan reaktan dan produk."
+                st.warning(
+                    "Masukkan persamaan reaksi terlebih dahulu."
+                )
+
+            elif "->" not in reaksi:
+
+                st.error(
+                    "Gunakan tanda -> pada persamaan reaksi."
+                )
+
+            else:
+
+                reaktan, produk = reaksi.split("->")
+
+                daftar_reaktan = [
+                    x.strip()
+                    for x in reaktan.split("+")
+                ]
+
+                daftar_produk = [
+                    x.strip()
+                    for x in produk.split("+")
+                ]
+
+                st.markdown("""
+                <div class="card">
+                <h3>📊 Hasil Analisis</h3>
+                </div>
+                """, unsafe_allow_html=True)
+
+                col1, col2 = st.columns(2)
+
+                with col1:
+
+                    st.subheader("🧪 Reaktan")
+
+                    for r in daftar_reaktan:
+                        st.write("•", r)
+
+                with col2:
+
+                    st.subheader("⚗️ Produk")
+
+                    for p in daftar_produk:
+                        st.write("•", p)
+
+                st.success(
+                    f"Jumlah reaktan = {len(daftar_reaktan)}"
+                )
+
+                st.success(
+                    f"Jumlah produk = {len(daftar_produk)}"
+                )
+
+    # ==================================
+    # JENIS REAKSI
+    # ==================================
+    elif fitur_reaksi == "Jenis Reaksi":
+
+        jenis = st.selectbox(
+            "Pilih Jenis Reaksi",
+            [
+                "Pembentukan",
+                "Penguraian",
+                "Pembakaran",
+                "Substitusi Tunggal",
+                "Substitusi Ganda"
+            ]
+        )
+
+        if jenis == "Pembentukan":
+
+            st.subheader("Pembentukan")
+            st.latex(r"2H_2 + O_2 \rightarrow 2H_2O")
+
+            st.info(
+                "Dua atau lebih zat bergabung membentuk satu produk."
             )
 
-        else:
+        elif jenis == "Penguraian":
 
-            reaktan, produk = reaksi.split("->")
+            st.subheader("Penguraian")
+            st.latex(r"2H_2O \rightarrow 2H_2 + O_2")
 
-            daftar_reaktan = [
-                x.strip()
-                for x in reaktan.split("+")
-            ]
+            st.info(
+                "Satu senyawa terurai menjadi beberapa zat."
+            )
 
-            daftar_produk = [
-                x.strip()
-                for x in produk.split("+")
-            ]
+        elif jenis == "Pembakaran":
+
+            st.subheader("Pembakaran")
+            st.latex(r"CH_4 + 2O_2 \rightarrow CO_2 + 2H_2O")
+
+            st.info(
+                "Reaksi dengan oksigen menghasilkan energi."
+            )
+
+        elif jenis == "Substitusi Tunggal":
+
+            st.subheader("Substitusi Tunggal")
+            st.latex(
+                r"Zn + 2HCl \rightarrow ZnCl_2 + H_2"
+            )
+
+            st.info(
+                "Satu unsur menggantikan unsur lain."
+            )
+
+        elif jenis == "Substitusi Ganda":
+
+            st.subheader("Substitusi Ganda")
+            st.latex(
+                r"AgNO_3 + NaCl \rightarrow AgCl + NaNO_3"
+            )
+
+            st.info(
+                "Pertukaran ion antar senyawa."
+            )
+
+    # ==================================
+    # PREDIKSI PRODUK
+    # ==================================
+    elif fitur_reaksi == "Prediksi Produk Reaksi":
+
+        data_produk = {
+
+            "H2 + O2":
+            "H2O",
+
+            "Na + Cl2":
+            "NaCl",
+
+            "Mg + O2":
+            "MgO",
+
+            "C + O2":
+            "CO2",
+
+            "CaO + H2O":
+            "Ca(OH)2",
+
+            "HCl + NaOH":
+            "NaCl + H2O",
+
+            "Fe + O2":
+            "Fe2O3",
+
+            "NH3 + HCl":
+            "NH4Cl"
+        }
+
+        pilihan = st.selectbox(
+            "Pilih Reaktan",
+            list(data_produk.keys())
+        )
+
+        if st.button("Prediksi Produk"):
 
             st.markdown("""
             <div class="card">
-            <h3>📊 Hasil Analisis</h3>
+            <h3>⚗️ Produk Reaksi</h3>
             </div>
             """, unsafe_allow_html=True)
 
-            st.success("Persamaan berhasil dianalisis")
-
-            col1, col2 = st.columns(2)
-
-            with col1:
-
-                st.subheader("🧪 Reaktan")
-
-                for r in daftar_reaktan:
-                    st.write("•", r)
-
-            with col2:
-
-                st.subheader("⚗️ Produk")
-
-                for p in daftar_produk:
-                    st.write("•", p)
-
-            st.info(
-                f"Jumlah reaktan = {len(daftar_reaktan)}"
+            st.success(
+                data_produk[pilihan]
             )
 
-            st.info(
-                f"Jumlah produk = {len(daftar_produk)}"
-            )
+    # ==================================
+    # DAFTAR REAKSI UMUM
+    # ==================================
+    elif fitur_reaksi == "Daftar Reaksi Umum":
 
-            st.markdown("---")
+        st.markdown("""
+        <div class="card">
+        <h3>📚 Contoh Reaksi Kimia Umum</h3>
+        </div>
+        """, unsafe_allow_html=True)
 
-            st.subheader("📋 Ringkasan")
+        st.table({
+            "Nama Reaksi": [
+                "Pembentukan Air",
+                "Pembakaran Metana",
+                "Pembentukan Garam",
+                "Pembentukan CO₂",
+                "Netralisasi",
+                "Pembentukan Magnesium Oksida",
+                "Penguraian Air"
+            ],
 
-            st.write(
-                f"Persamaan reaksi terdiri dari "
-                f"{len(daftar_reaktan)} reaktan "
-                f"dan {len(daftar_produk)} produk."
-            )
+            "Persamaan Reaksi": [
 
-            st.code(reaksi)
+                "2H2 + O2 -> 2H2O",
+
+                "CH4 + 2O2 -> CO2 + 2H2O",
+
+                "2Na + Cl2 -> 2NaCl",
+
+                "C + O2 -> CO2",
+
+                "HCl + NaOH -> NaCl + H2O",
+
+                "2Mg + O2 -> 2MgO",
+
+                "2H2O -> 2H2 + O2"
+            ]
+        })
 # =========================
 # STOIKIOMETRI
 # =========================

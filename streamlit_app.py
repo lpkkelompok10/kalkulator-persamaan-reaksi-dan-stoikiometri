@@ -698,10 +698,11 @@ elif menu == "🧪 Stoikiometri":
         massa = st.number_input("Massa (gram)", min_value=0.0)
 
     with col2:
-        Mr = st.number_input("Mr zat", min_value=0.0)
- if st.button("Hitung Mol"):
+    Mr = st.number_input("Mr zat", min_value=0.0)
 
-     if Mr > 0:
+if st.button("Hitung Mol"):
+
+    if Mr > 0:
 
         with st.spinner("🧪 Menghitung..."):
             time.sleep(1)

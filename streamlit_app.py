@@ -702,7 +702,6 @@ elif menu == "🧪 Stoikiometri":
         if st.button("Hitung Mol"):
 
     if Mr > 0:
-
         with st.spinner("🧪 Menghitung..."):
             time.sleep(1)
 

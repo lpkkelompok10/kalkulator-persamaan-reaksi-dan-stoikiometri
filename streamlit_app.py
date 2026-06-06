@@ -829,18 +829,18 @@ elif menu == "🧪 Stoikiometri":
             </div>
             """, unsafe_allow_html=True)
 
-           st.markdown("### 🧮 Cara Penyelesaian")
+            st.markdown("### 🧮 Cara Penyelesaian")
 
-           :contentReference[oaicite:0]{index=0}
+            :contentReference[oaicite:0]{index=0}
 
-           st.write("**Diketahui:**")
-           st.write(f"V = {volume} L")
+            st.write("**Diketahui:**")
+            st.write(f"V = {volume} L")
 
-           st.write("**Perhitungan:**")
-           st.write(f"n = {volume} / 22.4")
-           st.write(f"n = {hasil:g} mol")
+            st.write("**Perhitungan:**")
+            st.write(f"n = {volume} / 22.4")
+            st.write(f"n = {hasil:g} mol")
 
-           st.success(f"Hasil akhir = {hasil:g} mol")
+            st.success(f"Hasil akhir = {hasil:g} mol")
 
     # =========================
     # MOLARITAS
@@ -1044,6 +1044,15 @@ elif menu == "🧪 Stoikiometri":
             nilai_a = mol_a / koef_a
             nilai_b = mol_b / koef_b
 
+            st.markdown("### 🧮 Cara Penyelesaian")
+
+            st.write(
+            f"Pereaksi A = {mol_a} / {koef_a} = {nilai_a}"
+            )
+
+            st.write(
+            f"Pereaksi B = {mol_b} / {koef_b} = {nilai_b}"
+            )
             st.markdown("""
             <div class="card">
             <h3>📊 Hasil Analisis</h3>

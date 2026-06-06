@@ -720,7 +720,21 @@ elif menu == "🧪 Stoikiometri":
         if hasil_mol == int(hasil_mol):
             st.success(f"{int(hasil_mol)} mol")
         else:
-            st.success(f"{hasil_mol} mol")
+            st.markdown("### 📝 Cara Penyelesaian")
+
+st.write("**Rumus:**")
+st.latex(r"n=\frac{m}{Mr}")
+
+st.write("**Diketahui:**")
+st.write(f"• Massa (m) = {massa} gram")
+st.write(f"• Mr zat = {Mr}")
+
+st.write("**Penyelesaian:**")
+st.write(f"n = {massa} / {Mr}")
+
+st.write(f"n = {hasil_mol} mol")
+
+st.success(f"Hasil akhir = {hasil_mol} mol")
 
       else:
         st.warning("Mr tidak boleh 0")

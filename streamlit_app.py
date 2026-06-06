@@ -714,13 +714,9 @@ elif menu == "🧪 Stoikiometri":
         <h3>📊 Hasil Perhitungan</h3>
         </div>
         """, unsafe_allow_html=True)
+     hasil_mol = round(mol, 4)
 
-        hasil_mol = round(mol, 4)
-
-        if hasil_mol == int(hasil_mol):
-            st.success(f"{int(hasil_mol)} mol")
-        else:
-            st.markdown("### 📝 Cara Penyelesaian")
+st.markdown("### 🧮 Cara Penyelesaian")
 
 st.write("**Rumus:**")
 st.latex(r"n=\frac{m}{Mr}")
@@ -731,13 +727,12 @@ st.write(f"• Mr zat = {Mr}")
 
 st.write("**Penyelesaian:**")
 st.write(f"n = {massa} / {Mr}")
-
 st.write(f"n = {hasil_mol} mol")
 
-st.success(f"Hasil akhir = {hasil_mol} mol")
-
-      else:
-        st.warning("Mr tidak boleh 0")
+if hasil_mol.is_integer():
+    st.success(f"Hasil akhir = {int(hasil_mol)} mol")
+else:
+    st.success(f"Hasil akhir = {hasil_mol} mol")
     # =====================================
     # TAMBAHAN FITUR STOIKIOMETRI
     # =====================================

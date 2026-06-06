@@ -796,7 +796,18 @@ elif menu == "🧪 Stoikiometri":
             </div>
             """, unsafe_allow_html=True)
 
-            st.success(f"{hasil:.6e} mol")
+            st.markdown("### 🧮 Cara Penyelesaian")
+
+            st.latex(r"n=\frac{N}{6.02\times10^{23}}")
+
+            st.write("**Diketahui:**")
+            st.write(f"N = {partikel}")
+
+            st.write("**Perhitungan:**")
+            st.write(f"n = {partikel} / (6.02 × 10²³)")
+            st.write(f"n = {hasil:.6e} mol")
+
+            st.success(f"Hasil akhir = {hasil:.6e} mol")
 
     # =========================
     # MOL DARI VOLUME GAS

@@ -699,40 +699,42 @@ elif menu == "🧪 Stoikiometri":
 
     with col2:
         Mr = st.number_input("Mr zat", min_value=0.0)
+if st.button("Hitung Mol"):
 
-    if st.button("Hitung Mol"):
-
-      if Mr > 0:
+    if Mr > 0:
 
         with st.spinner("🧪 Menghitung..."):
             time.sleep(1)
 
         mol = massa / Mr
+        hasil_mol = round(mol, 4)
 
         st.markdown("""
         <div class="card">
         <h3>📊 Hasil Perhitungan</h3>
         </div>
         """, unsafe_allow_html=True)
-     hasil_mol = round(mol, 4)
 
-st.markdown("### 🧮 Cara Penyelesaian")
+        st.markdown("### 🧮 Cara Penyelesaian")
 
-st.write("**Rumus:**")
-st.latex(r"n=\frac{m}{Mr}")
+        st.write("**Rumus:**")
+        st.latex(r"n = \frac{m}{Mr}")
 
-st.write("**Diketahui:**")
-st.write(f"• Massa (m) = {massa} gram")
-st.write(f"• Mr zat = {Mr}")
+        st.write("**Diketahui:**")
+        st.write(f"Massa = {massa} gram")
+        st.write(f"Mr = {Mr}")
 
-st.write("**Penyelesaian:**")
-st.write(f"n = {massa} / {Mr}")
-st.write(f"n = {hasil_mol} mol")
+        st.write("**Perhitungan:**")
+        st.write(f"n = {massa} / {Mr}")
+        st.write(f"n = {hasil_mol:g} mol")
 
-if hasil_mol.is_integer():
-    st.success(f"Hasil akhir = {int(hasil_mol)} mol")
-else:
-    st.success(f"Hasil akhir = {hasil_mol} mol")
+        st.success(
+            f"Hasil akhir = {hasil_mol:g} mol"
+        )
+
+    else:
+        st.warning("Mr tidak boleh 0")
+   
     # =====================================
     # TAMBAHAN FITUR STOIKIOMETRI
     # =====================================

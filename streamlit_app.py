@@ -463,7 +463,7 @@ elif menu == "⚗️ Reaksi Kimia":
     # ==================================
     # ANALISIS PERSAMAAN
     # ==================================
-    if fitur_reaksi == "Analisis Persamaan":
+    if fitur_reaksi == "Analisis Persamaan Reaksi":
 
         reaksi = st.text_input(
             "Masukkan Persamaan Reaksi",
@@ -527,7 +527,20 @@ elif menu == "⚗️ Reaksi Kimia":
                 st.success(
                     f"Jumlah produk = {len(daftar_produk)}"
                 )
+st.success("✅ Persamaan reaksi berhasil dianalisis")
 
+st.info(
+    f"Total zat dalam reaksi = "
+    f"{len(daftar_reaktan) + len(daftar_produk)}"
+)
+
+st.markdown("### 📖 Interpretasi")
+
+st.write(
+    f"Persamaan reaksi memiliki "
+    f"{len(daftar_reaktan)} reaktan "
+    f"dan {len(daftar_produk)} produk."
+)
     # ==================================
     # JENIS REAKSI
     # ==================================

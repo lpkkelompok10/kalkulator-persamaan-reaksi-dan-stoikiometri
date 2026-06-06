@@ -699,8 +699,7 @@ elif menu == "🧪 Stoikiometri":
 
     with col2:
         Mr = st.number_input("Mr zat", min_value=0.0)
-
-   if st.button("Hitung Mol"):
+        if st.button("Hitung Mol"):
 
     if Mr > 0:
 
@@ -715,11 +714,13 @@ elif menu == "🧪 Stoikiometri":
         </div>
         """, unsafe_allow_html=True)
 
-        st.success(f"{mol:.4f} mol")
-
+        if mol.is_integer():
+            st.success(f"{int(mol)} mol")
         else:
-            st.warning("Mr tidak boleh 0")
+            st.success(f"{mol:.4f} mol")
 
+    else:
+        st.warning("Mr tidak boleh 0")
     # =====================================
     # TAMBAHAN FITUR STOIKIOMETRI
     # =====================================

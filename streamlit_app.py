@@ -46,53 +46,50 @@ stoik_anim = load_lottie(
 team_anim = load_lottie(
     "https://assets1.lottiefiles.com/packages/lf20_tutvdkg0.json"
 )
-if "splash_shown" not in st.session_state:
-    st.session_state.splash_shown = False
+
 # =========================
 # SPLASH SCREEN
 # =========================
-if not st.session_state.splash_shown:
+splash = st.empty()
 
-    splash = st.empty()
+with splash.container():
 
-    with splash.container():
+    st.markdown("""
+    <style>
+    .intro-title{
+        text-align:center;
+        font-size:42px;
+        font-weight:bold;
+        color:#8b5e34;
+        margin-top:40px;
+        animation: fadeIn 1s ease;
+    }
 
-        st.markdown("""
-        <style>
-        .intro-title{
-            text-align:center;
-            font-size:42px;
-            font-weight:bold;
-            color:#8b5e34;
-            margin-top:40px;
-            animation: fadeIn 1s ease;
-        }
+    .intro-sub{
+        text-align:center;
+        color:#b8863b;
+        font-size:18px;
+    }
 
-        .intro-sub{
-            text-align:center;
-            color:#b8863b;
-            font-size:18px;
-        }
+    @keyframes fadeIn {
+        from {opacity:0;}
+        to {opacity:1;}
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
-        @keyframes fadeIn {
-            from {opacity:0;}
-            to {opacity:1;}
-        }
-        </style>
-        """, unsafe_allow_html=True)
+    st.markdown(
+        "<div class='intro-title'>🧑🏻‍🔬👩🏻‍🔬 CHEMICAL ANALYST LAB</div>",
+        unsafe_allow_html=True
+    )
 
-        st.markdown(
-            "<div class='intro-title'>🧑🏻‍🔬👩🏻‍🔬 CHEMICAL ANALYST LAB</div>",
-            unsafe_allow_html=True
-        )
+    st.markdown(
+        "<div class='intro-sub'>Initializing Chemistry Simulation System...</div>",
+        unsafe_allow_html=True
+    )
 
-        st.markdown(
-            "<div class='intro-sub'>Initializing Chemistry Simulation System...</div>",
-            unsafe_allow_html=True
-        )
-
-        if intro_anim:
-            st_lottie(intro_anim, height=320)
+    if intro_anim:
+        st_lottie(intro_anim, height=320)
 
     progress = st.progress(0)
     status = st.empty()
@@ -115,7 +112,6 @@ if not st.session_state.splash_shown:
     time.sleep(0.5)
 
 splash.empty()
-    st.session_state.splash_shown = True
 
 # =========================
 # STYLE

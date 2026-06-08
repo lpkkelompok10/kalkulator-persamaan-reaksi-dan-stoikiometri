@@ -48,84 +48,80 @@ team_anim = load_lottie(
 )
 
 # =========================
+# SPLASH SCREEN
+# =========================
+splash = st.empty()
+
+with splash.container():
+
+    st.markdown("""
+    <style>
+    .intro-title{
+        text-align:center;
+        font-size:42px;
+        font-weight:bold;
+        color:#8b5e34;
+        margin-top:40px;
+        animation: fadeIn 1s ease;
+    }
+
+    .intro-sub{
+        text-align:center;
+        color:#b8863b;
+        font-size:18px;
+    }
+
+    @keyframes fadeIn {
+        from {opacity:0;}
+        to {opacity:1;}
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+    st.markdown(
+        "<div class='intro-title'>🧑🏻‍🔬👩🏻‍🔬 CHEMICAL ANALYST LAB</div>",
+        unsafe_allow_html=True
+    )
+
+    st.markdown(
+        "<div class='intro-sub'>Initializing Chemistry Simulation System...</div>",
+        unsafe_allow_html=True
+    )
+
+    if intro_anim:
+        st_lottie(intro_anim, height=320)
+
+    progress = st.progress(0)
+    status = st.empty()
+
+    for i in range(100):
+
+        time.sleep(0.02)
+
+        progress.progress(i + 1)
+
+        if i < 30:
+            status.write("⚗️ Loading atoms...")
+        elif i < 60:
+            status.write("🧪 Mixing compounds...")
+        elif i < 90:
+            status.write("🔬 Calibrating reactions...")
+        else:
+            status.write("✅ System ready!")
+
+    time.sleep(0.5)
+
+splash.empty()
+
+# =========================
 # STYLE
 # =========================
 st.markdown("""
 <style>
-/* GAS KIMIA MELAYANG */
-
-.gas1, .gas2, .gas3 {
-    position: fixed;
-    border-radius: 50%;
-    filter: blur(35px);
-    opacity: 0.15;
-    z-index: 0;
-    pointer-events: none;
-}
-
-.gas1 {
-    width: 200px;
-    height: 200px;
-    background: #a8e6cf;
-    left: 10%;
-    bottom: -100px;
-    animation: gasUp1 18s linear infinite;
-}
-
-.gas2 {
-    width: 250px;
-    height: 250px;
-    background: #dcedc1;
-    left: 50%;
-    bottom: -120px;
-    animation: gasUp2 22s linear infinite;
-}
-
-.gas3 {
-    width: 180px;
-    height: 180px;
-    background: #ffd3b6;
-    left: 80%;
-    bottom: -100px;
-    animation: gasUp3 20s linear infinite;
-}
-
-@keyframes gasUp1 {
-    from {
-        transform: translateY(0);
-    }
-    to {
-        transform: translateY(-120vh);
-    }
-}
-
-@keyframes gasUp2 {
-    from {
-        transform: translateY(0);
-    }
-    to {
-        transform: translateY(-130vh);
-    }
-}
-
-@keyframes gasUp3 {
-    from {
-        transform: translateY(0);
-    }
-    to {
-        transform: translateY(-110vh);
-    }
-}
 
 /* BACKGROUND */
 .stApp {
-    background: linear-gradient(
-        135deg,
-        #eef2ff,
-        #ddd6fe,
-        #cffafe,
-        #e9d5ff
-    );
+    background: linear-gradient(135deg, #fffaf0, #fdf6e3);
     overflow: hidden;
 }
 
@@ -230,32 +226,7 @@ st.markdown("""
 }
 
 @keyframes floating2 {
-@keyframes gasMove {
 
-    0%{
-        background-position:
-        20% 80%,
-        70% 90%,
-        50% 100%,
-        center;
-    }
-
-    50%{
-        background-position:
-        30% 40%,
-        60% 50%,
-        40% 60%,
-        center;
-    }
-
-    100%{
-        background-position:
-        20% 80%,
-        70% 90%,
-        50% 100%,
-        center;
-    }
-}
     0% {
         transform: translateY(0px);
     }
@@ -292,9 +263,15 @@ section[data-testid="stSidebar"] div[role="radiogroup"] > label:hover {
 
 /* CARD */
 .card {
-    background: rgba(255,255,255,0.75);
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(255,255,255,0.4);
+    background: rgba(255,255,255,0.88);
+    backdrop-filter: blur(10px);
+    padding: 22px;
+    border-radius: 16px;
+    box-shadow: 0px 6px 18px rgba(0,0,0,0.08);
+    margin-bottom: 18px;
+    transition: all 0.25s ease;
+    position: relative;
+    z-index: 2;
 }
 
 .card:hover {
@@ -303,9 +280,8 @@ section[data-testid="stSidebar"] div[role="radiogroup"] > label:hover {
 }
 
 /* BUTTON */
-.stButton>button:hover {
-    background-color: #4f46e5;
-}
+.stButton>button {
+    background-color: #d6a75f;
     color: white;
     border-radius: 10px;
     padding: 8px 16px;
@@ -320,7 +296,7 @@ section[data-testid="stSidebar"] div[role="radiogroup"] > label:hover {
 
 /* TITLE */
 h1, h2, h3 {
-    color: #4338ca;
+    color: #8b5e34;
 }
 
 </style>

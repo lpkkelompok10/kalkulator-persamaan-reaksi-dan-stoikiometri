@@ -121,7 +121,14 @@ st.markdown("""
 
 /* BACKGROUND */
 .stApp {
-    background: linear-gradient(135deg, #fffaf0, #fdf6e3);
+    background:
+    radial-gradient(circle at 20% 80%, rgba(180,255,200,0.15) 0%, transparent 20%),
+    radial-gradient(circle at 70% 90%, rgba(255,220,180,0.15) 0%, transparent 25%),
+    radial-gradient(circle at 50% 100%, rgba(200,220,255,0.12) 0%, transparent 20%),
+    linear-gradient(135deg, #fffaf0, #fdf6e3);
+
+    background-size: 200% 200%;
+    animation: gasMove 15s ease infinite;
     overflow: hidden;
 }
 
@@ -226,7 +233,32 @@ st.markdown("""
 }
 
 @keyframes floating2 {
+@keyframes gasMove {
 
+    0%{
+        background-position:
+        20% 80%,
+        70% 90%,
+        50% 100%,
+        center;
+    }
+
+    50%{
+        background-position:
+        30% 40%,
+        60% 50%,
+        40% 60%,
+        center;
+    }
+
+    100%{
+        background-position:
+        20% 80%,
+        70% 90%,
+        50% 100%,
+        center;
+    }
+}
     0% {
         transform: translateY(0px);
     }

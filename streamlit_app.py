@@ -119,14 +119,13 @@ st.markdown("""
 
 /* BACKGROUND */
 .stApp {
-    background:
-    radial-gradient(circle at 20% 80%, rgba(180,255,200,0.15) 0%, transparent 20%),
-    radial-gradient(circle at 70% 90%, rgba(255,220,180,0.15) 0%, transparent 25%),
-    radial-gradient(circle at 50% 100%, rgba(200,220,255,0.12) 0%, transparent 20%),
-    linear-gradient(135deg, #fffaf0, #fdf6e3);
-
-    background-size: 200% 200%;
-    animation: gasMove 15s ease infinite;
+    background: linear-gradient(
+        135deg,
+        #eef2ff,
+        #ddd6fe,
+        #cffafe,
+        #e9d5ff
+    );
     overflow: hidden;
 }
 
@@ -293,15 +292,9 @@ section[data-testid="stSidebar"] div[role="radiogroup"] > label:hover {
 
 /* CARD */
 .card {
-    background: rgba(255,255,255,0.88);
-    backdrop-filter: blur(10px);
-    padding: 22px;
-    border-radius: 16px;
-    box-shadow: 0px 6px 18px rgba(0,0,0,0.08);
-    margin-bottom: 18px;
-    transition: all 0.25s ease;
-    position: relative;
-    z-index: 2;
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255,255,255,0.4);
 }
 
 .card:hover {
@@ -310,8 +303,9 @@ section[data-testid="stSidebar"] div[role="radiogroup"] > label:hover {
 }
 
 /* BUTTON */
-.stButton>button {
-    background-color: #d6a75f;
+.stButton>button:hover {
+    background-color: #4f46e5;
+}
     color: white;
     border-radius: 10px;
     padding: 8px 16px;
@@ -326,7 +320,7 @@ section[data-testid="stSidebar"] div[role="radiogroup"] > label:hover {
 
 /* TITLE */
 h1, h2, h3 {
-    color: #8b5e34;
+    color: #4338ca;
 }
 
 </style>

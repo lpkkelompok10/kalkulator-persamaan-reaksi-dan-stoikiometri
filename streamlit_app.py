@@ -46,13 +46,16 @@ stoik_anim = load_lottie(
 team_anim = load_lottie(
     "https://assets1.lottiefiles.com/packages/lf20_tutvdkg0.json"
 )
-
+if "splash_shown" not in st.session_state:
+    st.session_state.splash_shown = False
 # =========================
 # SPLASH SCREEN
 # =========================
-splash = st.empty()
+if not st.session_state.splash_shown:
 
-with splash.container():
+    splash = st.empty()
+
+    with splash.container():
 
     st.markdown("""
     <style>
@@ -112,6 +115,7 @@ with splash.container():
     time.sleep(0.5)
 
 splash.empty()
+    st.session_state.splash_shown = True
 
 # =========================
 # STYLE

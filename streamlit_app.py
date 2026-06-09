@@ -453,7 +453,7 @@ elif menu == "⚗️ Reaksi Kimia":
     fitur_reaksi = st.selectbox(
         "Pilih Fitur",
         [
-            "Analisis Persamaan",
+            "Analisis Persamaan reaksi",
             "Jenis Reaksi",
             "Prediksi Produk Reaksi",
             "Daftar Reaksi Umum"
@@ -463,7 +463,7 @@ elif menu == "⚗️ Reaksi Kimia":
     # ==================================
     # ANALISIS PERSAMAAN
     # ==================================
-    if fitur_reaksi == "Analisis Persamaan Reaksi":
+    if fitur_reaksi == "Analisis Persamaan reaksi":
 
         reaksi = st.text_input(
             "Masukkan Persamaan Reaksi",
@@ -527,12 +527,12 @@ elif menu == "⚗️ Reaksi Kimia":
                 st.success(
                     f"Jumlah produk = {len(daftar_produk)}"
                 )
-        st.success("✅ Persamaan reaksi berhasil dianalisis")
+          st.success("✅ Persamaan reaksi berhasil dianalisis")
 
-        st.info(
-            f"Total zat dalam reaksi = "
-            f"{len(daftar_reaktan) + len(daftar_produk)}"
-        )
+          st.info(
+              f"Total zat dalam reaksi = "
+              f"{len(daftar_reaktan) + len(daftar_produk)}"
+          )
 
         st.markdown("### 📖 Interpretasi")
 

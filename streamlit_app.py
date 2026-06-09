@@ -1096,6 +1096,6 @@ elif menu == "👥 Kelompok 10":
     for m in members:
         st.markdown(f"""
         <div class="card">
-        <h3>🧑‍🔬 {m}</h3>
+        <h3>🧑🏻‍🔬👩🏻‍🔬 {m}</h3>
         </div>
         """, unsafe_allow_html=True)

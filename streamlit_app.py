@@ -453,7 +453,7 @@ elif menu == "⚗️ Reaksi Kimia":
     fitur_reaksi = st.selectbox(
         "Pilih Fitur",
         [
-            "Analisis Persamaan reaksi",
+            "Analisis Persamaan",
             "Jenis Reaksi",
             "Prediksi Produk Reaksi",
             "Daftar Reaksi Umum"
@@ -463,7 +463,7 @@ elif menu == "⚗️ Reaksi Kimia":
     # ==================================
     # ANALISIS PERSAMAAN
     # ==================================
-    if fitur_reaksi == "Analisis Persamaan reaksi":
+    if fitur_reaksi == "Analisis Persamaan Reaksi":
 
         reaksi = st.text_input(
             "Masukkan Persamaan Reaksi",
@@ -472,19 +472,61 @@ elif menu == "⚗️ Reaksi Kimia":
 
         if st.button("Analisis Reaksi"):
 
-    if not reaksi:
-        st.warning("Masukkan persamaan reaksi terlebih dahulu.")
+            if not reaksi:
 
-    elif "->" not in reaksi:
-        st.error("Gunakan tanda -> pada persamaan reaksi.")
+                st.warning(
+                    "Masukkan persamaan reaksi terlebih dahulu."
+                )
 
-    else:
+            elif "->" not in reaksi:
 
-        reaktan, produk = reaksi.split("->")
+                st.error(
+                    "Gunakan tanda -> pada persamaan reaksi."
+                )
 
-        daftar_reaktan = [x.strip() for x in reaktan.split("+")]
-        daftar_produk = [x.strip() for x in produk.split("+")]
+            else:
 
+                reaktan, produk = reaksi.split("->")
+
+                daftar_reaktan = [
+                    x.strip()
+                    for x in reaktan.split("+")
+                ]
+
+                daftar_produk = [
+                    x.strip()
+                    for x in produk.split("+")
+                ]
+
+                st.markdown("""
+                <div class="card">
+                <h3>📊 Hasil Analisis</h3>
+                </div>
+                """, unsafe_allow_html=True)
+
+                col1, col2 = st.columns(2)
+
+                with col1:
+
+                    st.subheader("🧪 Reaktan")
+
+                    for r in daftar_reaktan:
+                        st.write("•", r)
+
+                with col2:
+
+                    st.subheader("⚗️ Produk")
+
+                    for p in daftar_produk:
+                        st.write("•", p)
+
+                st.success(
+                    f"Jumlah reaktan = {len(daftar_reaktan)}"
+                )
+
+                st.success(
+                    f"Jumlah produk = {len(daftar_produk)}"
+                )
         st.success("✅ Persamaan reaksi berhasil dianalisis")
 
         st.info(
@@ -496,8 +538,8 @@ elif menu == "⚗️ Reaksi Kimia":
 
         st.write(
             f"Persamaan reaksi memiliki "
-            f"{len(daftar_reaktan)} reaktan dan "
-            f"{len(daftar_produk)} produk."
+            f"{len(daftar_reaktan)} reaktan "
+            f"dan {len(daftar_produk)} produk."
         )
     # ==================================
     # JENIS REAKSI
@@ -1054,6 +1096,6 @@ elif menu == "👥 Kelompok 10":
     for m in members:
         st.markdown(f"""
         <div class="card">
-        <h3>🧑🏻‍🔬👩🏻‍🔬 {m}</h3>
+        <h3>🧑‍🔬 {m}</h3>
         </div>
         """, unsafe_allow_html=True)

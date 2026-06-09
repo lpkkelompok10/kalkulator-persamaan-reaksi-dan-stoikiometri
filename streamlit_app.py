@@ -497,6 +497,20 @@ elif menu == "⚗️ Reaksi Kimia":
                     x.strip()
                     for x in produk.split("+")
                 ]
+                 st.success("✅ Persamaan reaksi berhasil dianalisis")
+
+                st.info(
+                     f"Total zat dalam reaksi = "
+                     f"{len(daftar_reaktan) + len(daftar_produk)}"
+                )
+
+                st.markdown("### 📖 Interpretasi")
+
+                st.write(
+    f"Persamaan reaksi memiliki "
+    f"{len(daftar_reaktan)} reaktan "
+    f"dan {len(daftar_produk)} produk."
+)
 
                 st.markdown("""
                 <div class="card">
@@ -527,20 +541,6 @@ elif menu == "⚗️ Reaksi Kimia":
                 st.success(
                     f"Jumlah produk = {len(daftar_produk)}"
                 )
-        st.success("✅ Persamaan reaksi berhasil dianalisis")
-
-        st.info(
-            f"Total zat dalam reaksi = "
-            f"{len(daftar_reaktan) + len(daftar_produk)}"
-        )
-
-        st.markdown("### 📖 Interpretasi")
-
-        st.write(
-            f"Persamaan reaksi memiliki "
-            f"{len(daftar_reaktan)} reaktan "
-            f"dan {len(daftar_produk)} produk."
-        )
     # ==================================
     # JENIS REAKSI
     # ==================================

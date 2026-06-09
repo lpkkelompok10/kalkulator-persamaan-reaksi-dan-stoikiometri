@@ -472,74 +472,32 @@ elif menu == "⚗️ Reaksi Kimia":
 
         if st.button("Analisis Reaksi"):
 
-            if not reaksi:
+    if not reaksi:
+        st.warning("Masukkan persamaan reaksi terlebih dahulu.")
 
-                st.warning(
-                    "Masukkan persamaan reaksi terlebih dahulu."
-                )
+    elif "->" not in reaksi:
+        st.error("Gunakan tanda -> pada persamaan reaksi.")
 
-            elif "->" not in reaksi:
+    else:
 
-                st.error(
-                    "Gunakan tanda -> pada persamaan reaksi."
-                )
+        reaktan, produk = reaksi.split("->")
 
-            else:
+        daftar_reaktan = [x.strip() for x in reaktan.split("+")]
+        daftar_produk = [x.strip() for x in produk.split("+")]
 
-                reaktan, produk = reaksi.split("->")
+        st.success("✅ Persamaan reaksi berhasil dianalisis")
 
-                daftar_reaktan = [
-                    x.strip()
-                    for x in reaktan.split("+")
-                ]
-
-                daftar_produk = [
-                    x.strip()
-                    for x in produk.split("+")
-                ]
-
-                st.markdown("""
-                <div class="card">
-                <h3>📊 Hasil Analisis</h3>
-                </div>
-                """, unsafe_allow_html=True)
-
-                col1, col2 = st.columns(2)
-
-                with col1:
-
-                    st.subheader("🧪 Reaktan")
-
-                    for r in daftar_reaktan:
-                        st.write("•", r)
-
-                with col2:
-
-                    st.subheader("⚗️ Produk")
-
-                    for p in daftar_produk:
-                        st.write("•", p)
-
-                st.success(
-                    f"Jumlah reaktan = {len(daftar_reaktan)}"
-                )
-
-                st.success(
-                    f"Jumlah produk = {len(daftar_produk)}"
-                )
-          st.success("✅ Persamaan reaksi berhasil dianalisis")
-
-          st.info(
-              f"Total zat dalam reaksi = "
-              f"{len(daftar_reaktan) + len(daftar_produk)}"
-          )
+        st.info(
+            f"Total zat dalam reaksi = "
+            f"{len(daftar_reaktan) + len(daftar_produk)}"
+        )
 
         st.markdown("### 📖 Interpretasi")
 
         st.write(
             f"Persamaan reaksi memiliki "
-            f"{len(daftar_reaktan)} reaktan "
-            f"dan {len(daftar_produk)} produk."
+            f"{len(daftar_reaktan)} reaktan dan "
+            f"{len(daftar_produk)} produk."
         )
     # ==================================
     # JENIS REAKSI

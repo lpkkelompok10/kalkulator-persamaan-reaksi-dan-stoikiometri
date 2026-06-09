@@ -453,7 +453,7 @@ elif menu == "⚗️ Reaksi Kimia":
     fitur_reaksi = st.selectbox(
         "Pilih Fitur",
         [
-            "Analisis Persamaan Reaksi",
+            "Analisis Persamaan",
             "Jenis Reaksi",
             "Prediksi Produk Reaksi",
             "Daftar Reaksi Umum"
@@ -461,7 +461,7 @@ elif menu == "⚗️ Reaksi Kimia":
     )
 
     # ==================================
-    # ANALISIS PERSAMAAN REAKSI
+    # ANALISIS PERSAMAAN
     # ==================================
     if fitur_reaksi == "Analisis Persamaan Reaksi":
 
@@ -1096,6 +1096,6 @@ elif menu == "👥 Kelompok 10":
     for m in members:
         st.markdown(f"""
         <div class="card">
-        <h3>🧑‍🔬 {m}</h3>
+        <h3>🧑🏻‍🔬👩🏻‍🔬 {m}</h3>
         </div>
         """, unsafe_allow_html=True)

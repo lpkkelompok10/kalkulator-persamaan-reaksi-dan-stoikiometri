@@ -453,7 +453,7 @@ elif menu == "⚗️ Reaksi Kimia":
     fitur_reaksi = st.selectbox(
         "Pilih Fitur",
         [
-            "Analisis Persamaan",
+            "Analisis Persamaan Reaksi",
             "Jenis Reaksi",
             "Prediksi Produk Reaksi",
             "Daftar Reaksi Umum"
@@ -461,7 +461,7 @@ elif menu == "⚗️ Reaksi Kimia":
     )
 
     # ==================================
-    # ANALISIS PERSAMAAN
+    # ANALISIS PERSAMAAN REAKSI
     # ==================================
     if fitur_reaksi == "Analisis Persamaan Reaksi":
 

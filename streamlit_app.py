@@ -497,7 +497,7 @@ elif menu == "⚗️ Reaksi Kimia":
                     x.strip()
                     for x in produk.split("+")
                 ]
-                 st.success("✅ Persamaan reaksi berhasil dianalisis")
+                st.success("✅ Persamaan reaksi berhasil dianalisis")
 
                 st.info(
                      f"Total zat dalam reaksi = "

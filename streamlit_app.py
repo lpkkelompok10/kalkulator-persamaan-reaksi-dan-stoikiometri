@@ -363,14 +363,15 @@ if menu == "🏠 Home":
     if home_anim:
         st_lottie(home_anim, height=280)
 
-    st.markdown("""
-    <div style="text-align:center; padding:20px">
-        <h1>⚗️ Kalkulator Persamaan Reaksi Kimia dan Stoikiometri</h1>
-        <p style="font-size:18px; color:#b8863b">
-        Chemistry Simulation Lab
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
+   st.markdown("""
+   <div style="text-align:center; padding:20px">
+      <h1>Kalkulator Persamaan Reaksi Kimia dan Stoikiometri</h1>
+
+      <p style="font-size:18px; color:#b8863b">
+          Chemistry Simulation Lab
+      </p>
+   </div>
+   """, unsafe_allow_html=True)
 
     st.markdown("---")
 

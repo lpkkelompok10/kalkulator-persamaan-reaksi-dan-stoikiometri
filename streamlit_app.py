@@ -55,58 +55,24 @@ splash = st.empty()
 with splash.container():
 
     st.markdown("""
-    <style>
-    .intro-title{
-        text-align:center;
-        font-size:42px;
-        font-weight:bold;
-        color:#8b5e34;
-        margin-top:40px;
-        animation: fadeIn 1s ease;
-    }
+    <div style='text-align:center; padding:40px;'>
 
-    .intro-sub{
-        text-align:center;
-        color:#b8863b;
-        font-size:18px;
-    }
+    <h1 style='font-size:120px; opacity:0.15;'>
+    ⚗️
+    </h1>
 
-    @keyframes fadeIn {
-        from {opacity:0;}
-        to {opacity:1;}
-    }
-    </style>
+    <h3 style='color:#8b5e34;'>
+    CHEMICAL ANALYST LAB
+    </h3>
+
+    <p style='color:#b8863b;'>
+    Loading...
+    </p>
+
+    </div>
     """, unsafe_allow_html=True)
 
-    st.markdown(
-        "<div class='intro-title'>🧑🏻‍🔬👩🏻‍🔬 CHEMICAL ANALYST LAB</div>",
-        unsafe_allow_html=True
-    )
-
-    st.markdown(
-        "<div class='intro-sub'>Initializing Chemistry Simulation System...</div>",
-        unsafe_allow_html=True
-    )
-
-   st.markdown("""
-   <div style='text-align:center; padding:40px;'>
-
-   <h1 style='font-size:120px; opacity:0.15;'>
-   ⚗️
-   </h1>
-
-   <h3 style='color:#8b5e34;'>
-   CHEMICAL ANALYST LAB
-   </h3>
-
-   <p style='color:#b8863b;'>
-   Loading...
-   </p>
-
-   </div>
-   """, unsafe_allow_html=True)
-
-   time.sleep(0.2)
+    time.sleep(0.2)
 
 splash.empty()
 

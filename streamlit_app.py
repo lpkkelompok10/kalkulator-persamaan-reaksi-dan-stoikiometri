@@ -1,4 +1,4 @@
-import streamlit as st
+
 import time
 import requests
 from streamlit_lottie import st_lottie
@@ -296,10 +296,6 @@ h1,h2,h3{
         0 0 40px #3b82f6;
 }
 
-/* TITLE */
-h1, h2, h3 {
-...
-}
 
 /* GAS EFFECT */
 .stApp::before{
@@ -344,9 +340,6 @@ h1, h2, h3 {
 </style>
 """, unsafe_allow_html=True)
 
-</style>
-""", unsafe_allow_html=True)
-
 # =========================
 # SIDEBAR MENU
 # =========================
@@ -363,15 +356,15 @@ if menu == "🏠 Home":
     if home_anim:
         st_lottie(home_anim, height=280)
 
-   st.markdown("""
-   <div style="text-align:center; padding:20px">
-      <h1>Kalkulator Persamaan Reaksi Kimia dan Stoikiometri</h1>
+        st.markdown("""
+          <div style="text-align:center; padding:20px">
+          <h1>Kalkulator Persamaan Reaksi Kimia dan Stoikiometri</h1>
 
-      <p style="font-size:18px; color:#b8863b">
-          Chemistry Simulation Lab
-      </p>
-   </div>
-   """, unsafe_allow_html=True)
+          <p style="font-size:18px; color:#b8863b">
+             Chemistry Simulation Lab
+          </p>
+          </div>
+          """, unsafe_allow_html=True)
 
     st.markdown("---")
 

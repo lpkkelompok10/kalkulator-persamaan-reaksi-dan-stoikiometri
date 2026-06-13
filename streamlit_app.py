@@ -84,8 +84,16 @@ st.markdown("""
 
 /* BACKGROUND */
 .stApp {
-    background: linear-gradient(135deg, #fffaf0, #fdf6e3);
-    overflow: hidden;
+    background:
+    radial-gradient(circle at 20% 20%, rgba(139,92,246,0.25), transparent 30%),
+    radial-gradient(circle at 80% 80%, rgba(59,130,246,0.25), transparent 30%),
+    linear-gradient(
+        135deg,
+        #020617,
+        #0f172a,
+        #1e1b4b,
+        #312e81
+    );
 }
 
 /* FLOATING LAB IMAGE */
@@ -205,41 +213,61 @@ st.markdown("""
 
 /* SIDEBAR */
 [data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #fff5dc, #fffaf0);
+    background:
+    linear-gradient(
+        180deg,
+        #020617,
+        #111827,
+        #1e1b4b
+    );
+
+    border-right:1px solid rgba(139,92,246,0.4);
 }
 
 /* SIDEBAR ITEMS */
 section[data-testid="stSidebar"] div[role="radiogroup"] > label {
-    background: white;
-    padding: 10px;
-    border-radius: 12px;
-    margin-bottom: 8px;
-    transition: 0.25s ease;
-    box-shadow: 0px 2px 8px rgba(0,0,0,0.05);
-}
 
-section[data-testid="stSidebar"] div[role="radiogroup"] > label:hover {
-    transform: translateX(6px);
-    background: #ffeec2;
-    box-shadow: 0px 10px 22px rgba(0,0,0,0.12);
+    background: rgba(255,255,255,0.05);
+
+    border: 1px solid rgba(139,92,246,0.3);
+
+    color: white;
+
+    border-radius: 14px;
+
+    backdrop-filter: blur(10px);
+
+    box-shadow:
+        0 0 10px rgba(139,92,246,0.15);
 }
 
 /* CARD */
 .card {
-    background: rgba(255,255,255,0.88);
-    backdrop-filter: blur(10px);
-    padding: 22px;
-    border-radius: 16px;
-    box-shadow: 0px 6px 18px rgba(0,0,0,0.08);
-    margin-bottom: 18px;
-    transition: all 0.25s ease;
-    position: relative;
-    z-index: 2;
+
+    background: rgba(255,255,255,0.05);
+
+    border:1px solid rgba(255,255,255,0.1);
+
+    backdrop-filter: blur(20px);
+
+    border-radius:20px;
+
+    color:white;
+
+    box-shadow:
+        0 0 20px rgba(139,92,246,0.2),
+        0 0 50px rgba(59,130,246,0.15);
+
+    transition:0.3s;
 }
 
-.card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0px 18px 35px rgba(0,0,0,0.15);
+.card:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:
+        0 0 25px rgba(139,92,246,0.35),
+        0 0 60px rgba(59,130,246,0.25);
 }
 
 /* BUTTON */
@@ -258,9 +286,63 @@ section[data-testid="stSidebar"] div[role="radiogroup"] > label:hover {
 }
 
 /* TITLE */
-h1, h2, h3 {
-    color: #8b5e34;
+h1,h2,h3{
+
+    color:#e9d5ff;
+
+    text-shadow:
+        0 0 10px #8b5cf6,
+        0 0 20px #8b5cf6,
+        0 0 40px #3b82f6;
 }
+
+/* TITLE */
+h1, h2, h3 {
+...
+}
+
+/* GAS EFFECT */
+.stApp::before{
+    content:"";
+    position:fixed;
+
+    width:700px;
+    height:700px;
+
+    top:-200px;
+    left:-200px;
+
+    background:
+    radial-gradient(
+        circle,
+        rgba(139,92,246,0.25),
+        transparent 70%
+    );
+
+    filter:blur(120px);
+
+    animation:gas1 15s infinite ease-in-out;
+
+    pointer-events:none;
+}
+
+@keyframes gas1{
+
+    0%{
+        transform:translate(0,0);
+    }
+
+    50%{
+        transform:translate(120px,80px);
+    }
+
+    100%{
+        transform:translate(0,0);
+    }
+}
+
+</style>
+""", unsafe_allow_html=True)
 
 </style>
 """, unsafe_allow_html=True)

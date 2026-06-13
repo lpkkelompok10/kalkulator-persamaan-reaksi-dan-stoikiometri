@@ -91,25 +91,24 @@ with splash.container():
     if intro_anim:
         st_lottie(intro_anim, height=320)
 
-    progress = st.progress(0)
-    status = st.empty()
+   st.markdown("""
+   <div style='text-align:center; padding:40px;'>
 
-    for i in range(100):
+   <h1 style='font-size:120px; opacity:0.15;'>
+   ⚗️
+   </h1>
 
-        time.sleep(0.02)
+   <h3 style='color:#8b5e34;'>
+   CHEMICAL ANALYST LAB
+   </h3>
 
-        progress.progress(i + 1)
+   <p style='color:#b8863b;'>
+   Loading...
+   </p>
 
-        if i < 30:
-            status.write("⚗️ Loading atoms...")
-        elif i < 60:
-            status.write("🧪 Mixing compounds...")
-        elif i < 90:
-            status.write("🔬 Calibrating reactions...")
-        else:
-            status.write("✅ System ready!")
-
-    time.sleep(0.5)
+   </div>
+   """, unsafe_allow_html=True)
+time.sleep(0.2)
 
 splash.empty()
 

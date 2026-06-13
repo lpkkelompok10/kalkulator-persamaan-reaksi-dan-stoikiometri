@@ -105,7 +105,8 @@ with splash.container():
 
    </div>
    """, unsafe_allow_html=True)
-time.sleep(0.2)
+
+   time.sleep(0.2)
 
 splash.empty()
 

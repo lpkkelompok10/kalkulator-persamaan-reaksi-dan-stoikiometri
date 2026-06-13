@@ -1,4 +1,4 @@
-
+import streamlit as st
 import time
 import requests
 from streamlit_lottie import st_lottie
@@ -55,24 +55,61 @@ splash = st.empty()
 with splash.container():
 
     st.markdown("""
-    <div style='text-align:center; padding:40px;'>
+    <style>
+    .intro-title{
+        text-align:center;
+        font-size:42px;
+        font-weight:bold;
+        color:#8b5e34;
+        margin-top:40px;
+        animation: fadeIn 1s ease;
+    }
 
-    <h1 style='font-size:120px; opacity:0.15;'>
-    ⚗️
-    </h1>
+    .intro-sub{
+        text-align:center;
+        color:#b8863b;
+        font-size:18px;
+    }
 
-    <h3 style='color:#8b5e34;'>
-    CHEMICAL ANALYST LAB
-    </h3>
-
-    <p style='color:#b8863b;'>
-    Loading...
-    </p>
-
-    </div>
+    @keyframes fadeIn {
+        from {opacity:0;}
+        to {opacity:1;}
+    }
+    </style>
     """, unsafe_allow_html=True)
 
-    time.sleep(0.2)
+    st.markdown(
+        "<div class='intro-title'>🧑🏻‍🔬👩🏻‍🔬 CHEMICAL ANALYST LAB</div>",
+        unsafe_allow_html=True
+    )
+
+    st.markdown(
+        "<div class='intro-sub'>Initializing Chemistry Simulation System...</div>",
+        unsafe_allow_html=True
+    )
+
+    if intro_anim:
+        st_lottie(intro_anim, height=320)
+
+    progress = st.progress(0)
+    status = st.empty()
+
+    for i in range(100):
+
+        time.sleep(0.02)
+
+        progress.progress(i + 1)
+
+        if i < 30:
+            status.write("⚗️ Loading atoms...")
+        elif i < 60:
+            status.write("🧪 Mixing compounds...")
+        elif i < 90:
+            status.write("🔬 Calibrating reactions...")
+        else:
+            status.write("✅ System ready!")
+
+    time.sleep(0.5)
 
 splash.empty()
 
@@ -84,16 +121,8 @@ st.markdown("""
 
 /* BACKGROUND */
 .stApp {
-    background:
-    radial-gradient(circle at 20% 20%, rgba(139,92,246,0.25), transparent 30%),
-    radial-gradient(circle at 80% 80%, rgba(59,130,246,0.25), transparent 30%),
-    linear-gradient(
-        135deg,
-        #020617,
-        #0f172a,
-        #1e1b4b,
-        #312e81
-    );
+    background: linear-gradient(135deg, #fffaf0, #fdf6e3);
+    overflow: hidden;
 }
 
 /* FLOATING LAB IMAGE */
@@ -213,61 +242,41 @@ st.markdown("""
 
 /* SIDEBAR */
 [data-testid="stSidebar"] {
-    background:
-    linear-gradient(
-        180deg,
-        #020617,
-        #111827,
-        #1e1b4b
-    );
-
-    border-right:1px solid rgba(139,92,246,0.4);
+    background: linear-gradient(180deg, #fff5dc, #fffaf0);
 }
 
 /* SIDEBAR ITEMS */
 section[data-testid="stSidebar"] div[role="radiogroup"] > label {
+    background: white;
+    padding: 10px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+    transition: 0.25s ease;
+    box-shadow: 0px 2px 8px rgba(0,0,0,0.05);
+}
 
-    background: rgba(255,255,255,0.05);
-
-    border: 1px solid rgba(139,92,246,0.3);
-
-    color: white;
-
-    border-radius: 14px;
-
-    backdrop-filter: blur(10px);
-
-    box-shadow:
-        0 0 10px rgba(139,92,246,0.15);
+section[data-testid="stSidebar"] div[role="radiogroup"] > label:hover {
+    transform: translateX(6px);
+    background: #ffeec2;
+    box-shadow: 0px 10px 22px rgba(0,0,0,0.12);
 }
 
 /* CARD */
 .card {
-
-    background: rgba(255,255,255,0.05);
-
-    border:1px solid rgba(255,255,255,0.1);
-
-    backdrop-filter: blur(20px);
-
-    border-radius:20px;
-
-    color:white;
-
-    box-shadow:
-        0 0 20px rgba(139,92,246,0.2),
-        0 0 50px rgba(59,130,246,0.15);
-
-    transition:0.3s;
+    background: rgba(255,255,255,0.88);
+    backdrop-filter: blur(10px);
+    padding: 22px;
+    border-radius: 16px;
+    box-shadow: 0px 6px 18px rgba(0,0,0,0.08);
+    margin-bottom: 18px;
+    transition: all 0.25s ease;
+    position: relative;
+    z-index: 2;
 }
 
-.card:hover{
-
-    transform:translateY(-6px);
-
-    box-shadow:
-        0 0 25px rgba(139,92,246,0.35),
-        0 0 60px rgba(59,130,246,0.25);
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0px 18px 35px rgba(0,0,0,0.15);
 }
 
 /* BUTTON */
@@ -286,55 +295,8 @@ section[data-testid="stSidebar"] div[role="radiogroup"] > label {
 }
 
 /* TITLE */
-h1,h2,h3{
-
-    color:#e9d5ff;
-
-    text-shadow:
-        0 0 10px #8b5cf6,
-        0 0 20px #8b5cf6,
-        0 0 40px #3b82f6;
-}
-
-
-/* GAS EFFECT */
-.stApp::before{
-    content:"";
-    position:fixed;
-
-    width:700px;
-    height:700px;
-
-    top:-200px;
-    left:-200px;
-
-    background:
-    radial-gradient(
-        circle,
-        rgba(139,92,246,0.25),
-        transparent 70%
-    );
-
-    filter:blur(120px);
-
-    animation:gas1 15s infinite ease-in-out;
-
-    pointer-events:none;
-}
-
-@keyframes gas1{
-
-    0%{
-        transform:translate(0,0);
-    }
-
-    50%{
-        transform:translate(120px,80px);
-    }
-
-    100%{
-        transform:translate(0,0);
-    }
+h1, h2, h3 {
+    color: #8b5e34;
 }
 
 </style>
@@ -356,15 +318,14 @@ if menu == "🏠 Home":
     if home_anim:
         st_lottie(home_anim, height=280)
 
-        st.markdown("""
-          <div style="text-align:center; padding:20px">
-          <h1>Kalkulator Persamaan Reaksi Kimia dan Stoikiometri</h1>
-
-          <p style="font-size:18px; color:#b8863b">
-             Chemistry Simulation Lab
-          </p>
-          </div>
-          """, unsafe_allow_html=True)
+    st.markdown("""
+    <div style="text-align:center; padding:20px">
+        <h1>⚗️ Kalkulator Persamaan Reaksi Kimia dan Stoikiometri</h1>
+        <p style="font-size:18px; color:#b8863b">
+        Chemistry Simulation Lab
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
 
     st.markdown("---")
 

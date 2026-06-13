@@ -88,9 +88,6 @@ with splash.container():
         unsafe_allow_html=True
     )
 
-    if intro_anim:
-        st_lottie(intro_anim, height=320)
-
    st.markdown("""
    <div style='text-align:center; padding:40px;'>
 

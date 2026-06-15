@@ -47,71 +47,8 @@ team_anim = load_lottie(
     "https://assets1.lottiefiles.com/packages/lf20_tutvdkg0.json"
 )
 
-# =========================
-# SPLASH SCREEN
-# =========================
-splash = st.empty()
-
-with splash.container():
-
-    st.markdown("""
-    <style>
-    .intro-title{
-        text-align:center;
-        font-size:42px;
-        font-weight:bold;
-        color:#8b5e34;
-        margin-top:40px;
-        animation: fadeIn 1s ease;
-    }
-
-    .intro-sub{
-        text-align:center;
-        color:#b8863b;
-        font-size:18px;
-    }
-
-    @keyframes fadeIn {
-        from {opacity:0;}
-        to {opacity:1;}
-    }
-    </style>
-    """, unsafe_allow_html=True)
-
-    st.markdown(
-        "<div class='intro-title'>🧑🏻‍🔬👩🏻‍🔬 CHEMICAL ANALYST LAB</div>",
-        unsafe_allow_html=True
-    )
-
-    st.markdown(
-        "<div class='intro-sub'>Initializing Chemistry Simulation System...</div>",
-        unsafe_allow_html=True
-    )
-
-    if intro_anim:
-        st_lottie(intro_anim, height=320)
-
-    progress = st.progress(0)
-    status = st.empty()
-
-    for i in range(100):
-
-        time.sleep(0.02)
-
-        progress.progress(i + 1)
-
-        if i < 30:
-            status.write("⚗️ Loading atoms...")
-        elif i < 60:
-            status.write("🧪 Mixing compounds...")
-        elif i < 90:
-            status.write("🔬 Calibrating reactions...")
-        else:
-            status.write("✅ System ready!")
-
-    time.sleep(0.5)
-
-splash.empty()
+with st.spinner("⚗️ Memuat aplikasi..."):
+    time.sleep(0.3)
 
 # =========================
 # STYLE

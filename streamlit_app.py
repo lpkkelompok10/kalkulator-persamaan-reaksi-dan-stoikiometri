@@ -49,8 +49,7 @@ team_anim = load_lottie(
     "https://assets1.lottiefiles.com/packages/lf20_tutvdkg0.json"
 )
 
-with st.spinner("⚗️ Memuat aplikasi..."):
-    time.sleep(0.3)
+
 
 # =========================
 # STYLE

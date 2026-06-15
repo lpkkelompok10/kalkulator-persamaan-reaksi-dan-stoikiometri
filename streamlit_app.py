@@ -56,6 +56,33 @@ with st.spinner("⚗️ Memuat aplikasi..."):
 # STYLE
 # =========================
 st.markdown("""
+
+.output-card{
+    background: linear-gradient(135deg,#fff7e6,#ffffff);
+    border-left: 6px solid #d6a75f;
+    padding:20px;
+    border-radius:15px;
+    margin-top:10px;
+
+    animation: hasilMuncul 0.8s ease;
+
+    box-shadow:
+        0 0 10px rgba(214,167,95,0.2),
+        0 0 20px rgba(214,167,95,0.2);
+}
+
+@keyframes hasilMuncul{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
 <style>
 
 /* BACKGROUND */
@@ -746,7 +773,12 @@ elif menu == "🧪 Stoikiometri":
             st.write(f"n = {partikel} / (6.02 × 10²³)")
             st.write(f"n = {hasil:.6e} mol")
 
-            st.success(f"Hasil akhir = {hasil:.6e} mol")
+            st.markdown(f"""
+            <div class="output-card">
+            <h3>🧪 Hasil Perhitungan</h3>
+            <h2>{hasil_mol:g} mol</h2>
+            </div>
+            """, unsafe_allow_html=True)
 
     # =========================
     # MOL DARI VOLUME GAS

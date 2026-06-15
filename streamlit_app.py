@@ -25,6 +25,13 @@ def load_lottie(url):
     except:
         return None
     return None
+def output_card(judul, hasil):
+    st.markdown(f"""
+    <div class="output-card">
+        <h3>{judul}</h3>
+        <h2>{hasil}</h2>
+    </div>
+    """, unsafe_allow_html=True)
 
 # =========================
 # ANIMATIONS
@@ -56,33 +63,6 @@ with st.spinner("⚗️ Memuat aplikasi..."):
 # STYLE
 # =========================
 st.markdown("""
-
-.output-card{
-    background: linear-gradient(135deg,#fff7e6,#ffffff);
-    border-left: 6px solid #d6a75f;
-    padding:20px;
-    border-radius:15px;
-    margin-top:10px;
-
-    animation: hasilMuncul 0.8s ease;
-
-    box-shadow:
-        0 0 10px rgba(214,167,95,0.2),
-        0 0 20px rgba(214,167,95,0.2);
-}
-
-@keyframes hasilMuncul{
-    from{
-        opacity:0;
-        transform:translateY(20px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
 <style>
 
 /* BACKGROUND */
@@ -263,6 +243,34 @@ section[data-testid="stSidebar"] div[role="radiogroup"] > label:hover {
 /* TITLE */
 h1, h2, h3 {
     color: #8b5e34;
+}
+
+/* OUTPUT CARD ANIMATION */
+
+.output-card{
+    background: linear-gradient(135deg,#fff7e6,#ffffff);
+    border-left: 6px solid #d6a75f;
+    padding:20px;
+    border-radius:15px;
+    margin-top:10px;
+
+    animation: hasilMuncul 0.8s ease;
+
+    box-shadow:
+        0 0 10px rgba(214,167,95,0.2),
+        0 0 20px rgba(214,167,95,0.2);
+}
+
+@keyframes hasilMuncul{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
 }
 
 </style>
@@ -707,8 +715,9 @@ elif menu == "🧪 Stoikiometri":
         st.write(f"n = {massa} / {Mr}")
         st.write(f"n = {hasil_mol:g} mol")
 
-        st.success(
-            f"Hasil akhir = {hasil_mol:g} mol"
+        output_card(
+            "🧪 Hasil Perhitungan",
+            f"{hasil_mol:g} mol"
         )
 
       else:
@@ -773,12 +782,10 @@ elif menu == "🧪 Stoikiometri":
             st.write(f"n = {partikel} / (6.02 × 10²³)")
             st.write(f"n = {hasil:.6e} mol")
 
-            st.markdown(f"""
-            <div class="output-card">
-            <h3>🧪 Hasil Perhitungan</h3>
-            <h2>{hasil_mol:g} mol</h2>
-            </div>
-            """, unsafe_allow_html=True)
+            output_card(
+                "🧪 Jumlah Mol",
+                f"{hasil:.6e} mol"
+            )
 
     # =========================
     # MOL DARI VOLUME GAS
@@ -809,7 +816,10 @@ elif menu == "🧪 Stoikiometri":
             st.write(f"n = {volume} / 22.4")
             st.write(f"n = {hasil:g} mol")
 
-            st.success(f"Hasil akhir = {hasil:g} mol")
+            output_card(
+                "🧪 Jumlah Mol",
+                f"{hasil:g} mol"
+            )
 
     # =========================
     # MOLARITAS
@@ -857,7 +867,10 @@ elif menu == "🧪 Stoikiometri":
                 st.write(f"M = {mol_molaritas} / {volume_molaritas}")
                 st.write(f"M = {hasil:g} M")
 
-                st.success(f"Hasil akhir = {hasil:g} M")
+                output_card(
+                    "🧪 Molaritas",
+                    f"{hasil:g} M"
+                )
 
             else:
                 st.warning("Volume tidak boleh 0")
@@ -914,8 +927,9 @@ elif menu == "🧪 Stoikiometri":
                 </div>
                 """, unsafe_allow_html=True)
 
-                st.success(
-                    f"Volume akhir = {hasil:.2f} mL"
+                output_card(
+                    "🧪 Volume Akhir",
+                    f"{hasil:.2f} mL"
                 )
 
             else:
@@ -968,7 +982,10 @@ elif menu == "🧪 Stoikiometri":
                 st.write(f"({aktual}/{teori}) × 100")
                 st.write(f"= {hasil:.2f}%")
 
-                st.success(f"Hasil akhir = {hasil:.2f}%")
+                output_card(
+                    "🧪 Persen Rendemen",
+                    f"{hasil:.2f}%"
+                )
 
             else:
                 st.warning(

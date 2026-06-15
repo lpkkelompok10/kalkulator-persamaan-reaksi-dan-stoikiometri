@@ -12,6 +12,8 @@ st.set_page_config(
     layout="centered"
 )
 
+st.success("🧪 Aplikasi berhasil dimuat")
+
 # =========================
 # LOTTIE FUNCTION
 # =========================
